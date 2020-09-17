@@ -1,0 +1,26 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - MainServer",
+            "request": "launch",
+            "mainClass": "MainServer",
+            "projectName": "Map7Server"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - MainClient",
+            "request": "launch",
+            "mainClass": "map7Client.MainClient",
+            "projectName": "Map7Client",
+            "args": [
+                "127.0.0.1",
+                8100
+            ]
+        },
+    ]
+}
