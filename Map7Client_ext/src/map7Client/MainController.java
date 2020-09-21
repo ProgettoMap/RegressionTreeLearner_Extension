@@ -10,6 +10,8 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 /**
  *
@@ -22,8 +24,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -38,6 +43,16 @@ public class MainController {
 
 	ArrayList<String> log_arr = new ArrayList<String>();
 
+
+    @FXML
+    private RadioButton rblearn;
+
+    @FXML
+    private RadioButton rbload;
+	
+    @FXML
+    private ToggleGroup radiogroup;
+	
     @FXML
     private MenuItem logMenuItem;
 
@@ -63,8 +78,20 @@ public class MainController {
 
 		String[] args = new String[2];
 		args[0] = "127.0.0.1";
-		args[1] = "8100";
+		args[1] = "8101";
+		
 
+
+
+		radiogroup.selectedToggleProperty (). addListener ( new ChangeListener <Toggle> () {
+	        public  void changed (ObservableValue <? extends Toggle> ov,
+	           Toggle old_toggle, Toggle new_toggle) {
+	         if (radiogroup.getSelectedToggle () != null) {
+	        	 input_txt_filename.setDisable(false);
+	         }
+	       }
+	     });
+		
 		// Validazione parametri in input
 		if (args.length == 2) {
 			if (!args[0].matches(
