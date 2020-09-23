@@ -146,7 +146,7 @@ public class MainController {
 			return;
 		}
 	}
-
+//TODO non ho finito la creazione della nuova interfaccia devo collegare il tutto,modificare il nome txtArea in txtAreaLoad
 	public void pressSelection() {
 
 		radiogroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
