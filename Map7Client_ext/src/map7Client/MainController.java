@@ -1,6 +1,5 @@
 package map7Client;
 
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -13,12 +12,16 @@ import java.util.Iterator;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 /**
  *
  * Main del client
  *
  */
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -33,6 +36,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.stage.Stage;
 import utility.Keyboard;
 
 public class MainController {
@@ -43,55 +47,45 @@ public class MainController {
 
 	ArrayList<String> log_arr = new ArrayList<String>();
 
+	@FXML
+	private RadioButton rblearn;
 
-    @FXML
-    private RadioButton rblearn;
+	@FXML
+	private RadioButton rbload;
 
-    @FXML
-    private RadioButton rbload;
-	
-    @FXML
-    private ToggleGroup radiogroup;
-	
-    @FXML
-    private MenuItem logMenuItem;
+	@FXML
+	private ToggleGroup radiogroup;
 
-    @FXML
-    private AnchorPane anchorPane;
+	@FXML
+	private MenuItem logMenuItem;
 
-    @FXML
-    private Label log_lbl;
+	@FXML
+	private AnchorPane anchorPane;
 
-    @FXML
-    private Button processBtn;
+	@FXML
+	private Label log_lbl;
 
-    @FXML
-    private TextField input_txt_filename;
+	@FXML
+	private Button processBtn;
 
-    @FXML
-    void process(MouseEvent event) {
+	@FXML
+	private TextField input_txt_filename;
 
-    }
+	@FXML
+	private TextArea txtArea;
 
-    @FXML
+	@FXML
+	void process(MouseEvent event) {
+		log_lbl.setText("<Test>");
+	}
+
+	@FXML
 	public void initialization() {
 
 		String[] args = new String[2];
-		args[0] = "127.0.0.1";
+		args[0] = "142.45.251.218";
 		args[1] = "8101";
-		
 
-
-
-		radiogroup.selectedToggleProperty (). addListener ( new ChangeListener <Toggle> () {
-	        public  void changed (ObservableValue <? extends Toggle> ov,
-	           Toggle old_toggle, Toggle new_toggle) {
-	         if (radiogroup.getSelectedToggle () != null) {
-	        	 input_txt_filename.setDisable(false);
-	         }
-	       }
-	     });
-		
 		// Validazione parametri in input
 		if (args.length == 2) {
 			if (!args[0].matches(
@@ -99,7 +93,8 @@ public class MainController {
 																													// ip
 																													// non
 																													// valido
-				printError("Error Dialog", "There's some error with the IP...", "The IP that you've entered isn't correct. Please, start again the program and insert a valid ip.");
+				printError("Error Dialog", "There's some error with the IP...",
+						"The IP that you've entered isn't correct. Please, start again the program and insert a valid ip.");
 				return;
 			}
 			if (!args[1]
@@ -107,11 +102,13 @@ public class MainController {
 																														// porta
 																														// non
 																														// valido
-				printError("Error Dialog", "There's some error with the port...", "The port that you've entered isn't correct. Please, start again the program and insert a valid port (value between 1 and 65535)");
+				printError("Error Dialog", "There's some error with the port...",
+						"The port that you've entered isn't correct. Please, start again the program and insert a valid port (value between 1 and 65535)");
 				return;
 			}
 		} else { // Numero parametri insufficiente
-			printError("Error Dialog", "Settings doesn't match the right format...", "Please review your settings, because there's some errors within it.");
+			printError("Error Dialog", "Settings doesn't match the right format...",
+					"Please review your settings, because there's some errors within it.");
 			return;
 		}
 
@@ -125,7 +122,7 @@ public class MainController {
 
 		try {
 
-			String msg ="Trying to connect to the server " + addr + "... \n";
+			String msg = "Trying to connect to the server " + addr + "... \n";
 			log_arr.add(msg);
 
 			log_lbl.setText(msg);
@@ -139,7 +136,8 @@ public class MainController {
 			out = new ObjectOutputStream(socket.getOutputStream());
 			in = new ObjectInputStream(socket.getInputStream());
 		} catch (IOException e) {
-			printError("Error Dialog", "Connection error", "Cannot initialize the connection with the server. Detail error: " + e.toString());
+			printError("Error Dialog", "Connection error",
+					"Cannot initialize the connection with the server. Detail error: " + e.toString());
 			try {
 				closeSocketIfOpened();
 			} catch (IOException e1) {
@@ -149,34 +147,61 @@ public class MainController {
 		}
 	}
 
-	public void choise() {
+	public void pressSelection() {
 
+		radiogroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+			public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
+				if (radiogroup.getSelectedToggle() != null) {
+					input_txt_filename.setDisable(false);
+					input_txt_filename.setEditable(true);
+					processBtn.setDisable(false);
+
+				}
+			}
+		});
+
+		processBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				int risultato;
+				String tableNam = new String();
+				if (rblearn.isSelected())
+					risultato = 1;
+				else
+					risultato = 2;
+				tableNam = input_txt_filename.getCharacters().toString();
+				try {
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("resources/load.fxml"));
+					Parent rootload = (Parent) fxmlLoader.load();
+					Stage stage = new Stage();
+					stage.setScene(new Scene(rootload));
+					stage.show();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+				choise(risultato, tableNam);
+
+			}
+		});
+	}
+
+
+
+	public void choise(int decision, String tableName) {
 		String answer = "";
-
-		int decision = 0;
-		System.out.println(" MENU ");
-		System.out.println(" - Learn Regression Tree from data [1]");
-		System.out.println(" - Load Regression Tree from archive [2]");
-		do {
-			System.out.print("-> ");
-			decision = Keyboard.readInt();
-		} while (!(decision == 1) && !(decision == 2));
-
-		System.out.println("Table/file name:");
-		System.out.print("-> ");
-		String tableName = Keyboard.readString();
 		try {
 			if (decision == 1) { // Learn regression tree
-				System.out.println("Starting data acquisition phase!");
+				log_lbl.setText("Starting data acquisition phase!");
 
 				out.writeObject(0);
 				out.writeObject(tableName);
 				answer = in.readObject().toString();
 				if (!answer.equals("OK")) {
 					System.err.println(answer); // C'è stato qualche errore
+
 					return;
 				}
-				System.out.println("Starting learning phase!");
+				log_lbl.setText("Starting learning phase!");
 				out.writeObject(1);
 
 			} else { // Load tree from archive
@@ -195,6 +220,8 @@ public class MainController {
 			System.out.println("\n \n \nPress Any Key To Exit...");
 			return;
 		}
+
+		printTreeAndRules();
 	}
 
 	public void printTreeAndRules() {
@@ -206,27 +233,29 @@ public class MainController {
 				if (answer.toLowerCase().contains("error"))
 					System.err.println(answer);
 				else
-					System.out.println(answer); // Reading rules
+					txtArea.setText(txtArea.getText() + "\n" + answer); // Reading rules
 			}
 
 			while (!(answer = in.readObject().toString()).equals("FINISH")) {
 				if (answer.toLowerCase().contains("error"))
 					System.err.println(answer);
 				else
-					System.out.println(answer); // Reading rules
+					txtArea.setText(txtArea.getText() + "\n" + answer); // Reading rules
 			}
 
 		} catch (IOException | ClassNotFoundException e) {
 			System.out.println(e.toString());
-		} finally {
 			try {
 				socket.close();
 			} catch (IOException e1) {
 				System.err.println("[!] Error [!] Socket has not been closed correctly.");
 
 			}
-			System.out.println("\n \n \nPress Any Key To Exit...");
+			log_lbl.setText("\n \n \nPress Any Key To Exit...");
 		}
+
+		// predictPhase();
+		// TODO
 	}
 
 	public void predictPhase() {
@@ -299,7 +328,7 @@ public class MainController {
 		alert.showAndWait();
 	}
 
-    @FXML
+	@FXML
 	void showLogDialog(ActionEvent event) {
 
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -310,11 +339,9 @@ public class MainController {
 		Iterator<String> iterator = log_arr.iterator();
 
 		String log = "";
-		while(iterator.hasNext())
-		{
+		while (iterator.hasNext()) {
 			log += iterator.next() + "\n";
 		}
-
 
 		TextArea textArea = new TextArea(log);
 		textArea.setEditable(false);
@@ -335,10 +362,10 @@ public class MainController {
 		alert.showAndWait();
 	}
 
-    void closeSocketIfOpened() throws IOException {
-    	if(socket != null && !socket.isClosed())
-			socket.close();  // TODO: siamo sicuri che debba stare?
-    	in.close();
-    	out.close();
-    }
+	void closeSocketIfOpened() throws IOException {
+		if (socket != null && !socket.isClosed())
+			socket.close(); // TODO: siamo sicuri che debba stare?
+		in.close();
+		out.close();
+	}
 }
