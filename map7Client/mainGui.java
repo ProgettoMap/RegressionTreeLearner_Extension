@@ -24,6 +24,10 @@ public class mainGui extends Application {
 
         MainController main = (MainController) loader.getController();
         main.initialization();
+        main.pressSelection();
+        
+        
+        
         stage.setOnHiding( event -> {
         	try {
 				main.closeSocketIfOpened();
