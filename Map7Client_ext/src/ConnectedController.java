@@ -1,7 +1,13 @@
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -34,7 +40,7 @@ public class ConnectedController {
 	static ObjectInputStream in = null;
 
     @FXML
-    void convalidConnection(ActionEvent event) throws IOException {
+    void convalidateConnection(ActionEvent event) throws IOException {
 
 		String ip=txtIpAddres.getText();
 		String port=txtPort.getText();
@@ -62,10 +68,17 @@ public class ConnectedController {
 			}
 		} else { // Numero parametri insufficiente
 			printError("Error Dialog", "Settings doesn't match the right format...",
-					"Please review your settings, because there's some errors within it.");
+					"Please review your settings, there's some errors within it.");
 			return;
 		}
-
+/* 
+			OutputStream fos= new BufferedOutputStream(new FileOutputStream("src\\resources\\settings.bin"));  
+			fos.write(ip.getBytes());
+			fos.write(port.getBytes());
+			fos.flush();
+			fos.close();
+		  
+		 */
 		InetAddress addr;
 		try {
 			addr = InetAddress.getByName(ip);

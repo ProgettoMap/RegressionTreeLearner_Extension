@@ -74,8 +74,8 @@ public class LoadController {
 				out.writeObject(tableName);
 				answer = in.readObject().toString();
 				if (!answer.equals("OK")) {
-					System.err.println(answer); // C'� stato qualche errore
-
+					//System.err.println(answer); // C'� stato qualche errore
+					printError("Error Dialog", "Message error from the server", answer);
 					return;
 				}
 //				log_lbl.setText("Starting learning phase!");

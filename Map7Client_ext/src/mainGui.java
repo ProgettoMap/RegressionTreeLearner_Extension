@@ -1,3 +1,7 @@
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,15 +12,32 @@ public class mainGui extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/first_scene.fxml"));
+        
+        /* String path = "src/resources/settings.bin";
+        File f = new File(path);
+        if(f.exists()) { 
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(
+                      new FileInputStream(path));
+                      byte[] bytes;
+                      bufferedInputStream.read(bytes);
 
-    	Parent root = loader.load();
+        } else {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/connected.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stage.setTitle("Regression Tree Learner");
+            stage.setScene(scene);
+            stage.show();
+        } */
 
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/connected.fxml"));
+        Parent root = loader.load();
         Scene scene = new Scene(root);
-		stage.setTitle("Regression Tree Learner");
-
+        stage.setTitle("Regression Tree Learner");
         stage.setScene(scene);
         stage.show();
+
 
 //        MainController main = (MainController) loader.getController();
 //        main.initialization();

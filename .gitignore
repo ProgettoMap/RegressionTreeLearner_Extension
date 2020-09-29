@@ -32,3 +32,5 @@ doc
 *.CSV
 *.dmp
 *.dat
+Map7Client_ext/src/resources/settings.bin
+Map7Client_ext/src/resources/settings.json

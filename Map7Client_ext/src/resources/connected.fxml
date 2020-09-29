@@ -6,15 +6,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="255.0" prefWidth="296.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="map7Client.ConnectedController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="328.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConnectedController">
    <children>
-      <Button fx:id="btnConnected" layoutX="172.0" layoutY="191.0" mnemonicParsing="false" onAction="#convalidConnection" text="Connected" />
-      <TextField fx:id="txtIpAddres" layoutX="50.0" layoutY="95.0" prefHeight="25.0" prefWidth="196.0" promptText="Ip Addres" />
-      <TextField fx:id="txtPort" layoutX="50.0" layoutY="141.0" prefHeight="25.0" prefWidth="196.0" promptText="Number of Port" />
-      <Label layoutX="50.0" layoutY="36.0" text="Connecting to the server">
+      <Button fx:id="btnConnected" layoutX="229.0" layoutY="193.0" mnemonicParsing="false" onAction="#convalidateConnection" text="Connect" />
+      <TextField fx:id="txtIpAddres" layoutX="63.0" layoutY="111.0" prefHeight="25.0" prefWidth="196.0" promptText="IP Address" />
+      <TextField fx:id="txtPort" layoutX="63.0" layoutY="146.0" prefHeight="25.0" prefWidth="196.0" promptText="Number of Port" />
+      <Label layoutX="53.0" layoutY="14.0" text="Regression Tree Learner">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
+      <Label layoutX="21.0" layoutY="41.0" prefHeight="49.0" prefWidth="285.0" text="Welcome. Please, enter the server parameters for connecting to it and to predict a tree." wrapText="true" />
+      <Label layoutX="15.0" layoutY="228.0" opacity="0.45" prefHeight="58.0" prefWidth="292.0" text="This window will appear once, then will be loaded the last settings inserted" wrapText="true" />
+      <Label layoutX="13.0" layoutY="277.0" opacity="0.43" prefHeight="42.0" prefWidth="300.0" text=" You can change the default settings from the Menu -&gt; Settings" wrapText="true" />
    </children>
 </AnchorPane>
