@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="225.0" prefWidth="699.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="map7Client.MainController">
+<AnchorPane fx:id="anchorPane" prefHeight="227.0" prefWidth="352.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
    <children>
-      <Pane layoutX="4.0" prefHeight="227.0" prefWidth="692.0">
+      <Pane layoutX="4.0" prefHeight="227.0" prefWidth="357.0">
          <children>
-            <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="692.0">
+            <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="357.0">
               <menus>
                 <Menu id="help" mnemonicParsing="false" text="Help">
                   <items>
@@ -27,15 +27,15 @@
             </MenuBar>
             <Group layoutX="28.0" layoutY="70.0">
                <children>
-                  <RadioButton id="radio_btn_learn" fx:id="rblearn" mnemonicParsing="false" text="Learn Regression Tree from data">
+                  <RadioButton id="radio_btn_learn" fx:id="rblearn" mnemonicParsing="false" onAction="#pressSelection" text="Learn Regression Tree from data">
                      <toggleGroup>
                         <ToggleGroup fx:id="radiogroup" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton id="radio_btn_load" fx:id="rbload" layoutY="17.0" mnemonicParsing="false" text="Load Regression Tree from archive" toggleGroup="$radiogroup" />
+                  <RadioButton id="radio_btn_load" fx:id="rbload" layoutY="17.0" mnemonicParsing="false" onAction="#pressSelection" text="Load Regression Tree from archive" toggleGroup="$radiogroup" />
                </children>
             </Group>
-            <Button id="process_btn" fx:id="processBtn" disable="true" layoutX="266.0" layoutY="116.0" mnemonicParsing="false" onMouseClicked="#process" prefHeight="35.0" prefWidth="68.0" text="Process" />
+            <Button id="process_btn" fx:id="processBtn" disable="true" layoutX="266.0" layoutY="116.0" mnemonicParsing="false" onAction="#processButton" onMouseClicked="#process" prefHeight="35.0" prefWidth="68.0" text="Process" />
             <TextField id="input_txt_filename" fx:id="input_txt_filename" disable="true" editable="false" layoutX="28.0" layoutY="116.0" prefHeight="35.0" prefWidth="210.0" promptText="File name (with extension)" />
             <Label fx:id="log_lbl" layoutX="28.0" layoutY="172.0" text="&lt;&gt;" textFill="#00000076" />
             <Label layoutX="28.0" layoutY="189.0" text="Powered by Gaetano Dibenedetto" />

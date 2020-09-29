@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - mainGui",
+            "request": "launch",
+            "mainClass": "mainGui",
+            "projectName": "Map7Client_ext"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - MainServer",
+            "request": "launch",
+            "mainClass": "MainServer",
+            "projectName": "map1920_extension"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - MainServer",
             "request": "launch",
             "mainClass": "MainServer",
@@ -21,6 +35,6 @@
                 "127.0.0.1",
                 8100
             ]
-        },
+        }
     ]
 }
