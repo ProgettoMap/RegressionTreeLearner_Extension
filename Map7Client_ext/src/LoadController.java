@@ -6,9 +6,6 @@ import java.net.Socket;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.print.DocFlavor.STRING;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,12 +13,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
+//TODO ERRORI INCONTRATI DOPO N iterazioni del bottone predictPhase esce un errore riga 155 
 
 public class LoadController {
 
@@ -31,20 +28,18 @@ public class LoadController {
 	@FXML
 	private Button btnPredPhase;
 
-
 	@FXML
 	private Button btnSubmit;
 
-	Socket socket =	CustomSocket.getIstance();
+	Socket socket = CustomSocket.getIstance();
 	ObjectOutputStream out = CustomSocket.getOutputStream();
 	ObjectInputStream in = CustomSocket.getInputStream();
 
-    @FXML
-    private ComboBox<String> cmbxChoiseBranch;
+	@FXML
+	private ComboBox<String> cmbxChoiseBranch;
 
-	final String regularEx=new String("[0-9]+:(.*)");
+	final String regularEx = new String("[0-9]+:(.*)");
 
-	
 	public void printRules() {
 		String answer = "";
 
@@ -63,6 +58,11 @@ public class LoadController {
 					printError("Error Dialog", "??", answer);
 				else
 					txtAreaLoad.setText(txtAreaLoad.getText() + "\n" + answer); // Reading rules
+			}
+			answer = in.readObject().toString();
+			if (!answer.equals("OK")) {
+				System.err.println(answer);
+				return;
 			}
 
 		} catch (IOException | ClassNotFoundException e) {
@@ -87,7 +87,7 @@ public class LoadController {
 				out.writeObject(tableName);
 				answer = in.readObject().toString();
 				if (!answer.equals("OK")) {
-					//System.err.println(answer); // C'� stato qualche errore
+					// System.err.println(answer); // C'� stato qualche errore
 					printError("Error Dialog", "Message error from the server", answer);
 					return;
 				}
@@ -114,75 +114,61 @@ public class LoadController {
 	}
 
 	@FXML
-	void predictionPhase(ActionEvent event) {
+	void predictionPhase(ActionEvent event) throws ClassNotFoundException, IOException {
+		
 		String answer = "";
 		btnPredPhase.setDisable(true);
 		cmbxChoiseBranch.setVisible(true);
 		btnSubmit.setVisible(true);
+
 		
-		try {
-			answer = in.readObject().toString(); // Legge ok oppure messaggio errore
-			if (!answer.equals("OK")) {
-				System.err.println(answer);
-				return;
-			}
+		out.writeObject(3); // Stampo 3 per far capire al server che sto iniziando fase predizione
+		txtAreaLoad.setText(txtAreaLoad.getText() + "\n" + "Starting prediction phase!");
+		answer = in.readObject().toString(); // Reading tree.predictClass() from server
 
-			out.writeObject(3); // Stampo 3 per far capire al server che sto iniziando fase predizione
-			txtAreaLoad.setText(txtAreaLoad.getText() + "\n" + "Starting prediction phase!");
-			answer = in.readObject().toString(); // Reading tree.predictClass() from server
+		if (answer.equals("QUERY")) {
+			answer = in.readObject().toString(); // Read trees
+			txtAreaLoad.setText(txtAreaLoad.getText() + "\n" + answer);
+			setComboItem(countBranches(answer));
+		} else {
+			// print error
+		}
 
-			if(answer.equals("QUERY")) {
-				answer = in.readObject().toString(); // Read trees
-				txtAreaLoad.setText(txtAreaLoad.getText() + "\n" + answer);
-				setComboItem(countBranches(answer));
-			}else {
-				//print error
-			}
-				
 
-		} catch (IOException | ClassNotFoundException e) {
-			System.out.println(e.toString());
-		} 
-//		finally {
-//			try {
-//				socket.close();
-//			} catch (IOException e1) {
-//				System.err.println("[!] Error [!] Socket has not been closed correctly.");
-//
-//			}
-//			System.out.println("\n \n \nPress Any Key To Exit...");
-//		}
 	}
-    @FXML
-    void submitChoice(ActionEvent event) throws IOException {
-    	String elementSelected = cmbxChoiseBranch.getSelectionModel().getSelectedItem();
-    	int path = Integer.parseInt(elementSelected);
-    	out.writeObject(path);	
-    	
-    	String answer;
+	void text() {
+		
+	}
+
+	@FXML
+	void submitChoice(ActionEvent event) throws IOException {
+		String elementSelected = cmbxChoiseBranch.getSelectionModel().getSelectedItem();
+		int path = Integer.parseInt(elementSelected);
+		out.writeObject(path);
+
+		String answer;
 		try {
 			answer = in.readObject().toString();
-			if(answer.equalsIgnoreCase("QUERY")) {
+			if (answer.equalsIgnoreCase("QUERY")) {
 				answer = in.readObject().toString();
 				txtAreaLoad.setText(txtAreaLoad.getText() + "\n" + answer);
 				setComboItem(countBranches(answer));
 			} else if (answer.equalsIgnoreCase("OK")) {
 				answer = in.readObject().toString();
-				txtAreaLoad.setText(txtAreaLoad.getText() + "\n" + "Predicted class:"+answer);
+				txtAreaLoad.setText(txtAreaLoad.getText() + "\n" + "Predicted class:" + answer);
 				repeatPrediction();
-				
+
 			} else {
-				//verificare l'header error 
+				// verificare l'header error
 				printError("Error", "??", answer);
 			}
-			
-			
+
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} // Read trees
 
-    }
+	}
 
 	public void printError(String title, String headerText, String contentText) {
 
@@ -195,29 +181,32 @@ public class LoadController {
 
 		alert.showAndWait();
 	}
+
 	private void setComboItem(int numberBranch) {
-		
-		String[] items=new String[numberBranch];
-		for(int i=0;i<numberBranch;i++) {
-			items[i]=""+i;
+
+		String[] items = new String[numberBranch];
+		for (int i = 0; i < numberBranch; i++) {
+			items[i] = "" + i;
 		}
 		ObservableList<String> list = FXCollections.observableArrayList(items);
 		cmbxChoiseBranch.setItems(list);
-		
+
 	}
+
 	private int countBranches(String toMaches) {
-		
+
 		Pattern branch = Pattern.compile(regularEx);
-		Matcher countBranch = branch.matcher(toMaches); 
+		Matcher countBranch = branch.matcher(toMaches);
 		int count = 0;
-		
+
 		while (countBranch.find()) {
-		    count++;
+			count++;
 		}
 
 		return count;
-		
+
 	}
+
 	public void choiceBranch() {
 		TextInputDialog dlg = new TextInputDialog();
 		dlg.setX(250);
@@ -228,31 +217,35 @@ public class LoadController {
 		TextField input = dlg.getEditor();
 		final Button btn = (Button) dlg.getDialogPane().getButtonTypes();
 
-
-	}
-	private void repeatPrediction() {
-		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-		
-		alert.setContentText("Would you repeat the prediction ?");
-		ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-		ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-		alert.getButtonTypes().setAll(okButton, noButton);
-		alert.showAndWait().ifPresent(type -> {
-		        if (type == ButtonType.OK) {
-		        	btnPredPhase.setDisable(false);
-		        	predictionPhase(null);
-		        } else if (type == ButtonType.NO) {
-		        	try {
-		        		alert.setContentText("Thank you for having used this Regression Tree Learner! See you soon...");
-						out.writeObject(0);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-		        	
-		        }
-		});
 	}
 
+	private void repeatPrediction() throws IOException {
+
+
+		Alert alert = new Alert(AlertType.CONFIRMATION, "Would you repeat the prediction ?", ButtonType.YES,
+				ButtonType.NO);
+		alert.showAndWait();
+
+		if (alert.getResult() == ButtonType.YES) {
+			btnPredPhase.setDisable(false);
+			System.out.print("I muert");
+
+		}
+//		alert.showAndWait().ifPresent(type -> {
+//		        if (type == ButtonType.YES) {
+//		        	btnPredPhase.setDisable(false);
+//		        	predictionPhase(null);
+//		        } else if (type == ButtonType.NO) {
+//		        	try {
+//		        		alert.setContentText("Thank you for having used this Regression Tree Learner! See you soon...");
+//						out.writeObject(0);
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//		        	
+//		        }
+//		});
+	}
 
 }
