@@ -28,9 +28,9 @@ public class LoadController {
 	@FXML
 	private Button btnSubmit;
 
-	Socket socket = ConnectedController.socket;
-	ObjectOutputStream out = ConnectedController.out;
-	ObjectInputStream in = ConnectedController.in;
+	Socket socket =	CustomSocket.getIstance();
+	ObjectOutputStream out = CustomSocket.getOutputStream();
+	ObjectInputStream in = CustomSocket.getInputStream();
 
 	public void printRules() {
 		String answer = "";
