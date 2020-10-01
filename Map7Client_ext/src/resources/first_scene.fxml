@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="227.0" prefWidth="352.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
+<AnchorPane fx:id="anchorPane" prefHeight="227.0" prefWidth="352.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
    <children>
       <Pane layoutX="4.0" prefHeight="227.0" prefWidth="357.0">
          <children>
@@ -35,8 +35,8 @@
                   <RadioButton id="radio_btn_load" fx:id="rbload" layoutY="17.0" mnemonicParsing="false" onAction="#pressSelection" text="Load Regression Tree from archive" toggleGroup="$radiogroup" />
                </children>
             </Group>
-            <Button id="process_btn" fx:id="processBtn" disable="true" layoutX="266.0" layoutY="116.0" mnemonicParsing="false" onAction="#processButton" onMouseClicked="#process" prefHeight="35.0" prefWidth="68.0" text="Process" />
-            <TextField id="input_txt_filename" fx:id="input_txt_filename" disable="true" editable="false" layoutX="28.0" layoutY="116.0" prefHeight="35.0" prefWidth="210.0" promptText="File name (with extension)" />
+            <Button id="process_btn" fx:id="processBtn" layoutX="266.0" layoutY="116.0" mnemonicParsing="false" onAction="#processButton" onMouseClicked="#process" prefHeight="35.0" prefWidth="68.0" text="Process" />
+            <TextField id="input_txt_filename" fx:id="input_txt_filename" disable="true" editable="false" layoutX="28.0" layoutY="116.0" prefHeight="35.0" prefWidth="210.0" promptText="File name (with extension)" text="provac" />
             <Label fx:id="log_lbl" layoutX="28.0" layoutY="172.0" text="&lt;&gt;" textFill="#00000076" />
             <Label layoutX="28.0" layoutY="189.0" text="Powered by Gaetano Dibenedetto" />
          </children>
