@@ -88,8 +88,6 @@ public class MainController {
 		} else
 			printError("Error Dialog", "Input error", "The name of table doesn't exist");
 
-
-
 	}
 
 
@@ -241,6 +239,21 @@ public class MainController {
 		alert.getDialogPane().setExpandableContent(expContent);
 
 		alert.showAndWait();
+	}
+
+	@FXML
+    void showSettings(ActionEvent event) {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/connected.fxml"));
+		Parent tableViewParent;
+		try {
+			tableViewParent = loader.load();
+			Scene tableViewScene = new Scene(tableViewParent);
+			Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			window.setScene(tableViewScene);
+			window.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -13,9 +13,8 @@ public class CustomSocket {
 
 	private CustomSocket(){	}
 
-	public static void initSocket(String ip, Integer port) {
+	public static void initSocket(String ip, Integer port) throws IOException {
 
-		//TODO: rivedere, non è un singleton
 		if(socket != null) return; // Se la socket è già settata 
 
 		InetAddress addr;
@@ -26,23 +25,12 @@ public class CustomSocket {
 			return;
 		}
 
-		try {
 			socket = new Socket(addr, port.intValue());
 
 			// stream con richieste del client
 			out = new ObjectOutputStream(socket.getOutputStream());
 			in = new ObjectInputStream(socket.getInputStream());
-		} catch (IOException e) {
-			UtilityMethods.printError("Error Dialog", "Connection error",
-					"Cannot initialize the connection with the server. Detail error: " + e.toString());
-			try {
-				closeSocketIfOpened();
-			} catch (IOException e1) {
-				UtilityMethods.printError("Error Dialog", "Socket error", "Socket has not been closed correctly");
-			}
-			return;
-		}
-
+		
 	}
 
 	public static Socket getIstance() {

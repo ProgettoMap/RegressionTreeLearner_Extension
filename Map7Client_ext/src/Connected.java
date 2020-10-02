@@ -2,6 +2,7 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -31,8 +32,18 @@ public class Connected extends Application {
                     line = bufferedReader.readLine();
                     k++;
                 }
-                
-                CustomSocket.initSocket(ip, port);
+                try {
+                    CustomSocket.initSocket(ip, port);
+                } catch (IOException e) {
+                    UtilityMethods.printError("Error Dialog", "Connection error",
+                            "Cannot initialize the connection with the server. Detail error: " + e.toString());
+                    try {
+                        CustomSocket.closeSocketIfOpened();
+                    } catch (IOException e1) {
+                        UtilityMethods.printError("Error Dialog", "Socket error", "Socket has not been closed correctly");
+                    }
+                    return;
+                }
             }
 
             Parent tableViewParent = FXMLLoader.load(getClass().getResource("resources/first_scene.fxml"));
