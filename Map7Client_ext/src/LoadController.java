@@ -123,21 +123,16 @@ public class LoadController {
 
 		
 		out.writeObject(3); // Stampo 3 per far capire al server che sto iniziando fase predizione
-		txtAreaLoad.setText(txtAreaLoad.getText() + "\n" + "Starting prediction phase!");
+		txtAreaLoad.appendText("Starting prediction phase!\n");
 		answer = in.readObject().toString(); // Reading tree.predictClass() from server
 
 		if (answer.equals("QUERY")) {
 			answer = in.readObject().toString(); // Read trees
-			txtAreaLoad.setText(txtAreaLoad.getText() + "\n" + answer);
+			txtAreaLoad.appendText(answer);
 			setComboItem(countBranches(answer));
 		} else {
 			// print error
 		}
-
-
-	}
-	void text() {
-		
 	}
 
 	@FXML
@@ -151,11 +146,11 @@ public class LoadController {
 			answer = in.readObject().toString();
 			if (answer.equalsIgnoreCase("QUERY")) {
 				answer = in.readObject().toString();
-				txtAreaLoad.setText(txtAreaLoad.getText() + "\n" + answer);
+				txtAreaLoad.appendText(answer);
 				setComboItem(countBranches(answer));
 			} else if (answer.equalsIgnoreCase("OK")) {
 				answer = in.readObject().toString();
-				txtAreaLoad.setText(txtAreaLoad.getText() + "\n" + "Predicted class:" + answer);
+				txtAreaLoad.appendText("\nPredicted class:" + answer);
 				repeatPrediction();
 
 			} else {
@@ -228,8 +223,6 @@ public class LoadController {
 
 		if (alert.getResult() == ButtonType.YES) {
 			btnPredPhase.setDisable(false);
-			System.out.print("I muert");
-
 		}
 //		alert.showAndWait().ifPresent(type -> {
 //		        if (type == ButtonType.YES) {

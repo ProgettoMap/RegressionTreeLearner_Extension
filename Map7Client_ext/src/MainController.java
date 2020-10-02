@@ -90,111 +90,6 @@ public class MainController {
 
 	}
 
-
-
-//	public void printTreeAndRules() {
-//
-//		String answer = "";
-//
-//		try {
-//			while (!(answer = in.readObject().toString()).equals("FINISH")) {
-//				if (answer.toLowerCase().contains("error"))
-//					System.err.println(answer);
-//				else
-//					txtAreaLoad.setText(txtAreaLoad.getText() + "\n" + answer); // Reading rules
-//			}
-//
-//			while (!(answer = in.readObject().toString()).equals("FINISH")) {
-//				if (answer.toLowerCase().contains("error"))
-//					System.err.println(answer);
-//				else
-//					txtAreaLoad.setText(txtAreaLoad.getText() + "\n" + answer); // Reading rules
-//			}
-//
-//		} catch (IOException | ClassNotFoundException e) {
-//			System.out.println(e.toString());
-//			try {
-//				socket.close();
-//			} catch (IOException e1) {
-//				System.err.println("[!] Error [!] Socket has not been closed correctly.");
-//
-//			}
-//			log_lbl.setText("\n \n \nPress Any Key To Exit...");
-//		}
-//
-//		// predictPhase();
-//		// TODO
-//	}
-
-//	public void predictPhase() {
-//
-//		String answer = "";
-//
-//		try {
-//			answer = in.readObject().toString();
-//			if (!answer.equals("OK")) {
-//				System.err.println(answer);
-//				return;
-//			}
-//
-//			char risp = 'y';
-//			do {
-//				out.writeObject(3);
-//				System.out.println("Starting prediction phase!");
-//				answer = in.readObject().toString(); // Reading tree.predictClass()
-//
-//				while (answer.equals("QUERY")) {
-//					// Formulating query, reading answer
-//					answer = in.readObject().toString(); // Read trees
-//					System.out.println(answer);
-//					System.out.print("-> ");
-//					int path = Keyboard.readInt();
-//					out.writeObject(path);
-//					answer = in.readObject().toString();
-//				}
-//
-//				if (answer.equals("OK")) { // Reading prediction
-//					answer = in.readObject().toString();
-//					System.out.println("Predicted class:" + answer);
-//				} else // Printing error message
-//					System.err.println(answer);
-//
-//				do {
-//					System.out.println("Do you want to repeat? (y/n)");
-//					risp = Keyboard.readChar();
-//				} while (Character.toUpperCase(risp) != 'Y' && Character.toUpperCase(risp) != 'N');
-//
-//			} while (Character.toUpperCase(risp) == 'Y');
-//
-//			// Aggiunta stampa per far capire al server che l'esecuzione del client vuole
-//			// terminare
-//			out.writeObject(0);
-//			System.out.println("Thank you for having used this Regression Tree Learner! See you soon...");
-//
-//		} catch (IOException | ClassNotFoundException e) {
-//			System.out.println(e.toString());
-//		} finally {
-//			try {
-//				socket.close();
-//			} catch (IOException e1) {
-//				System.err.println("[!] Error [!] Socket has not been closed correctly.");
-//
-//			}
-//			System.out.println("\n \n \nPress Any Key To Exit...");
-//		}
-//	}
-//
-//	public void printError(String title, String headerText, String contentText) {
-//
-//		log_arr.add(contentText);
-//
-//		Alert alert = new Alert(AlertType.ERROR);
-//		alert.setTitle(title);
-//		alert.setHeaderText(headerText);
-//		alert.setContentText(contentText);
-//
-//		alert.showAndWait();
-//	}
 	public void printError(String title, String headerText, String contentText) {
 
 		// log_arr.add(contentText);
@@ -243,17 +138,21 @@ public class MainController {
 
 	@FXML
     void showSettings(ActionEvent event) {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/connected.fxml"));
-		Parent tableViewParent;
-		try {
-			tableViewParent = loader.load();
-			Scene tableViewScene = new Scene(tableViewParent);
-			Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-			window.setScene(tableViewScene);
-			window.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Parent root;
+        try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/settings.fxml"));
+            root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Regression Tree Learner - Settings");
+			stage.setScene(new Scene(root));
+			stage.show();
+			
+			SettingsController settingsctlr = (SettingsController) loader.getController();
+	        settingsctlr.loadSettings();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
 	}
 
 }
