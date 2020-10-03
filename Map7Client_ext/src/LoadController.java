@@ -3,22 +3,24 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
-//TODO ERRORI INCONTRATI DOPO N iterazioni del bottone predictPhase esce un errore riga 155 
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class LoadController {
 
@@ -41,7 +43,7 @@ public class LoadController {
 	final String regularEx = new String("[0-9]+:(.*)");
 
 	public void printRules() {
-		String answer = "";
+	String answer = "";
 
 		try {
 			while (!(answer = in.readObject().toString()).equals("FINISH")) {
@@ -129,7 +131,7 @@ public class LoadController {
 		if (answer.equals("QUERY")) {
 			answer = in.readObject().toString(); // Read trees
 			txtAreaLoad.appendText(answer);
-			setComboItem(countBranches(answer));
+			setComboItem(answer);
 		} else {
 			// print error
 		}
@@ -138,7 +140,10 @@ public class LoadController {
 	@FXML
 	void submitChoice(ActionEvent event) throws IOException {
 		String elementSelected = cmbxChoiseBranch.getSelectionModel().getSelectedItem();
-		int path = Integer.parseInt(elementSelected);
+		//Pattern patt = Pattern.compile(regularEx);
+		String[] st = elementSelected.split(":");
+
+		int path = Integer.parseInt(st[0]);
 		out.writeObject(path);
 
 		String answer;
@@ -147,11 +152,12 @@ public class LoadController {
 			if (answer.equalsIgnoreCase("QUERY")) {
 				answer = in.readObject().toString();
 				txtAreaLoad.appendText(answer);
-				setComboItem(countBranches(answer));
+				//setComboItem(countBranches(answer));
+				setComboItem(answer);
 			} else if (answer.equalsIgnoreCase("OK")) {
 				answer = in.readObject().toString();
 				txtAreaLoad.appendText("\nPredicted class:" + answer);
-				repeatPrediction();
+				repeatPrediction(answer);
 
 			} else {
 				// verificare l'header error
@@ -177,18 +183,15 @@ public class LoadController {
 		alert.showAndWait();
 	}
 
-	private void setComboItem(int numberBranch) {
+	private void setComboItem(String answer) {
 
-		String[] items = new String[numberBranch];
-		for (int i = 0; i < numberBranch; i++) {
-			items[i] = "" + i;
-		}
-		ObservableList<String> list = FXCollections.observableArrayList(items);
+		String[] answerSplitted = answer.split("\n");
+		ObservableList<String> list = FXCollections.observableArrayList(answerSplitted);
 		cmbxChoiseBranch.setItems(list);
 
 	}
 
-	private int countBranches(String toMaches) {
+	/* private int countBranches(String toMaches) {
 
 		Pattern branch = Pattern.compile(regularEx);
 		Matcher countBranch = branch.matcher(toMaches);
@@ -200,45 +203,40 @@ public class LoadController {
 
 		return count;
 
-	}
+	} */
 
-	public void choiceBranch() {
-		TextInputDialog dlg = new TextInputDialog();
-		dlg.setX(250);
-		dlg.setY(250);
-		dlg.setTitle("Choice branches to predict ");
-		dlg.getDialogPane().setContentText("Name of branch");
-		Optional<String> result = dlg.showAndWait();
-		TextField input = dlg.getEditor();
-		final Button btn = (Button) dlg.getDialogPane().getButtonTypes();
+	private void repeatPrediction(String answer) throws IOException {
 
-	}
-
-	private void repeatPrediction() throws IOException {
-
-
-		Alert alert = new Alert(AlertType.CONFIRMATION, "Would you repeat the prediction ?", ButtonType.YES,
+		Alert alert = new Alert(AlertType.CONFIRMATION, "Would you like to repeat the prediction ?", ButtonType.YES,
 				ButtonType.NO);
+				alert.setHeaderText("The predicted value is: " + answer);
 		alert.showAndWait();
 
 		if (alert.getResult() == ButtonType.YES) {
 			btnPredPhase.setDisable(false);
-		}
-//		alert.showAndWait().ifPresent(type -> {
-//		        if (type == ButtonType.YES) {
-//		        	btnPredPhase.setDisable(false);
-//		        	predictionPhase(null);
-//		        } else if (type == ButtonType.NO) {
-//		        	try {
-//		        		alert.setContentText("Thank you for having used this Regression Tree Learner! See you soon...");
-//						out.writeObject(0);
-//					} catch (IOException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-//		        	
-//		        }
-//		});
+		} 
+		btnSubmit.setDisable(true);
+		cmbxChoiseBranch.setDisable(true);
+	}
+
+	@FXML
+    private ImageView btnHome;
+
+    @FXML
+	public void backHome(MouseEvent event) throws IOException {
+		
+		CustomSocket.closeSocketIfOpened();
+		ArrayList<String> settings = SettingsController.readSettingsFromFile();
+		String ip = settings.get(0);
+		Integer port = new Integer(settings.get(1));
+		CustomSocket.initSocket(ip, port);
+
+		Parent tableViewParent = FXMLLoader.load(getClass().getResource("resources/first_scene.fxml"));
+		Scene tableViewScene = new Scene(tableViewParent); // This line gets the Stage information
+		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		window.setScene(tableViewScene);
+		window.show(); 
+	
 	}
 
 }
