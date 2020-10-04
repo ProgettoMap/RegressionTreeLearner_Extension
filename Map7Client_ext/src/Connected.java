@@ -27,7 +27,6 @@ public class Connected extends Application {
                 UtilityMethods.printError("Error Dialog", "Connection error",
                         "Cannot initialize the connection with the server. Detail error: " + e.toString());
 
-                // TODO: modificare
                 Parent root;
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/settings.fxml"));
@@ -39,21 +38,13 @@ public class Connected extends Application {
                     
                     SettingsController settingsctlr = (SettingsController) loader.getController();
                     settingsctlr.loadSettings();
-                }
-                
-                catch (IOException e1) {
+                } catch (IOException e1) {
                     e.printStackTrace();
                 }
 
-                try {
-                    CustomSocket.closeSocketIfOpened();
-                } catch (IOException e1) {
-                    UtilityMethods.printError("Error Dialog", "Socket error", "Socket has not been closed correctly");
-                }
-                
+                CustomSocket.closeSocketIfOpened();               
                 return;
             }
-        
 
             Parent tableViewParent = FXMLLoader.load(getClass().getResource("resources/first_scene.fxml"));
             Scene scene = new Scene(tableViewParent);
@@ -64,8 +55,8 @@ public class Connected extends Application {
         } else {
             Parent root = new FXMLLoader(getClass().getResource("resources/connected.fxml")).load();
             Scene scene = new Scene(root);
-            stage.setScene(scene);
             stage.setTitle("Regression Tree Learner - Settings");
+            stage.setScene(scene);
             stage.show(); 
         }
     }

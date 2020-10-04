@@ -1,6 +1,8 @@
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -25,12 +27,11 @@ public class CustomSocket {
 			return;
 		}
 
-			socket = new Socket(addr, port.intValue());
+		socket = new Socket(addr, port.intValue());
 
-			// stream con richieste del client
-			out = new ObjectOutputStream(socket.getOutputStream());
-			in = new ObjectInputStream(socket.getInputStream());
-		
+		// stream con richieste del client
+		setOutputStream(socket.getOutputStream());
+		setInputStream(socket.getInputStream());
 	}
 
 	public static Socket getIstance() {
@@ -41,11 +42,27 @@ public class CustomSocket {
 		if(socket != null) return out;
 		else return null;
 	}
+
+	public static void setOutputStream(OutputStream out) {
+		try {
+			out = new ObjectOutputStream(out);
+		} catch (IOException e) {
+			UtilityMethods.printError("Error Dialog", "Error with the output flow", "There has been some errors with the output flow. Detail error: " + e);
+		}
+	}
+
 	public static ObjectInputStream getInputStream() {
 		if(socket != null) return in;
 		else return null;
 	}
 
+	public static void setInputStream(InputStream in) {
+		try {
+			in = new ObjectInputStream(in);
+		} catch (IOException e) {
+			UtilityMethods.printError("Error Dialog", "Error with the input flow", "There has been some errors with the input flow. Detail error: " + e);
+		}
+	}
 	private static boolean validateIp(String ip) {
 		// Formato ip non valido
 		return ip.matches(
@@ -58,14 +75,30 @@ public class CustomSocket {
 			.matches("^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$");
 	}
 
-	static void closeSocketIfOpened() throws IOException {
+	static void closeSocketIfOpened() {
 		if (socket != null && !socket.isClosed()){
-			socket.close(); 
-			in.close();
-			out.close();
+			try {
+				socket.close();
+				in.close();
+				out.close();
+			} catch (IOException e) {
+				UtilityMethods.printError("Error Dialog", "Socket error", "Socket has not been closed correctly. Detail error: " + e);
+			}
 		}
-		
 	}
+
+	static void closeSocketIfOpened(Socket socket) {
+		if (socket != null && !socket.isClosed()){
+			try {
+				socket.close();
+				in.close();
+				out.close();
+			} catch (IOException e) {
+				UtilityMethods.printError("Error Dialog", "Socket error", "Socket has not been closed correctly. Detail error: " + e);
+			}
+		}
+	}
+
 	static boolean validateSettings(String ip,Integer port) {
 
 		if (!ip.isEmpty() && !port.toString().isEmpty()) {
@@ -93,21 +126,18 @@ public class CustomSocket {
 		try {
 			addr = InetAddress.getByName(ipAddress);
 		} catch (UnknownHostException e) {
-			UtilityMethods.printError("Error Dialog", "Generic error", e.toString());
+			UtilityMethods.printError("Error Dialog", "Generic error", "Cannot determine the IP Address of the host. Detail error: " + e);
 			return false;
 		}
 		Socket testConnection = null;
 		try {
 			testConnection = new Socket(addr, port);
 		} catch (IOException e) {
+			UtilityMethods.printError("Error Dialog", "Connection error",
+			"Cannot initialize the connection with the server. Make sure that the server is on and the port is correct!");
 			return false; 
 		} finally {
-			try {
-				if(testConnection != null && !testConnection.isClosed())
-					testConnection.close();
-			} catch (IOException e) {
-				// TODO: aggiungere eccezione
-			}
+			closeSocketIfOpened(testConnection);
 		}
 		return true;
 	}

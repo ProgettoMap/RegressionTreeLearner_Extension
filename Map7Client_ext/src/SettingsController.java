@@ -45,9 +45,11 @@ public class SettingsController {
                 }
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            UtilityMethods.printError("Error Dialog", "File not found",
+                            "We haven't found the file for the settings. Are you sure that this file exists? Detail error: " + e);
         } catch (IOException e2) {
-            e2.printStackTrace();
+            UtilityMethods.printError("Error Dialog", "Cannot read from the file",
+                            "The connection has been lost with the file. Please restart the program. Detail Error: " + e2);
         }
     }
 
@@ -55,26 +57,12 @@ public class SettingsController {
     void saveSettings(ActionEvent event) {
         String ipAddress = txtIpAddres.getText();
         String port = txtPort.getText();
-        if(CustomSocket.validateSettings(ipAddress, new Integer(port))){
-            if(CustomSocket.tryConnection(ipAddress, new Integer(port))) {
-                try(BufferedWriter out = new BufferedWriter(new FileWriter(settingsPath, false))){
-                    try {
-                        out.write(ipAddress);
-                        out.newLine();
-                        out.write(port);
-                        Stage stage = (Stage) btnUpdateSettings.getScene().getWindow();
-                        stage.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                UtilityMethods.printError("Error Dialog", "Connection error",
-                            "Cannot initialize the connection with the server. Make sure that the server is on and the port is correct!");
+        if(CustomSocket.validateSettings(ipAddress, new Integer(port))) { // Check if the ip and the port are in the correct format
+            if(CustomSocket.tryConnection(ipAddress, new Integer(port))) { // Try to enstablish a connection with the server
+                writeSettingsInFile(ipAddress, port);
+                Stage stage = (Stage) btnUpdateSettings.getScene().getWindow();
+                stage.close();
             }
-            
         }    
     }
 
@@ -106,6 +94,17 @@ public class SettingsController {
             "Detail error: " + e.toString());
         }
         return settings;
+    }
+
+    static void writeSettingsInFile(String ipAddress, String port) {
+        try(BufferedWriter out = new BufferedWriter(new FileWriter(settingsPath, false))){
+            out.write(ipAddress);
+            out.newLine();
+            out.write(port);
+        } catch (IOException e) {
+            UtilityMethods.printError("Error Dialog", "Cannot read from the file",
+                    "The connection has been lost with the file. Please restart the program. Detail Error: " + e);
+        }
     }
 
 }

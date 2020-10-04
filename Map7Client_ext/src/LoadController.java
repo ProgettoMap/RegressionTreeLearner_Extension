@@ -43,38 +43,30 @@ public class LoadController {
 	final String regularEx = new String("[0-9]+:(.*)");
 
 	public void printRules() {
-	String answer = "";
-
+		String answer = "";
 		try {
 			while (!(answer = in.readObject().toString()).equals("FINISH")) {
-				if (answer.toLowerCase().contains("error"))
-					// TODO define the headerText
-					printError("Error Dialog", "??", answer);
-				else
+				if (!answer.toLowerCase().contains("error"))
 					txtAreaLoad.setText(txtAreaLoad.getText() + "\n" + answer); // Reading rules
+				else
+					printError("Error Dialog", "Error in printing rules", "There has been an error while printing rules. Detail error: " + answer);
 			}
 
-			while (!(answer = in.readObject().toString()).equals("FINISH")) {
-				if (answer.toLowerCase().contains("error"))
-					// TODO define the headerText
-					printError("Error Dialog", "??", answer);
-				else
+			while (!(answer = in.readObject().toString()).equals("FINISH")) { // TODO: Perchè nel print rules sta anche il print tree?
+				if (!answer.toLowerCase().contains("error"))
 					txtAreaLoad.setText(txtAreaLoad.getText() + "\n" + answer); // Reading rules
+				else
+					printError("Error Dialog", "Error in printing rules", "There has been an error while printing rules. Detail error: " + answer);
 			}
 			answer = in.readObject().toString();
 			if (!answer.equals("OK")) {
-				System.err.println(answer);
+				printError("Error Dialog", "Error in printing rules", "There has been some generic error. Detail error: " + answer);
 				return;
 			}
-
 		} catch (IOException | ClassNotFoundException e) {
 			printError("Error Dialog", "Connection error",
-					"Cannot initialize the connection with the server. Detail error: " + e.toString());
-			try {
-				socket.close();
-			} catch (IOException e1) {
-				printError("Error Dialog", "Socket error", "Socket has not been closed correctly");
-			}
+					"Cannot initialize the connection with the server. Detail error: " + e);
+			CustomSocket.closeSocketIfOpened();
 		}
 	}
 
@@ -82,36 +74,26 @@ public class LoadController {
 		String answer = "";
 		try {
 			if (decision == 1) { // Learn regression tree
-
 				// log_lbl.setText("Starting data acquisition phase!");
-
 				out.writeObject(0);
 				out.writeObject(tableName);
 				answer = in.readObject().toString();
 				if (!answer.equals("OK")) {
-					// System.err.println(answer); // C'� stato qualche errore
-					printError("Error Dialog", "Message error from the server", answer);
+					printError("Error Dialog", "Message error from the server", "There has been some errors with the answer from the server. Detail error: " + answer);
 					return;
 				}
 //				log_lbl.setText("Starting learning phase!");
 				out.writeObject(1);
-
 			} else { // Load tree from archive
 				out.writeObject(2);
 				out.writeObject(tableName);
 			}
-
 		} catch (IOException | ClassNotFoundException e) {
 			printError("Error Dialog", "Connection error",
 					"Cannot initialize the connection with the server. Detail error: " + e.toString());
-			try {
-				socket.close();
-			} catch (IOException e1) {
-				printError("Error Dialog", "Socket error", "Socket has not been closed correctly");
-				// Chiudere java
-			}
+			CustomSocket.closeSocketIfOpened();
+			return;
 		}
-
 		printRules();
 	}
 
@@ -122,7 +104,6 @@ public class LoadController {
 		btnPredPhase.setDisable(true);
 		cmbxChoiseBranch.setVisible(true);
 		btnSubmit.setVisible(true);
-
 		
 		out.writeObject(3); // Stampo 3 per far capire al server che sto iniziando fase predizione
 		txtAreaLoad.appendText("Starting prediction phase!\n");
@@ -133,14 +114,13 @@ public class LoadController {
 			txtAreaLoad.appendText(answer);
 			setComboItem(answer);
 		} else {
-			// print error
+			printError("Error Dialog", "Message error from the server", "There has been some errors with the answer from the server. Detail error: " + answer);
 		}
 	}
 
 	@FXML
 	void submitChoice(ActionEvent event) throws IOException {
 		String elementSelected = cmbxChoiseBranch.getSelectionModel().getSelectedItem();
-		//Pattern patt = Pattern.compile(regularEx);
 		String[] st = elementSelected.split(":");
 
 		int path = Integer.parseInt(st[0]);
@@ -152,23 +132,17 @@ public class LoadController {
 			if (answer.equalsIgnoreCase("QUERY")) {
 				answer = in.readObject().toString();
 				txtAreaLoad.appendText(answer);
-				//setComboItem(countBranches(answer));
 				setComboItem(answer);
 			} else if (answer.equalsIgnoreCase("OK")) {
 				answer = in.readObject().toString();
 				txtAreaLoad.appendText("\nPredicted class:" + answer);
 				repeatPrediction(answer);
-
 			} else {
-				// verificare l'header error
-				printError("Error", "??", answer);
+				printError("Error Dialog", "Message error from the server", "There has been some errors with the answer from the server. Detail error: " + answer);
 			}
-
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			printError("Error Dialog", "Message error", "There are some components in the program that cannot be found. Detail error: " + e);
 		} // Read trees
-
 	}
 
 	public void printError(String title, String headerText, String contentText) {
@@ -190,21 +164,7 @@ public class LoadController {
 		cmbxChoiseBranch.setItems(list);
 
 	}
-
-	/* private int countBranches(String toMaches) {
-
-		Pattern branch = Pattern.compile(regularEx);
-		Matcher countBranch = branch.matcher(toMaches);
-		int count = 0;
-
-		while (countBranch.find()) {
-			count++;
-		}
-
-		return count;
-
-	} */
-
+	
 	private void repeatPrediction(String answer) throws IOException {
 
 		Alert alert = new Alert(AlertType.CONFIRMATION, "Would you like to repeat the prediction ?", ButtonType.YES,
@@ -225,7 +185,7 @@ public class LoadController {
     @FXML
 	public void backHome(MouseEvent event) throws IOException {
 		
-		CustomSocket.closeSocketIfOpened();
+		CustomSocket.closeSocketIfOpened(CustomSocket.getIstance());
 		ArrayList<String> settings = SettingsController.readSettingsFromFile();
 		String ip = settings.get(0);
 		Integer port = new Integer(settings.get(1));
