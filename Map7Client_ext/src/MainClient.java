@@ -7,9 +7,21 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-public class Connected extends Application {
+public class MainClient extends Application {
+
+    /*
+    TODO List:
+        - Aggiustare tutti i pannelli, ancorarli e renderli responsive
+        - Gestione di tutte le eccezioni
+        - Commentare codice
+        - Rifattorizzazione metodi
+        - Estrazione metodi utility
+        - CustomSocket
+        - Aggiustare Log
+    */
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -49,9 +61,11 @@ public class Connected extends Application {
             Parent tableViewParent = FXMLLoader.load(getClass().getResource("resources/first_scene.fxml"));
             Scene scene = new Scene(tableViewParent);
             stage.setTitle("Regression Tree Learner");
+            stage.getIcons().add(new Image("resources/favicon.png"));
+            
             stage.setScene(scene);
             stage.show(); 
-           
+
         } else {
             Parent root = new FXMLLoader(getClass().getResource("resources/connected.fxml")).load();
             Scene scene = new Scene(root);

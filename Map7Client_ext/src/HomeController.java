@@ -28,7 +28,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
-public class MainController {
+public class HomeController {
 
 	ArrayList<String> log_arr = new ArrayList<String>();
 
@@ -65,7 +65,6 @@ public class MainController {
 		input_txt_filename.setDisable(false);
 		input_txt_filename.setEditable(true);
 		processBtn.setDisable(false);
-
 	}
 
 	public void processButton(ActionEvent event) throws IOException {
@@ -80,7 +79,7 @@ public class MainController {
 			Parent tableViewParent = loader.load();
 			Scene tableViewScene = new Scene(tableViewParent);
 			Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	        LoadController loadctrl = (LoadController) loader.getController();
+	        PredictionController loadctrl = (PredictionController) loader.getController();
 	        loadctrl.choice(decision, tableName);
 			window.setScene(tableViewScene);
 			window.show();

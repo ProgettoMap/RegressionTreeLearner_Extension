@@ -22,7 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class LoadController {
+public class PredictionController {
 
 	@FXML
 	private TextArea txtAreaLoad;
@@ -36,6 +36,9 @@ public class LoadController {
 	Socket socket = CustomSocket.getIstance();
 	ObjectOutputStream out = CustomSocket.getOutputStream();
 	ObjectInputStream in = CustomSocket.getInputStream();
+
+	FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/log.fxml"));
+	LogController logctr = (LogController) loader.getController();
 
 	@FXML
 	private ComboBox<String> cmbxChoiseBranch;
@@ -74,7 +77,6 @@ public class LoadController {
 		String answer = "";
 		try {
 			if (decision == 1) { // Learn regression tree
-				// log_lbl.setText("Starting data acquisition phase!");
 				out.writeObject(0);
 				out.writeObject(tableName);
 				answer = in.readObject().toString();
@@ -82,7 +84,6 @@ public class LoadController {
 					printError("Error Dialog", "Message error from the server", "There has been some errors with the answer from the server. Detail error: " + answer);
 					return;
 				}
-//				log_lbl.setText("Starting learning phase!");
 				out.writeObject(1);
 			} else { // Load tree from archive
 				out.writeObject(2);
@@ -147,7 +148,8 @@ public class LoadController {
 
 	public void printError(String title, String headerText, String contentText) {
 
-		// log_arr.add(contentText);
+
+		logctr.inserisciMessaggio(contentText);
 
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle(title);

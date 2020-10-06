@@ -37,7 +37,7 @@ public class SettingsController {
                         if (k == 0)
                             txtIpAddres.setText(line);
                         else 
-                            txtPort.setText(line); 
+                            txtPort.setText(line);
                         
                         line = bufferedReader.readLine();
                         k++;
@@ -63,7 +63,7 @@ public class SettingsController {
                 Stage stage = (Stage) btnUpdateSettings.getScene().getWindow();
                 stage.close();
             }
-        }    
+        }
     }
 
     static ArrayList<String> readSettingsFromFile() {

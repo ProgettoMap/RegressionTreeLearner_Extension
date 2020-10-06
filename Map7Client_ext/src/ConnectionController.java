@@ -12,7 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class ConnectedController {
+public class ConnectionController {
 
     @FXML
     private Button btnConnected;
@@ -47,8 +47,5 @@ public class ConnectedController {
 		window.show();
 
     }
-	
-
-
 
 }
