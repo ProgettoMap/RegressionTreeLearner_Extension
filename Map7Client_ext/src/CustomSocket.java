@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 public class CustomSocket {
 
@@ -140,6 +141,19 @@ public class CustomSocket {
 			closeSocketIfOpened(testConnection);
 		}
 		return true;
+	}
+
+	public static void restartSocket() {
+		CustomSocket.closeSocketIfOpened(socket);
+		ArrayList<String> settings = SettingsController.readSettingsFromFile();
+		String ip = settings.get(0);
+		Integer port = new Integer(settings.get(1));
+		try {
+			CustomSocket.initSocket(ip, port);
+		} catch (IOException e) {
+			UtilityMethods.printError("Error Dialog", "Connection error",
+			"Cannot initialize the connection with the server. Make sure that the server is on and the port is correct!");
+		}
 	}
     
 }

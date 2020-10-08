@@ -153,11 +153,7 @@ public class PredictionController {
 	public void backHome(MouseEvent event) throws IOException {
 		
 		//Riapertura della socket 
- 		CustomSocket.closeSocketIfOpened(CustomSocket.getIstance());
-		ArrayList<String> settings = SettingsController.readSettingsFromFile();
-		String ip = settings.get(0);
-		Integer port = new Integer(settings.get(1));
-		CustomSocket.initSocket(ip, port);
+		CustomSocket.restartSocket();
 
 		Parent tableViewParent = FXMLLoader.load(getClass().getResource("resources/HomeScene.fxml"));
 		Scene tableViewScene = new Scene(tableViewParent); // This line gets the Stage information

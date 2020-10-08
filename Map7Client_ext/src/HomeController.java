@@ -61,9 +61,7 @@ public class HomeController {
 	/** Metodo richiamato allo scatenamento dell'evento del click di un radioButton */
 	public void pressSelection(ActionEvent event) throws IOException {
 		input_txt_filename.setDisable(false);
-		input_txt_filename.setEditable(true);
-		
-	
+		input_txt_filename.setEditable(true);	
 	}
 	
     @FXML
@@ -81,12 +79,12 @@ public class HomeController {
 		decision = rblearn.isSelected() ? 1 : 2;
 	
 		try {
+			choice(decision, tableName); // Comunica la decisione al server
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/PredictionScene.fxml"));
 			Parent tableViewParent = loader.load();
 			Scene tableViewScene = new Scene(tableViewParent);
 			Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			//PredictionController loadctrl = (PredictionController) loader.getController();
-			choice(decision, tableName); // Comunica la decisione al server
 			window.setScene(tableViewScene);
 			window.show();
 		
@@ -99,6 +97,7 @@ public class HomeController {
 			UtilityMethods.printError("Error Dialog", "Connection error",
 				"The table that you've inserted was not found. Please retry. \n Detail error: " + e.toString());
 			//CustomSocket.closeSocketIfOpened();
+			CustomSocket.restartSocket();
 			return;
 		}
 		
