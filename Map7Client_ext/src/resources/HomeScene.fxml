@@ -11,7 +11,7 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="anchorPane" minHeight="50.0" minWidth="50.0" prefHeight="266.0" prefWidth="429.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeController">
+<AnchorPane fx:id="anchorPane" minHeight="50.0" minWidth="50.0" prefHeight="266.0" prefWidth="429.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeController">
    <children>
       <MenuBar prefHeight="25.0" prefWidth="429.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <menus>
@@ -33,8 +33,8 @@
             <RadioButton id="radio_btn_load" fx:id="rbload" layoutY="17.0" mnemonicParsing="false" onAction="#pressSelection" text="Load Regression Tree from archive" toggleGroup="$radiogroup" />
          </children>
       </Group>
-      <Button id="process_btn" fx:id="processBtn" layoutX="306.0" layoutY="177.0" maxHeight="100.0" maxWidth="100.0" minHeight="70.0" minWidth="50.0" mnemonicParsing="false" onAction="#processButton" onMouseClicked="#process" prefHeight="35.0" prefWidth="68.0" text="Process" />
-      <TextField id="input_txt_filename" fx:id="input_txt_filename" disable="true" editable="false" layoutX="74.0" layoutY="133.0" maxHeight="-Infinity" maxWidth="500.0" minHeight="-Infinity" minWidth="500.0" prefHeight="35.0" prefWidth="210.0" promptText="File name (with extension)" text="provac" AnchorPane.bottomAnchor="98.0" AnchorPane.leftAnchor="74.0" AnchorPane.rightAnchor="145.0" />
+      <Button id="process_btn" fx:id="processBtn" disable="true" layoutX="306.0" layoutY="177.0" maxHeight="100.0" maxWidth="100.0" minHeight="70.0" minWidth="50.0" mnemonicParsing="false" onAction="#processButton" prefHeight="35.0" prefWidth="68.0" text="Process" />
+      <TextField id="input_txt_filename" fx:id="input_txt_filename" disable="true" editable="false" layoutX="74.0" layoutY="133.0" maxHeight="-Infinity" maxWidth="500.0" minHeight="-Infinity" minWidth="500.0" onKeyPressed="#textField" prefHeight="35.0" prefWidth="210.0" promptText="File name (with extension)" AnchorPane.bottomAnchor="98.0" AnchorPane.leftAnchor="74.0" AnchorPane.rightAnchor="145.0" />
       <Label fx:id="log_lbl" layoutX="14.0" layoutY="203.0" text="&lt;&gt;" textFill="#00000076" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="398.0" AnchorPane.topAnchor="203.0" />
       <Label layoutX="10.0" layoutY="227.0" prefHeight="25.0" prefWidth="410.0" text="Developed by Marco Fusillo, Gaetano Dibenedetto &amp; Gregorio Giorgino" wrapText="true" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="227.0" />
    </children>

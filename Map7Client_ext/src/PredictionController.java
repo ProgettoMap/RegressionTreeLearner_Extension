@@ -45,58 +45,35 @@ public class PredictionController {
 
 	final String regularEx = new String("[0-9]+:(.*)");
 
-	public void printRules() {
+	//TODO serve un metodo start che lanci printRules e printtree
+
+	@FXML
+	private void initialize() {
 		String answer = "";
 		try {
 			while (!(answer = in.readObject().toString()).equals("FINISH")) {
 				if (!answer.toLowerCase().contains("error"))
 					txtAreaLoad.setText(txtAreaLoad.getText() + "\n" + answer); // Reading rules
 				else
-					printError("Error Dialog", "Error in printing rules", "There has been an error while printing rules. Detail error: " + answer);
+					UtilityMethods.printError("Error Dialog", "Error in printing rules", "There has been an error while printing rules. Detail error: " + answer);
 			}
 
 			while (!(answer = in.readObject().toString()).equals("FINISH")) { // TODO: Perchè nel print rules sta anche il print tree?
 				if (!answer.toLowerCase().contains("error"))
 					txtAreaLoad.setText(txtAreaLoad.getText() + "\n" + answer); // Reading rules
 				else
-					printError("Error Dialog", "Error in printing rules", "There has been an error while printing rules. Detail error: " + answer);
+					UtilityMethods.printError("Error Dialog", "Error in printing rules", "There has been an error while printing rules. Detail error: " + answer);
 			}
 			answer = in.readObject().toString();
 			if (!answer.equals("OK")) {
-				printError("Error Dialog", "Error in printing rules", "There has been some generic error. Detail error: " + answer);
+				UtilityMethods.printError("Error Dialog", "Error in printing rules", "There has been some generic error. Detail error: " + answer);
 				return;
 			}
 		} catch (IOException | ClassNotFoundException e) {
-			printError("Error Dialog", "Connection error",
+			UtilityMethods.printError("Error Dialog", "Connection error",
 					"Cannot initialize the connection with the server. Detail error: " + e);
 			CustomSocket.closeSocketIfOpened();
 		}
-	}
-
-	public void choice(int decision, String tableName) {
-		String answer = "";
-		try {
-			if (decision == 1) { // Learn regression tree
-				
-				out.writeObject(0);
-				out.writeObject(tableName);
-				answer = in.readObject().toString();
-				if (!answer.equals("OK")) {
-					printError("Error Dialog", "Message error from the server", "There has been some errors with the answer from the server. Detail error: " + answer);
-					return;
-				}
-				out.writeObject(1);
-			} else { // Load tree from archive
-				out.writeObject(2);
-				out.writeObject(tableName);
-			}
-		} catch (IOException | ClassNotFoundException e) {
-			printError("Error Dialog", "Connection error",
-					"Cannot initialize the connection with the server. Detail error: " + e.toString());
-			CustomSocket.closeSocketIfOpened();
-			return;
-		}
-		printRules();
 	}
 
 	@FXML
@@ -116,7 +93,7 @@ public class PredictionController {
 			txtAreaLoad.appendText(answer);
 			setComboItem(answer);
 		} else {
-			printError("Error Dialog", "Message error from the server", "There has been some errors with the answer from the server. Detail error: " + answer);
+			UtilityMethods.printError("Error Dialog", "Message error from the server", "There has been some errors with the answer from the server. Detail error: " + answer);
 		}
 	}
 
@@ -140,24 +117,11 @@ public class PredictionController {
 				txtAreaLoad.appendText("\nPredicted class:" + answer);
 				repeatPrediction(answer);
 			} else {
-				printError("Error Dialog", "Message error from the server", "There has been some errors with the answer from the server. Detail error: " + answer);
+				UtilityMethods.printError("Error Dialog", "Message error from the server", "There has been some errors with the answer from the server. Detail error: " + answer);
 			}
 		} catch (ClassNotFoundException e) {
-			printError("Error Dialog", "Message error", "There are some components in the program that cannot be found. Detail error: " + e);
+			UtilityMethods.printError("Error Dialog", "Message error", "There are some components in the program that cannot be found. Detail error: " + e);
 		} // Read trees
-	}
-
-	public void printError(String title, String headerText, String contentText) {
-
-
-		//logctr.inserisciMessaggio(contentText);
-
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle(title);
-		alert.setHeaderText(headerText);
-		alert.setContentText(contentText);
-
-		alert.showAndWait();
 	}
 
 	private void setComboItem(String answer) {

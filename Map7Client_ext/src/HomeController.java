@@ -1,13 +1,10 @@
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import javafx.event.ActionEvent;
-/**
- *
- * Main del client
- *
- */
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -22,12 +19,13 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
+/** Main del client */
 public class HomeController {
 
 	ArrayList<String> log_arr = new ArrayList<String>();
@@ -56,50 +54,56 @@ public class HomeController {
 	@FXML
 	private TextField input_txt_filename;
 
-	@FXML
-	void process(MouseEvent event) {
-		log_lbl.setText("<Test>");
-	}
+	Socket socket = CustomSocket.getIstance();
+	ObjectOutputStream out = CustomSocket.getOutputStream();
+	ObjectInputStream in = CustomSocket.getInputStream();
 
+	/** Metodo richiamato allo scatenamento dell'evento del click di un radioButton */
 	public void pressSelection(ActionEvent event) throws IOException {
 		input_txt_filename.setDisable(false);
 		input_txt_filename.setEditable(true);
-		processBtn.setDisable(false);
+		
+	
 	}
+	
+    @FXML
+    void textField(KeyEvent event) {
+		processBtn.setDisable(input_txt_filename.getText().isEmpty());
 
-	public void processButton(ActionEvent event) throws IOException {
+    }
+	/** Metodo richiamato allo scatenamento dell'evento del click del bottone Process */
+	public void processButton(ActionEvent event) {
 
 		int decision = 0;
 		String tableName = null;
 
-		if (!input_txt_filename.getText().isEmpty()) {
-			tableName = input_txt_filename.getText();
-			decision = rblearn.isSelected() ? 1 : 2;
+		tableName = input_txt_filename.getText();
+		decision = rblearn.isSelected() ? 1 : 2;
+	
+		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/PredictionScene.fxml"));
 			Parent tableViewParent = loader.load();
 			Scene tableViewScene = new Scene(tableViewParent);
 			Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-			PredictionController loadctrl = (PredictionController) loader.getController();
-			loadctrl.choice(decision, tableName);
-			
+			//PredictionController loadctrl = (PredictionController) loader.getController();
+			choice(decision, tableName); // Comunica la decisione al server
 			window.setScene(tableViewScene);
 			window.show();
+		
+		} catch ( IOException | ClassNotFoundException e ) {
+			UtilityMethods.printError("Error Dialog", "Connection error",
+				"Cannot initialize the connection with the server. Detail error: " + e.toString());
+			CustomSocket.closeSocketIfOpened();
+			return;
+		} catch (TableNotFoundException e) {
+			UtilityMethods.printError("Error Dialog", "Connection error",
+				"The table that you've inserted was not found. Please retry. \n Detail error: " + e.toString());
+			//CustomSocket.closeSocketIfOpened();
+			return;
+		}
+		
 
-		} else
-			printError("Error Dialog", "Input error", "The name of table doesn't exist");
 
-	}
-
-	public void printError(String title, String headerText, String contentText) {
-
-		// log_arr.add(contentText);
-
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle(title);
-		alert.setHeaderText(headerText);
-		alert.setContentText(contentText);
-
-		alert.showAndWait();
 	}
 
 	@FXML
@@ -154,5 +158,24 @@ public class HomeController {
             e.printStackTrace();
         }
 	}
-
+	/**
+	 * Metodo che comunica al server la decisione del client
+	 */
+	public void choice(int decision, String tableName) throws IOException, ClassNotFoundException, TableNotFoundException{
+		String answer = "";
+		if (decision == 1) { // Learn regression tree
+			out.writeObject(0);
+			out.writeObject(tableName);
+			answer = in.readObject().toString();
+			if (!answer.equals("OK")) {
+				UtilityMethods.printError("Error Dialog", "Message error from the server", "There has been some errors with the answer from the server. Detail error: " + answer);
+				throw new TableNotFoundException();
+			}
+			out.writeObject(1);
+		} else { // Load tree from archive
+			out.writeObject(2);
+			out.writeObject(tableName);
+		}
+		//printRules();
+	}
 }
