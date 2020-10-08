@@ -37,8 +37,8 @@ public class PredictionController {
 	ObjectOutputStream out = CustomSocket.getOutputStream();
 	ObjectInputStream in = CustomSocket.getInputStream();
 
-	FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/log.fxml"));
-	LogController logctr = (LogController) loader.getController();
+//	FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/log.fxml"));
+//	LogController logctr = (LogController) loader.getController();
 
 	@FXML
 	private ComboBox<String> cmbxChoiseBranch;
@@ -72,7 +72,7 @@ public class PredictionController {
 			CustomSocket.closeSocketIfOpened();
 		}
 	}
-
+	//TODO se il server non è avviato l'applicazione non parte gestire l'errore dell'out NullPointerException
 	public void choice(int decision, String tableName) {
 		String answer = "";
 		try {
@@ -149,7 +149,7 @@ public class PredictionController {
 	public void printError(String title, String headerText, String contentText) {
 
 
-		logctr.inserisciMessaggio(contentText);
+		//logctr.inserisciMessaggio(contentText);
 
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle(title);
@@ -193,7 +193,7 @@ public class PredictionController {
 		Integer port = new Integer(settings.get(1));
 		CustomSocket.initSocket(ip, port);
 
-		Parent tableViewParent = FXMLLoader.load(getClass().getResource("resources/first_scene.fxml"));
+		Parent tableViewParent = FXMLLoader.load(getClass().getResource("resources/HomeScene.fxml"));
 		Scene tableViewScene = new Scene(tableViewParent); // This line gets the Stage information
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		window.setScene(tableViewScene);

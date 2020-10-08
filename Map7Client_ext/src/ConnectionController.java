@@ -40,7 +40,7 @@ public class ConnectionController {
 		
 		CustomSocket.initSocket(ip, new Integer(port));
 
-		Parent tableViewParent = FXMLLoader.load(getClass().getResource("resources/first_scene.fxml"));
+		Parent tableViewParent = FXMLLoader.load(getClass().getResource("resources/connected.fxml"));
 		Scene tableViewScene = new Scene(tableViewParent);
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		window.setScene(tableViewScene);

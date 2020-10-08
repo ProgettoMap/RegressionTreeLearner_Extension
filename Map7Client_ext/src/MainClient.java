@@ -41,7 +41,7 @@ public class MainClient extends Application {
 
                 Parent root;
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/settings.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/SettingsScene.fxml"));
                     root = loader.load();
                     Stage stage2 = new Stage();
                     stage2.setTitle("Regression Tree Learner - Settings");
@@ -58,7 +58,7 @@ public class MainClient extends Application {
                 return;
             }
 
-            Parent tableViewParent = FXMLLoader.load(getClass().getResource("resources/first_scene.fxml"));
+            Parent tableViewParent = FXMLLoader.load(getClass().getResource("resources/HomeScene.fxml"));
             Scene scene = new Scene(tableViewParent);
             stage.setTitle("Regression Tree Learner");
             stage.getIcons().add(new Image("resources/favicon.png"));
