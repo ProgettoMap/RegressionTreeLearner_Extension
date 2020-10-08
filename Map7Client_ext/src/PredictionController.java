@@ -72,11 +72,12 @@ public class PredictionController {
 			CustomSocket.closeSocketIfOpened();
 		}
 	}
-	//TODO se il server non è avviato l'applicazione non parte gestire l'errore dell'out NullPointerException
+
 	public void choice(int decision, String tableName) {
 		String answer = "";
 		try {
 			if (decision == 1) { // Learn regression tree
+				
 				out.writeObject(0);
 				out.writeObject(tableName);
 				answer = in.readObject().toString();
@@ -187,7 +188,8 @@ public class PredictionController {
     @FXML
 	public void backHome(MouseEvent event) throws IOException {
 		
-		CustomSocket.closeSocketIfOpened(CustomSocket.getIstance());
+		//Riapertura della socket 
+ 		CustomSocket.closeSocketIfOpened(CustomSocket.getIstance());
 		ArrayList<String> settings = SettingsController.readSettingsFromFile();
 		String ip = settings.get(0);
 		Integer port = new Integer(settings.get(1));

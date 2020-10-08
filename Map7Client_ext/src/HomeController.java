@@ -80,8 +80,8 @@ public class HomeController {
 			Scene tableViewScene = new Scene(tableViewParent);
 			Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			PredictionController loadctrl = (PredictionController) loader.getController();
-			System.out.println("Decision"+decision+" TabName"+tableName);
-	        loadctrl.choice(decision, tableName);
+			loadctrl.choice(decision, tableName);
+			
 			window.setScene(tableViewScene);
 			window.show();
 
@@ -140,7 +140,7 @@ public class HomeController {
     void showSettings(ActionEvent event) {
 		Parent root;
         try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/SettingsController.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/SettingsScene.fxml"));
             root = loader.load();
             Stage stage = new Stage();
             stage.setTitle("Regression Tree Learner - Settings");

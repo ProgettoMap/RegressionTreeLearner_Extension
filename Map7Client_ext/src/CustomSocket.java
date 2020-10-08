@@ -45,7 +45,7 @@ public class CustomSocket {
 
 	public static void setOutputStream(OutputStream out) {
 		try {
-			out = new ObjectOutputStream(out);
+			CustomSocket.out = new ObjectOutputStream(out);
 		} catch (IOException e) {
 			UtilityMethods.printError("Error Dialog", "Error with the output flow", "There has been some errors with the output flow. Detail error: " + e);
 		}
@@ -58,7 +58,7 @@ public class CustomSocket {
 
 	public static void setInputStream(InputStream in) {
 		try {
-			in = new ObjectInputStream(in);
+			CustomSocket.in = new ObjectInputStream(in);
 		} catch (IOException e) {
 			UtilityMethods.printError("Error Dialog", "Error with the input flow", "There has been some errors with the input flow. Detail error: " + e);
 		}
@@ -88,7 +88,7 @@ public class CustomSocket {
 	}
 
 	static void closeSocketIfOpened(Socket socket) {
-		if (socket != null && !socket.isClosed()){
+		if (socket != null && !socket.isClosed()) {
 			try {
 				socket.close();
 				in.close();
