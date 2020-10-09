@@ -15,12 +15,11 @@ public class MainClient extends Application {
     /*
     TODO List:
         - Aggiustare tutti i pannelli, ancorarli e renderli responsive
-        - Gestione di tutte le eccezioni
+        - Gestione di tutte le eccezioni (sopratutto cercare quelle printStackTrace)
         - Commentare codice
         - Rifattorizzazione metodi
         - Estrazione metodi utility
-        - CustomSocket
-        - Aggiustare Log
+        - Aggiungere al server extension lo stesso del server base
     */
 
     @Override
@@ -53,7 +52,6 @@ public class MainClient extends Application {
                 } catch (IOException e1) {
                     e.printStackTrace();
                 }
-
                 CustomSocket.closeSocketIfOpened();               
                 return;
             }
@@ -62,7 +60,11 @@ public class MainClient extends Application {
             Scene scene = new Scene(tableViewParent);
             stage.setTitle("Regression Tree Learner");
             stage.getIcons().add(new Image("resources/favicon.png"));
-            
+            stage.setOnCloseRequest(event -> {
+                CustomSocket.closeSocketIfOpened();
+            });
+            stage.setMinHeight(266);
+            stage.setMinWidth(429);
             stage.setScene(scene);
             stage.show(); 
 

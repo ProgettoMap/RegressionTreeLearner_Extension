@@ -1,5 +1,3 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
@@ -30,17 +28,13 @@ public class ConnectionController {
 		String ip = txtIpAddres.getText();
 		String port = txtPort.getText();
 
-
-		// Scrivo nel file i parametri
-		try(BufferedWriter out = new BufferedWriter(new FileWriter("src/resources/settings.bin"))){
-			out.write(ip);
-			out.newLine();
-			out.write(port);
-		}
 		
+		// Scrivo nel file i parametri
+		SettingsController.writeSettingsInFile(ip, port);
+
 		CustomSocket.initSocket(ip, new Integer(port));
 
-		Parent tableViewParent = FXMLLoader.load(getClass().getResource("resources/connected.fxml"));
+		Parent tableViewParent = FXMLLoader.load(getClass().getResource("resources/HomeScene.fxml"));
 		Scene tableViewScene = new Scene(tableViewParent);
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		window.setScene(tableViewScene);

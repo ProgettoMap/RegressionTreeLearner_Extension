@@ -85,12 +85,12 @@ public class PredictionController {
 		btnSubmit.setVisible(true);
 		
 		out.writeObject(3); // Stampo 3 per far capire al server che sto iniziando fase predizione
-		txtAreaLoad.appendText("Starting prediction phase!\n");
+		txtAreaLoad.appendText("\nStarting prediction phase!\n");
 		answer = in.readObject().toString(); // Reading tree.predictClass() from server
 
 		if (answer.equals("QUERY")) {
 			answer = in.readObject().toString(); // Read trees
-			txtAreaLoad.appendText(answer);
+			txtAreaLoad.appendText(answer+"\n");
 			setComboItem(answer);
 		} else {
 			UtilityMethods.printError("Error Dialog", "Message error from the server", "There has been some errors with the answer from the server. Detail error: " + answer);
@@ -115,6 +115,7 @@ public class PredictionController {
 			} else if (answer.equalsIgnoreCase("OK")) {
 				answer = in.readObject().toString();
 				txtAreaLoad.appendText("\nPredicted class:" + answer);
+				txtAreaLoad.appendText("\n****************");
 				repeatPrediction(answer);
 			} else {
 				UtilityMethods.printError("Error Dialog", "Message error from the server", "There has been some errors with the answer from the server. Detail error: " + answer);
@@ -128,6 +129,7 @@ public class PredictionController {
 
 		String[] answerSplitted = answer.split("\n");
 		ObservableList<String> list = FXCollections.observableArrayList(answerSplitted);
+		cmbxChoiseBranch.setValue(list.get(0));
 		cmbxChoiseBranch.setItems(list);
 
 	}
@@ -137,13 +139,13 @@ public class PredictionController {
 		Alert alert = new Alert(AlertType.CONFIRMATION, "Would you like to repeat the prediction ?", ButtonType.YES,
 				ButtonType.NO);
 				alert.setHeaderText("The predicted value is: " + answer);
-		alert.showAndWait();
+			alert.showAndWait();
 
 		if (alert.getResult() == ButtonType.YES) {
 			btnPredPhase.setDisable(false);
 		} 
-		btnSubmit.setDisable(true);
-		cmbxChoiseBranch.setDisable(true);
+		btnSubmit.setVisible(false);
+		cmbxChoiseBranch.setVisible(false);
 	}
 
 	@FXML

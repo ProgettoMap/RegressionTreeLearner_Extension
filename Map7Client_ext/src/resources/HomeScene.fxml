@@ -11,7 +11,7 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="anchorPane" minHeight="50.0" minWidth="50.0" prefHeight="266.0" prefWidth="429.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeController">
+<AnchorPane fx:id="anchorPane" minHeight="150.0" minWidth="150.0" prefHeight="266.0" prefWidth="429.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeController">
    <children>
       <MenuBar prefHeight="25.0" prefWidth="429.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <menus>
@@ -23,7 +23,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <Group layoutX="77.0" layoutY="86.0" AnchorPane.bottomAnchor="145.0" AnchorPane.leftAnchor="76.724609375" AnchorPane.rightAnchor="148.275390625" AnchorPane.topAnchor="86.0">
+      <Group layoutX="77.0" layoutY="86.0" AnchorPane.leftAnchor="76.724609375" AnchorPane.rightAnchor="148.275390625" AnchorPane.topAnchor="86.0">
          <children>
             <RadioButton id="radio_btn_learn" fx:id="rblearn" mnemonicParsing="false" onAction="#pressSelection" text="Learn Regression Tree from data">
                <toggleGroup>
@@ -33,9 +33,9 @@
             <RadioButton id="radio_btn_load" fx:id="rbload" layoutY="17.0" mnemonicParsing="false" onAction="#pressSelection" text="Load Regression Tree from archive" toggleGroup="$radiogroup" />
          </children>
       </Group>
-      <Button id="process_btn" fx:id="processBtn" disable="true" layoutX="306.0" layoutY="177.0" maxHeight="100.0" maxWidth="100.0" minHeight="70.0" minWidth="50.0" mnemonicParsing="false" onAction="#processButton" prefHeight="35.0" prefWidth="68.0" text="Process" />
-      <TextField id="input_txt_filename" fx:id="input_txt_filename" disable="true" editable="false" layoutX="74.0" layoutY="133.0" maxHeight="-Infinity" maxWidth="500.0" minHeight="-Infinity" minWidth="500.0" onKeyPressed="#textField" prefHeight="35.0" prefWidth="210.0" promptText="File name (with extension)" AnchorPane.bottomAnchor="98.0" AnchorPane.leftAnchor="74.0" AnchorPane.rightAnchor="145.0" />
-      <Label fx:id="log_lbl" layoutX="14.0" layoutY="203.0" text="&lt;&gt;" textFill="#00000076" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="398.0" AnchorPane.topAnchor="203.0" />
-      <Label layoutX="10.0" layoutY="227.0" prefHeight="25.0" prefWidth="410.0" text="Developed by Marco Fusillo, Gaetano Dibenedetto &amp; Gregorio Giorgino" wrapText="true" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="227.0" />
+      <Button id="process_btn" fx:id="processBtn" disable="true" layoutX="306.0" layoutY="131.0" maxHeight="100.0" maxWidth="100.0" minHeight="40.0" minWidth="50.0" mnemonicParsing="false" onAction="#processButton" prefHeight="35.0" prefWidth="68.0" text="Process" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="131.0" />
+      <TextField id="input_txt_filename" fx:id="input_txt_filename" disable="true" editable="false" layoutX="74.0" layoutY="133.0" maxHeight="-Infinity" maxWidth="500.0" minHeight="-Infinity" minWidth="500.0" onKeyReleased="#checkOnPressed" prefHeight="35.0" prefWidth="210.0" promptText="File name (with extension)" AnchorPane.leftAnchor="74.0" AnchorPane.rightAnchor="145.0" AnchorPane.topAnchor="133.0" />
+      <Label fx:id="log_lbl" layoutX="14.0" layoutY="203.0" text="&lt;&gt;" textFill="#00000076" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="398.0" />
+      <Label layoutX="10.0" layoutY="227.0" prefHeight="25.0" prefWidth="410.0" text="Developed by Marco Fusillo, Gaetano Dibenedetto &amp; Gregorio Giorgino" wrapText="true" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0" />
    </children>
 </AnchorPane>

@@ -144,6 +144,7 @@ public class CustomSocket {
 	}
 
 	public static void restartSocket() {
+		
 		CustomSocket.closeSocketIfOpened(socket);
 		ArrayList<String> settings = SettingsController.readSettingsFromFile();
 		String ip = settings.get(0);

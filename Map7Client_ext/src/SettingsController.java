@@ -64,6 +64,7 @@ public class SettingsController {
                 stage.close();
             }
         }
+        
     }
 
     static ArrayList<String> readSettingsFromFile() {

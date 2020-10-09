@@ -6,8 +6,9 @@ public class LogController {
     @FXML
     private TextArea logArea;
 
-    public void inserisciMessaggio(String messaggio) {
-    	logArea.appendText(messaggio);
+    @FXML
+    public void initialize() {
+        logArea.setText(Log.getAllMessages());   
     }
     
 }
