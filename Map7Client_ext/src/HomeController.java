@@ -145,7 +145,7 @@ public class HomeController {
 
 		Parent root;
         try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/SettingsScene.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/connected.fxml"));
             root = loader.load();
             Stage stage = new Stage();
             stage.setTitle("Regression Tree Learner - Settings");
@@ -154,7 +154,7 @@ public class HomeController {
 			stage.show();
 			
 			// Carico i settaggi all'apertura della finestra, per prepopolare le inputbox
-			SettingsController settingsctlr = (SettingsController) loader.getController();
+			ConnectionController settingsctlr = (ConnectionController) loader.getController();
 	        settingsctlr.loadSettings();
         }
         catch (IOException e) {

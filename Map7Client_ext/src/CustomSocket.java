@@ -166,7 +166,7 @@ public class CustomSocket {
 
 	public static void restartSocket() {
 		CustomSocket.closeSocketIfOpened(socket);
-		ArrayList<String> settings = SettingsController.readSettingsFromFile();
+		ArrayList<String> settings = ConnectionController.readSettingsFromFile();
 		String ip = settings.get(0);
 		Integer port = new Integer(settings.get(1));
 		try {

@@ -27,10 +27,10 @@ public class MainClient extends Application {
     public void start(Stage stage) throws Exception {
         
         // All'avvio del programma leggo il file contenente i settings per connettersi al server
-        File f = new File(SettingsController.settingsPath);
+        File f = new File(ConnectionController.settingsPath);
         if(f.exists()) { // Se il file esiste, faccio partire il server con quei parametri.
             
-            ArrayList<String> settings = SettingsController.readSettingsFromFile();
+            ArrayList<String> settings = ConnectionController.readSettingsFromFile();
             String ip = settings.get(0);
             Integer port = new Integer(settings.get(1));
 
@@ -47,7 +47,7 @@ public class MainClient extends Application {
                 
                 Parent root;
                 try { //TODO: come vogliamo gestire i commenti sul FXML?
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/SettingsScene.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/connected.fxml"));
                     root = loader.load();
                     Stage stage2 = new Stage();
                     stage2.setTitle("Regression Tree Learner - Settings");
@@ -56,7 +56,7 @@ public class MainClient extends Application {
                     stage2.setScene(new Scene(root));
                     stage2.show();
                     
-                    SettingsController settingsctlr = (SettingsController) loader.getController();
+                    ConnectionController settingsctlr = (ConnectionController) loader.getController();
                     settingsctlr.loadSettings();
                 } catch (IOException e1) {
                     UtilityMethods.printError("Error Dialog", "Input/Output Error",
