@@ -150,6 +150,7 @@ public class CustomSocket {
 		Socket testConnection = null;
 		try {
 			testConnection = new Socket(addr, port);
+			
 		} catch (IOException e) {
 			UtilityMethods.printError("Error Dialog", "Connection error",
 			"Cannot initialize the connection with the server. Make sure that the server is on and the port is correct!");
