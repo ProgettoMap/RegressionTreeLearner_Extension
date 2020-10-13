@@ -19,12 +19,13 @@ public class MainClient extends Application {
         - Commentare codice
         - Rifattorizzazione metodi
         - Estrazione metodi utility
-        - Aggiungere al server extension lo stesso del server base
+        - Aggiungere guide
     */
 
     @Override
     public void start(Stage stage) throws Exception {
         
+        // All'avvio del programma leggo il file contenente i settings per connettersi al server
         File f = new File(SettingsController.settingsPath);
         if(f.exists()) { // Se il file esiste, faccio partire il server con quei parametri.
             
@@ -35,32 +36,42 @@ public class MainClient extends Application {
             try {
                 CustomSocket.initSocket(ip, port);
             } catch (IOException e) {
-                UtilityMethods.printError("Error Dialog", "Connection error",
-                        "Cannot initialize the connection with the server. Detail error: " + e.toString());
 
+                // Se non è stato possibile effettuare la connessione al server con le configurazioni già impostate,
+                // viene aperta la schermata per la revisione dei parametri
+                
+                UtilityMethods.printError("Error Dialog", "Connection error",
+                        "Cannot initialize the connection with the server.\n"
+                        + "We'll redirect you now to the settings window, so you can check if the settings are correct.\n Detail error: " + e.toString());
+                
                 Parent root;
-                try {
+                try { //TODO: come vogliamo gestire i commenti sul FXML?
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/SettingsScene.fxml"));
                     root = loader.load();
                     Stage stage2 = new Stage();
                     stage2.setTitle("Regression Tree Learner - Settings");
+                    stage2.getIcons().add(new Image("resources/favicon.png"));
+
                     stage2.setScene(new Scene(root));
                     stage2.show();
                     
                     SettingsController settingsctlr = (SettingsController) loader.getController();
                     settingsctlr.loadSettings();
                 } catch (IOException e1) {
-                    e.printStackTrace();
+                    UtilityMethods.printError("Error Dialog", "Input/Output Error",
+                        "Something has gone wrong while executing the program.\nDetail Error: " + e1.toString());
                 }
                 CustomSocket.closeSocketIfOpened();               
                 return;
             }
 
+            // Se sono riuscito a connettermi alla socket, allora apro la schermata di home
+
             Parent tableViewParent = FXMLLoader.load(getClass().getResource("resources/HomeScene.fxml"));
             Scene scene = new Scene(tableViewParent);
             stage.setTitle("Regression Tree Learner");
             stage.getIcons().add(new Image("resources/favicon.png"));
-            stage.setOnCloseRequest(event -> {
+            stage.setOnCloseRequest(event -> { // Quando clicco sul pulsante di chiusura della schermata principale, chiuderò la socket (se aperta)
                 CustomSocket.closeSocketIfOpened();
             });
             stage.setMinHeight(266);
@@ -68,10 +79,13 @@ public class MainClient extends Application {
             stage.setScene(scene);
             stage.show(); 
 
-        } else {
+        } else { 
+            // Se il file di configurazione non esiste (es. alla primissima apertura del programma) 
+            // aprirò la schermata di configurazione iniziale
             Parent root = new FXMLLoader(getClass().getResource("resources/connected.fxml")).load();
             Scene scene = new Scene(root);
             stage.setTitle("Regression Tree Learner - Settings");
+            stage.getIcons().add(new Image("resources/favicon.png"));
             stage.setScene(scene);
             stage.show(); 
         }

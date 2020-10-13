@@ -25,10 +25,11 @@ public class SettingsController {
 
     @FXML
     private TextField txtPort;
-
+    
+    // Carica i settings dal file 
     void loadSettings() {
-        try {
-            File f = new File(settingsPath);
+        try { //TODO: sostituire con il metodo sotto della lettura dei settings
+            File f = new File(settingsPath); 
             if(f.exists()) { // Se il file esiste, faccio partire il server con quei parametri.
                 try(BufferedReader bufferedReader = new BufferedReader(new FileReader(settingsPath))) {
                     String line = bufferedReader.readLine();

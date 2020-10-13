@@ -17,8 +17,8 @@
         <menus>
           <Menu id="help" mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem id="log" fx:id="logMenuItem" mnemonicParsing="false" onAction="#showLogDialog" onMenuValidation="#showLogDialog" text="Log" />
-                  <MenuItem id="settings" fx:id="settingsMenuItem" mnemonicParsing="false" onAction="#showSettings" text="Settings" />
+              <MenuItem id="log" fx:id="logMenuItem" mnemonicParsing="false" onAction="#openLogDialog" onMenuValidation="#openLogDialog" text="Log" />
+                  <MenuItem id="settings" fx:id="settingsMenuItem" mnemonicParsing="false" onAction="#openSettingsWindow" text="Settings" />
             </items>
           </Menu>
         </menus>

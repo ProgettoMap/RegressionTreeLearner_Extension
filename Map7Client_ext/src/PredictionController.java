@@ -33,9 +33,8 @@ public class PredictionController {
 	@FXML
 	private Button btnSubmit;
 
-	Socket socket = CustomSocket.getIstance();
-	ObjectOutputStream out = CustomSocket.getOutputStream();
-	ObjectInputStream in = CustomSocket.getInputStream();
+	ObjectOutputStream out;
+	ObjectInputStream in;
 
 //	FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/log.fxml"));
 //	LogController logctr = (LogController) loader.getController();
@@ -49,6 +48,7 @@ public class PredictionController {
 
 	@FXML
 	private void initialize() {
+		in = CustomSocket.getInputStream();
 		String answer = "";
 		try {
 			while (!(answer = in.readObject().toString()).equals("FINISH")) {
@@ -79,6 +79,8 @@ public class PredictionController {
 	@FXML
 	void predictionPhase(ActionEvent event) throws ClassNotFoundException, IOException {
 		
+		out = CustomSocket.getOutputStream(); // Aggiorno il valore di out
+		in = CustomSocket.getInputStream();
 		String answer = "";
 		btnPredPhase.setDisable(true);
 		cmbxChoiseBranch.setVisible(true);
@@ -99,6 +101,9 @@ public class PredictionController {
 
 	@FXML
 	void submitChoice(ActionEvent event) throws IOException {
+
+		out = CustomSocket.getOutputStream();
+		in = CustomSocket.getInputStream();
 		String elementSelected = cmbxChoiseBranch.getSelectionModel().getSelectedItem();
 		String[] st = elementSelected.split(":");
 

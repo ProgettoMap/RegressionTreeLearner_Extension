@@ -8,6 +8,11 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
+/** 
+ * 	Classe che rappresenta l'entità Socket
+ *  ma che contiene i metodi necessari per la scrittura,
+ *  lettura, convalidazione di varie proprietà 
+ */
 public class CustomSocket {
 
     private static Socket socket;
@@ -24,13 +29,17 @@ public class CustomSocket {
 		try {
 			addr = InetAddress.getByName(ip);
 		} catch (UnknownHostException e) {
-			UtilityMethods.printError("Error Dialog", "Generic error", e.toString());
+			UtilityMethods.printError(
+				"Error Dialog",
+				"Generic error",
+				"Error. The IP address of the host could not be determined. Detail error: " + e.toString()
+			);
 			return;
 		}
 
 		socket = new Socket(addr, port.intValue());
 
-		// stream con richieste del client
+		// Inizializza gli stream di input e output relativi alla socket
 		setOutputStream(socket.getOutputStream());
 		setInputStream(socket.getInputStream());
 	}
@@ -40,8 +49,7 @@ public class CustomSocket {
 	}
 
 	public static ObjectOutputStream getOutputStream() {
-		if(socket != null) return out;
-		else return null;
+		return (socket != null) ? out : null;
 	}
 
 	public static void setOutputStream(OutputStream out) {
@@ -53,8 +61,7 @@ public class CustomSocket {
 	}
 
 	public static ObjectInputStream getInputStream() {
-		if(socket != null) return in;
-		else return null;
+		return (socket != null) ? in : null;
 	}
 
 	public static void setInputStream(InputStream in) {
@@ -64,8 +71,8 @@ public class CustomSocket {
 			UtilityMethods.printError("Error Dialog", "Error with the input flow", "There has been some errors with the input flow. Detail error: " + e);
 		}
 	}
+
 	private static boolean validateIp(String ip) {
-		// Formato ip non valido
 		return ip.matches(
 			"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$");		
 	}
@@ -88,6 +95,7 @@ public class CustomSocket {
 		}
 	}
 
+	// Override del metodo, che permette di chiudere una socket passata in input
 	static void closeSocketIfOpened(Socket socket) {
 		if (socket != null && !socket.isClosed()) {
 			try {
@@ -121,7 +129,16 @@ public class CustomSocket {
 		return true;
     }
 
-	public static boolean tryConnection(String ipAddress,Integer port) {
+	/**
+	 * Metodo che tenta di stabilire una connessione con i parametri passati in input, 
+	 * per capire se è possibile comunicare con l'host o meno
+	 * 
+	 * @param ipAddress Indirizzo IP dell'host con la quale si vuole creare la comunicazione
+	 * @param port Porta dell'host sulla quale è avviato il servizio
+	 * 
+	 * @return Valore booleano che indica la possibilità di effettuare la comunicazione
+	 */
+	public static boolean tryConnection(String ipAddress, Integer port) {
 
 		InetAddress addr;
 		try {

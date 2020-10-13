@@ -10,6 +10,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * Controller per la gestione del primo avvio del programma
+ */
 public class ConnectionController {
 
     @FXML
@@ -28,7 +31,8 @@ public class ConnectionController {
 		String ip = txtIpAddres.getText();
 		String port = txtPort.getText();
 
-		
+		//TODO: Qui non viene validato nulla! Non viene controllato se la socket è valida, se porta e ip sono validi ecc.
+
 		// Scrivo nel file i parametri
 		SettingsController.writeSettingsInFile(ip, port);
 
