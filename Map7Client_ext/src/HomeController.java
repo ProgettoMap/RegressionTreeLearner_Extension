@@ -46,6 +46,11 @@ public class HomeController {
 	@FXML
 	private TextField input_txt_filename;
 
+	@FXML
+    public void initialize() {
+		log_lbl.setText(CustomSocket.getIstance().toString());
+    }
+
 	/**
 	 * Metodo richiamato al click di un radioButton qualsiasi
 	 * 

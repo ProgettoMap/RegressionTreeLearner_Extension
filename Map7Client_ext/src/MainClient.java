@@ -20,6 +20,7 @@ public class MainClient extends Application {
         - Rifattorizzazione metodi
         - Estrazione metodi utility
         - Aggiungere guide
+        - Sostituire tutte le chiamate ai controller con i metodi initialize
     */
 
     @Override
@@ -77,7 +78,7 @@ public class MainClient extends Application {
             stage.setMinHeight(266);
             stage.setMinWidth(429);
             stage.setScene(scene);
-            stage.show(); 
+            stage.show();
 
         } else { 
             // Se il file di configurazione non esiste (es. alla primissima apertura del programma) 

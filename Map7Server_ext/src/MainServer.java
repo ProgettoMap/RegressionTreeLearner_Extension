@@ -21,7 +21,7 @@ class MainServer {
 
 		System.out.println("Regression Tree Learner\n");
 		try {
-			boolean connectionError; // Flag usato per ripetere il do-while nel caso in cui la porta sia già in uso
+			boolean connectionError; // Flag usato per ripetere il ciclo nel caso in cui la porta sia già in uso
 			do {
 				connectionError = false;
 				boolean isNumber;
