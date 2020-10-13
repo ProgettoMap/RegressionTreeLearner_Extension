@@ -13,7 +13,7 @@ public class Log {
 
     public static void inserisciMessaggio(String messaggio) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-    	log.add(sdf.format(timestamp) + ") " + messaggio);
+    	log.add("(" + sdf.format(timestamp) + ") " + messaggio);
     }
     
     /**

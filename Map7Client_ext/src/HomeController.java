@@ -46,6 +46,11 @@ public class HomeController {
 	@FXML
 	private TextField input_txt_filename;
 
+	@FXML
+    public void initialize() {
+		log_lbl.setText(CustomSocket.getIstance().toString());
+    }
+
 	/**
 	 * Metodo richiamato al click di un radioButton qualsiasi
 	 * 
@@ -103,6 +108,8 @@ public class HomeController {
 				"Cannot initialize the connection with the server. Detail error: " + e.toString());
 			CustomSocket.closeSocketIfOpened();
 			return;
+		}finally{
+			input_txt_filename.setText("");
 		}
 	}
 	
