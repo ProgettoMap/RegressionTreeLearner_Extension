@@ -15,11 +15,11 @@ class DiscreteNode extends SplitNode implements Serializable {
 	 * Istanzia un oggetto invocando il costruttore della superclasse con il
 	 * parametro attribute
 	 *
-	 * @param trainingSet       - oggetto di classe Data contenente il training set
+	 * @param trainingSet Oggetto di classe Data contenente il training set
 	 *                          completo
-	 * @param beginExampleIndex - Indice estremo del sotto-insieme di training
-	 * @param endExampleIndex   - Indice estremo del sotto-insieme di training
-	 * @param attribute         - Attributo indipendente sul quale si definisce lo
+	 * @param beginExampleIndex Indice estremo del sotto-insieme di training
+	 * @param endExampleIndex Indice estremo del sotto-insieme di training
+	 * @param attribute Attributo indipendente sul quale si definisce lo
 	 *                          split
 	 */
 	public DiscreteNode(Data trainingSet, int beginExampleIndex, int endExampleIndex, Attribute attribute) {
@@ -33,13 +33,13 @@ class DiscreteNode extends SplitNode implements Serializable {
 	 * porzione di trainingSet compresa tra beginExampleIndex e endExampleIndex),
 	 * quindi popola l'array mapSplit[] con tali oggetti
 	 *
-	 * @param trainingSet       - oggetto di classe Data contenente il training set
+	 * @param trainingSet Oggetto di classe Data contenente il training set
 	 *                          completo
-	 * @param beginExampleIndex - indice che identifica il sotto-insieme di training
+	 * @param beginExampleIndex Indice che identifica il sotto-insieme di training
 	 *                          coperto dal nodo corrente
-	 * @param endExampleIndex   - indice che identifica il sotto-insieme di training
+	 * @param endExampleIndex Indice che identifica il sotto-insieme di training
 	 *                          coperto dal nodo corrente
-	 * @param attribute         - Attributo indipendente sul quale si definisce lo
+	 * @param attribute Attributo indipendente sul quale si definisce lo
 	 *                          split
 	 *
 	 */
@@ -79,9 +79,9 @@ class DiscreteNode extends SplitNode implements Serializable {
 	 * l'identificativo dello split (indice della posizione nell’array mapSplit) con
 	 * cui il test è positivo
 	 *
-	 * @param value - valore discreto dell'attributo che si vuole testare rispetto a
+	 * @param value Valore discreto dell'attributo che si vuole testare rispetto a
 	 *              tutti gli split
-	 * @return int branchNumber - Identificativo dello split (indice della posizione
+	 * @return Identificativo dello split (indice della posizione
 	 *         nell’array mapSplit)
 	 *
 	 */

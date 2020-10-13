@@ -1,6 +1,5 @@
 package data;
 
-import java.io.Serializable;
 
 /**
  * Classe che modella un attributo continuo.
@@ -9,7 +8,7 @@ import java.io.Serializable;
  */
 //NOTE: Attributi numerici (es. 1,3,5...)
 @SuppressWarnings("serial")
-public class ContinuousAttribute extends Attribute implements Serializable {
+public class ContinuousAttribute extends Attribute {
 
 	/**
 	 * Invoca il costruttore della super-classe

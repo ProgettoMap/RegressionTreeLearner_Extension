@@ -13,13 +13,15 @@ import data.Data;
 class ContinuousNode extends SplitNode implements Serializable {
 
 	/**
-	 * @param trainingSet - oggetto di classe Data contenente il training set
+	 * Costruttore di classe
+	 * 
+	 * @param trainingSet Oggetto di classe Data contenente il training set
 	 *             completo
-	 * @param beginExampleIndex - indice che identifica il sotto-insieme di
+	 * @param beginExampleIndex Indice che identifica il sotto-insieme di
 	 *             training coperto dal nodo corrente
-	 * @param endExampleIndex - indice che identifica il sotto-insieme di
+	 * @param endExampleIndex Indice che identifica il sotto-insieme di
 	 *             training coperto dal nodo corrente
-	 * @param attribute - Attributo indipendente sul quale si definisce lo split
+	 * @param attribute Attributo indipendente sul quale si definisce lo split
 	 */
 	ContinuousNode(Data trainingSet, int beginExampleIndex, int endExampleIndex, ContinuousAttribute attribute) {
 		super(trainingSet, beginExampleIndex, endExampleIndex, attribute);

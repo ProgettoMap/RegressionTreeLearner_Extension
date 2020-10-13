@@ -49,7 +49,7 @@ public class TableSchema implements Iterable<Column> {
 
 	/**
 	 * Restituisce il numero di attributi della tabella
-	 * @return numero di attributi
+	 * @return Numero di attributi della tabella
 	 */
 	public int getNumberOfAttributes() {
 		return tableSchema.size();
@@ -57,8 +57,8 @@ public class TableSchema implements Iterable<Column> {
 
 	/**
 	 * Restituisce una colonna di un database
-	 * @param index - Indice di una colonna dello schema della tabella
-	 * @return Colonna della tabella
+	 * @param index Indice di una colonna dello schema della tabella
+	 * @return Colonna della tabella indicizzata dal parametro index
 	 */
 	public Column getColumn(int index) {
 		return tableSchema.get(index);

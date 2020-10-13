@@ -16,6 +16,8 @@ public class MultiServer {
 	static int connectionCount = 0;
 
 	/**
+	 * Costruttore della classe MultiServer. Quando invocato, restituisce un oggetto istanza della classe con gli attributi valorizzati dal parametro port
+	 *
 	 * @param port Porta sulla quale inizializzare la connessione del server
 	 * @throws IOException Viene lanciata un'eccezione di tipo IOException se la porta è già stata utilizzata
 	 */

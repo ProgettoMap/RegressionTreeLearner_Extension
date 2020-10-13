@@ -26,11 +26,11 @@ abstract class Node implements Serializable {
 	 * calcolata rispetto all'attributo da predire nel sotto-insieme di training
 	 * coperto dal nodo
 	 *
-	 * @param trainingSet - oggetto di classe Data contenente il training set
+	 * @param trainingSet Oggetto di classe Data contenente il training set
 	 *             completo
-	 * @param beginExampleIndex - indice che identifica il sotto-insieme di
+	 * @param beginExampleIndex Indice che identifica il sotto-insieme di
 	 *             training coperto dal nodo corrente
-	 * @param endExampleIndex - indice che identifica il sotto-insieme di
+	 * @param endExampleIndex Indice che identifica il sotto-insieme di
 	 *             training coperto dal nodo corrente
 	 */
 	Node(Data trainingSet, int beginExampleIndex, int endExampleIndex) {
@@ -44,11 +44,12 @@ abstract class Node implements Serializable {
 	}
 
 	/**
-	 * @param trainingSet - oggetto di classe Data contenente il training set
+	 * Esegue il calcolo della varianza
+	 * @param trainingSet Oggetto di classe Data contenente il training set
 	 *             completo
-	 * @param beginExampleIndex - indice che identifica il sotto-insieme di
+	 * @param beginExampleIndex Indice che identifica il sotto-insieme di
 	 *             training coperto dal nodo corrente
-	 * @param endExampleIndex - indice che identifica il sotto-insieme di
+	 * @param endExampleIndex Indice che identifica il sotto-insieme di
 	 *             training coperto dal nodo corrente
 	 * @return Valore della somma degli scarti quadratici
 	 */
@@ -73,7 +74,7 @@ abstract class Node implements Serializable {
 	/**
 	 * Restituisce il valore dell'attributo idNode
 	 *
-	 * @return int - identificativo numerico del nodo
+	 * @return Identificativo numerico del nodo
 	 */
 	int getIdNode() {
 		return idNode;
@@ -82,7 +83,7 @@ abstract class Node implements Serializable {
 	/**
 	 * Restituisce il valore dell'attributo beginExampleIndex
 	 *
-	 * @return int - indice del primo esempio del sotto-insieme rispetto al training
+	 * @return Indice del primo esempio del sotto-insieme rispetto al training
 	 *         set complessivo
 	 */
 	int getBeginExampleIndex() {
@@ -92,7 +93,7 @@ abstract class Node implements Serializable {
 	/**
 	 * Restituisce il valore dell'attributo endExampleIndex
 	 *
-	 * @return int - indice dell'ultimo esempio del sotto-insieme rispetto al
+	 * @return Indice dell'ultimo esempio del sotto-insieme rispetto al
 	 *         training set complessivo
 	 */
 	int getEndExampleIndex() {
@@ -102,7 +103,7 @@ abstract class Node implements Serializable {
 	/**
 	 * Restituisce il valore dell'attributo variance
 	 *
-	 * @return double - valore dello SSE dell’attributo da predire rispetto al nodo
+	 * @return Valore dello SSE dell’attributo da predire rispetto al nodo
 	 *         corrente
 	 */
 	double getVariance() {
@@ -113,7 +114,7 @@ abstract class Node implements Serializable {
 	 * Metodo astratto la cui implementazione riguarda i nodi di tipo test (split
 	 * node) dai quali si possono generare figli, uno per ogni split prodotto.
 	 *
-	 * @return int - Numero di nodi figli
+	 * @return Numero di nodi figli
 	 */
 	abstract int getNumberOfChildren();
 

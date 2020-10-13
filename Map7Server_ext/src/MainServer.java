@@ -9,8 +9,11 @@ import server.MultiServer;
  */
 class MainServer {
 
+	private MainServer() { /* Costruttore privato */ }
+
 	/**
 	 * Metodo principale del server, rappresenta il punto d'ingresso dell'applicativo
+	 *
 	 * @param args Parametri passati in input al programma
 	 */
 	public static void main(String[] args) {

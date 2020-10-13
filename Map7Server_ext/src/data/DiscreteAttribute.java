@@ -29,7 +29,7 @@ public class DiscreteAttribute extends Attribute implements Iterable<String>, Se
 	}
 
 	/**
-	 *
+	 *	Restituisce il numero dei valori distinti di un attributo discreto
 	 * @return Cardinalita' dell'array values (numero di valori discreti)
 	 */
 	int getNumberOfDistinctValues() {
@@ -39,8 +39,8 @@ public class DiscreteAttribute extends Attribute implements Iterable<String>, Se
 	/**
 	 * Metodo che prende in input un indice i di un solo valore discreto
 	 *
-	 * @param i - indice della stringa che si vuole prendere dalla collezione
-	 * @return i-esimo valore discreto dell'array values[]
+	 * @param i Indice della stringa che si vuole prendere dalla collezione
+	 * @return I-esimo valore discreto dell'array values[]
 	 */
 	String getValue(int i) {
 

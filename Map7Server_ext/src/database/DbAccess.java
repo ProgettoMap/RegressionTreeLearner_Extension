@@ -62,7 +62,7 @@ public class DbAccess {
 
 	/**
 	 * Restituisce l'oggetto di tipo Connection
-	 * @return oggetto di tipo Connection
+	 * @return Oggetto di tipo Connection
 	 */
 	public Connection getConnection() {
 		return conn;

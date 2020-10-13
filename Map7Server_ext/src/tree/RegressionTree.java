@@ -34,7 +34,7 @@ public class RegressionTree implements Serializable {
 	 * Istanzia un sotto-albero dell'intero albero e avvia l'induzione dell'albero
 	 * dagli esempi di training in input
 	 *
-	 * @param trainingSet - Insieme di esempi di apprendimento
+	 * @param trainingSet Insieme di esempi di apprendimento
 	 */
 	public RegressionTree(Data trainingSet) {
 
@@ -54,15 +54,15 @@ public class RegressionTree implements Serializable {
 	 * split non origina figli, il nodo diventa fogliare.
 	 *
 	 *
-	 * trainingSet - oggetto di classe Data contenente il training set completo
+	 * trainingSet Oggetto di classe Data contenente il training set completo
 	 *
-	 * begin - indice che identifica il sotto-insieme di training coperto dal nodo
+	 * begin Indice che identifica il sotto-insieme di training coperto dal nodo
 	 * corrente
 	 *
-	 * end - indice che identifica il sotto-insieme di training coperto dal nodo
+	 * end Indice che identifica il sotto-insieme di training coperto dal nodo
 	 * corrente
 	 *
-	 * numberOfExamplesPerLeaf - Numero massimo che una foglia deve contenere
+	 * numberOfExamplesPerLeaf Numero massimo che una foglia deve contenere
 	 */
 	private void learnTree(Data trainingSet, int begin, int end, int numberOfExamplesPerLeaf) {
 		if (isLeaf(trainingSet, begin, end, numberOfExamplesPerLeaf)) {
@@ -97,15 +97,15 @@ public class RegressionTree implements Serializable {
 	 *
 	 * Restituisce il nodo selezionato.
 	 *
-	 * trainingSet - oggetto di classe Data contenente il training set completo
+	 * trainingSet Oggetto di classe Data contenente il training set completo
 	 *
-	 * begin - indice che identifica il sotto-insieme di training coperto dal nodo
+	 * begin Indice che identifica il sotto-insieme di training coperto dal nodo
 	 * corrente
 	 *
-	 * end - indice che identifica il sotto-insieme di training coperto dal nodo
+	 * end Indice che identifica il sotto-insieme di training coperto dal nodo
 	 * corrente
 	 *
-	 * SplitNode - nodo di split migliore per il sotto-insieme di training
+	 * SplitNode Nodo di split migliore per il sotto-insieme di training
 	 */
 	private SplitNode determineBestSplitNode(Data trainingSet, int begin, int end) {
 
@@ -283,9 +283,9 @@ public class RegressionTree implements Serializable {
 	 *
 	 * @param s ServerOneClient oggetto necessario per comunicare con il client
 	 *
-	 * @return Double oggetto contenente il valore di classe predetto per l'esempio
+	 * @return Oggetto contenente il valore di classe predetto per l'esempio
 	 *         acquisito
-	 * @throws UnknownValueException eccezione scatenata quando il valore non viene
+	 * @throws UnknownValueException Eccezione scatenata quando il valore non viene
 	 *                               riconosciuta
 	 */
 	public Double predictClass(ServerOneClient s) throws UnknownValueException {
@@ -314,7 +314,7 @@ public class RegressionTree implements Serializable {
 			try {
 				risp = ((int) s.getIn().readObject());
 			} catch (ClassNotFoundException e) {
-
+				System.err.print("[!] Error [!] The class is not recognized. Detail error:" + e);
 			} catch (IOException e) {
 				System.err.print("[!] Error [!] There was a problem with the input/output. Detail error: " + e);
 			}
@@ -337,9 +337,9 @@ public class RegressionTree implements Serializable {
 	 *
 	 * @param nomeFile String Nome del file in cui salvare l'albero
 	 *
-	 * @throws FileNotFoundException eccezione scatenata quando il file non è stato
+	 * @throws FileNotFoundException Eccezione scatenata quando il file non è stato
 	 *                               trovato
-	 * @throws IOException           eccezione scatenata quando l'input provoca
+	 * @throws IOException Eccezione scatenata quando l'input provoca
 	 *                               errore
 	 */
 	public void salva(String nomeFile) throws FileNotFoundException, IOException {
@@ -354,13 +354,13 @@ public class RegressionTree implements Serializable {
 	/**
 	 * Carica un albero di regressione salvato in un file
 	 *
-	 * @param nomeFile - Nome del file in cui è salvato l'albero
-	 * @return RegressionTree - Albero contenuto nel file
-	 * @throws FileNotFoundException  eccezione scatenata quando il file non è stato
+	 * @param nomeFile Nome del file in cui è salvato l'albero
+	 * @return RegressionTree Albero contenuto nel file
+	 * @throws FileNotFoundException Eccezione scatenata quando il file non è stato
 	 *                                trovato
-	 * @throws IOException            eccezione scatenata quando l'input provoca
+	 * @throws IOException Eccezione scatenata quando l'input provoca
 	 *                                errore
-	 * @throws ClassNotFoundException eccezione scatenata quando l'oggetto non è
+	 * @throws ClassNotFoundException Eccezione scatenata quando l'oggetto non è
 	 *                                stato trovato
 	 */
 	public static RegressionTree carica(String nomeFile)

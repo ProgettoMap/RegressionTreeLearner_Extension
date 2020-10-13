@@ -20,11 +20,11 @@ class LeafNode extends Node implements Serializable{
 	 * dell’attributo di classe che ricadono nella partizione -- ossia la porzione
 	 * di trainingSet compresa tra beginExampleIndex e endExampleIndex)
 	 *
-	 * @param trainingSet - oggetto di classe Data contenente il training set
+	 * @param trainingSet Oggetto di classe Data contenente il training set
 	 *             completo
-	 * @param beginExampleIndex - indice che identifica il sotto-insieme di
+	 * @param beginExampleIndex Indice che identifica il sotto-insieme di
 	 *             training coperto dal nodo corrente
-	 * @param endExampleIndex - indice che identifica il sotto-insieme di
+	 * @param endExampleIndex Indice che identifica il sotto-insieme di
 	 *             training coperto dal nodo corrente
 	 */
 	LeafNode(Data trainingSet, int beginExampleIndex, int endExampleIndex) {

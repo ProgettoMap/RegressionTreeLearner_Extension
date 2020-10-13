@@ -7,10 +7,13 @@ package database;
  *
  */
 public class Column {
+
 	private String name;
 	private String type;
 
 	/**
+	 * Istanzia un nuovo oggetto di classe Column
+	 *
 	 * @param name Nome della colonna
 	 * @param type Tipo della colonna
 	 */
@@ -20,7 +23,7 @@ public class Column {
 	}
 
 	/**
-	 *
+	 * Restituisce il nome della colonna della tabella del database
 	 * @return Nome della colonna della tabella del database
 	 */
 	public String getColumnName() {
@@ -28,7 +31,7 @@ public class Column {
 	}
 
 	/**
-	 *
+	 * Restituisce un valore booleano che indica se la colonna è di tipo numerico o meno
 	 * @return Vero se il tipo della colonna è NUMERICO, falso altrimenti
 	 */
 	public boolean isNumber() {
@@ -36,7 +39,7 @@ public class Column {
 	}
 
 	/**
-	 *
+	 * Restituisce un valore booleano che indica se la colonna è di tipo stringa o meno
 	 * @return Vero se il tipo della colonna è STRINGA, falso altrimenti
 	 */
 	public boolean isString() {

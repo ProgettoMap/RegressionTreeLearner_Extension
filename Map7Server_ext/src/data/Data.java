@@ -19,9 +19,7 @@ import database.Example;
 import database.TableData;
 import database.TableSchema;
 
-/**
- * Classe che modella l'insieme di esempi di apprendimento
- */
+/** Classe che modella l'insieme di esempi di apprendimento */
 @SuppressWarnings("serial")
 public class Data implements Serializable {
 
@@ -38,8 +36,11 @@ public class Data implements Serializable {
 	private ContinuousAttribute classAttribute; // Oggetto per modellare l'attributo di classe ContinuousAttribute
 
 	/**
+	 * Costruttore della classe Data
+	 *
 	 * @param tableName Nome della tabella del database
-	 * @throws TrainingDataException Eccezione generata da acquisizione errata da database
+	 * @throws TrainingDataException Eccezione generata da acquisizione errata da
+	 *                               database
 	 */
 	public Data(String tableName) throws TrainingDataException {
 
@@ -107,18 +108,18 @@ public class Data implements Serializable {
 	}
 
 	/**
-	 * Metodo che restituisce la cardinalita'  del traning set in osservazione
+	 * Metodo che restituisce la cardinalita' del traning set in osservazione
 	 *
-	 * @return getNumberOfExamples
+	 * @return Numero di esempi del training set
 	 */
 	public int getNumberOfExamples() {
 		return numberOfExamples;
 	}
 
 	/**
-	 * Metodo che restituisce la cardinalita'  degli attributi indipendenti
+	 * Metodo che restituisce la cardinalita' degli attributi indipendenti
 	 *
-	 * @return length dell'array explanatorySet
+	 * @return Numero di attributi indipendenti del training set
 	 */
 	public int getNumberOfExplanatoryAttributes() {
 		return explanatorySet.size();
@@ -130,8 +131,7 @@ public class Data implements Serializable {
 	 * @param exampleIndex int indice di riga per la matrice data[][] per uno
 	 *                     specifico esempio
 	 *
-	 * @return Double valore dell'attributo di classe per l'esempio indicizzato in
-	 *         input
+	 * @return Valore dell'attributo di classe per l'esempio indicizzato in input
 	 */
 	public Double getClassValue(int exampleIndex) {
 		return (Double) data.get(exampleIndex).get(classAttribute.getIndex());
@@ -144,8 +144,7 @@ public class Data implements Serializable {
 	 * @param exampleIndex   int indice di riga per la matrice data[][] per uno
 	 *                       specifico esempio
 	 * @param attributeIndex indice dell'attributo nel training set
-	 * @return data[exampleIndex][attributeIndex] explanatory value dato dell'indice
-	 *         dell'example e dell'attributo
+	 * @return Valore dato dall'indice dell'example e dell'attributo
 	 */
 	public Object getExplanatoryValue(int exampleIndex, int attributeIndex) {
 		return data.get(exampleIndex).get(attributeIndex);
@@ -170,9 +169,9 @@ public class Data implements Serializable {
 	 * endExampleIndex] in data[][] rispetto allo specifico attributo attribute.
 	 *
 	 * @param attribute         Attributo i cui valori devono essere ordinati
-	 * @param beginExampleIndex - indice che identifica il sotto-insieme di training
+	 * @param beginExampleIndex Indice che identifica il sotto-insieme di training
 	 *                          coperto dal nodo corrente
-	 * @param endExampleIndex   - indice che identifica il sotto-insieme di training
+	 * @param endExampleIndex   Indice che identifica il sotto-insieme di training
 	 *                          coperto dal nodo corrente
 	 */
 	public void sort(Attribute attribute, int beginExampleIndex, int endExampleIndex) {
@@ -286,7 +285,7 @@ public class Data implements Serializable {
 	 *
 	 * @param index Indice nell'array explanatorySet[] per uno specifico attributo
 	 *              indipendente
-	 * @return oggetto Attribute indicizzato da index
+	 * @return Attributo indicizzato da index
 	 */
 	public Attribute getExplanatoryAttribute(int index) {
 		return explanatorySet.get(index);

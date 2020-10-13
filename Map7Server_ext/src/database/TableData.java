@@ -18,6 +18,9 @@ public class TableData {
 	private DbAccess db;
 
 	/**
+	 * Costruttore di classe. Quando viene invocato, restituisce una nuova istanza
+	 * con l'attributo valorizzato dal parametro passato in input
+	 *
 	 * @param db Gestore database
 	 */
 	public TableData(DbAccess db) {
