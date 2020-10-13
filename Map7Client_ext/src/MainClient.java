@@ -60,8 +60,7 @@ public class MainClient extends Application {
                 } catch (IOException e1) {
                     UtilityMethods.printError("Error Dialog", "Input/Output Error",
                         "Something has gone wrong while executing the program.\nDetail Error: " + e1.toString());
-                }
-                CustomSocket.closeSocketIfOpened();               
+                }            
                 return;
             }
 

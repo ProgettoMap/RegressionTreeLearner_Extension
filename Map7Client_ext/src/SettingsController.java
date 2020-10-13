@@ -61,6 +61,7 @@ public class SettingsController {
         if(CustomSocket.validateSettings(ipAddress, new Integer(port))) { // Check if the ip and the port are in the correct format
             if(CustomSocket.tryConnection(ipAddress, new Integer(port))) { // Try to enstablish a connection with the server
                 writeSettingsInFile(ipAddress, port);
+                CustomSocket.restartSocket();
                 Stage stage = (Stage) btnUpdateSettings.getScene().getWindow();
                 stage.close();
             }
