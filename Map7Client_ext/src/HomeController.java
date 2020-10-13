@@ -108,6 +108,8 @@ public class HomeController {
 				"Cannot initialize the connection with the server. Detail error: " + e.toString());
 			CustomSocket.closeSocketIfOpened();
 			return;
+		}finally{
+			input_txt_filename.setText("");
 		}
 	}
 	
