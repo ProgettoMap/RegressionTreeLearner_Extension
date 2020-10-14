@@ -52,7 +52,8 @@ public class MainClient extends Application {
                     Stage stage2 = new Stage();
                     stage2.setTitle("Regression Tree Learner - Settings");
                     stage2.getIcons().add(new Image("resources/favicon.png"));
-
+                    stage.setMinHeight(345);
+                    stage.setMinWidth(330);
                     stage2.setScene(new Scene(root));
                     stage2.show();
                     
@@ -86,6 +87,8 @@ public class MainClient extends Application {
             Scene scene = new Scene(root);
             stage.setTitle("Regression Tree Learner - Settings");
             stage.getIcons().add(new Image("resources/favicon.png"));
+            stage.setMinHeight(345);
+            stage.setMinWidth(330);
             stage.setScene(scene);
             stage.show(); 
         }

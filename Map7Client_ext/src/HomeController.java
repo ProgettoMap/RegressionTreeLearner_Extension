@@ -148,7 +148,9 @@ public class HomeController {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/connected.fxml"));
             root = loader.load();
             Stage stage = new Stage();
-            stage.setTitle("Regression Tree Learner - Settings");
+			stage.setTitle("Regression Tree Learner - Settings");
+			stage.setMinHeight(345);
+            stage.setMinWidth(330);
 			stage.setScene(new Scene(root));
 			stage.getIcons().add(new Image("resources/favicon.png"));
 			stage.show();

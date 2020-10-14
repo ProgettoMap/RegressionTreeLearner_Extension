@@ -19,7 +19,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -47,8 +50,15 @@ public class ConnectionController {
     public void initialize() {
 		
         if(f.exists()) { 
-            topLabel.setText("Setting");
-			bottomLabel.setVisible(false);
+            Image img = new Image("resources/setting.png");
+            ImageView view = new ImageView(img);
+            view.setFitHeight(80);
+            view.setPreserveRatio(true);
+            topLabel.setGraphic(view);
+            topLabel.setText("Settings");
+            topLabel.setFont(new Font("Arial", 30));
+            bottomLabel.setVisible(false);
+            btnConnected.setDisable(false);
 		}else{
 			topLabel.setText("Welcome. Please, enter the server parameters for connecting to it and to predict a tree.");
 			bottomLabel.setVisible(true);
