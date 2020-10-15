@@ -82,10 +82,10 @@ public class ConnectionController {
             }
    
     }
+
     /**
-	 * Quando si tenta la connessione questo metodo controlla se
-	 * l'indirizzo Ip e la porta sono validi e se su questo
-	 * fosse presente anche il server dello stesso programma
+	 * Metodo che convalida la connessione validando inizialmente l'indirizzo ip e la porta
+     * fornite dall'utente
      * 
 	 * @param event 
 	 * @throws IOException
@@ -101,8 +101,8 @@ public class ConnectionController {
         /* Check if the ip and the port are in the correct format */
 		if (CustomSocket.validateSettings(ip, new Integer(port))) {
 			if (f.exists()) {
-				if (CustomSocket.tryConnection(ip, new Integer(port))) { // Try to enstablish a connection with the
-																			// server
+                 // Try to enstablish a connection with the server
+				if (CustomSocket.tryConnection(ip, new Integer(port))) {
 					writeSettingsInFile(ip, port);
 					CustomSocket.restartSocket();
 					Stage stage = (Stage) btnConnected.getScene().getWindow();
@@ -122,9 +122,14 @@ public class ConnectionController {
 			txtPort.setText("");
         }
 	}
-
+    /**
+     * Metodo che permette di abilitare il pulsante btnConnection,dopo aver 
+     * riempito le caselle di testo IpAddres e Port
+     * 
+     * @param event
+     */
 	@FXML
-	void checkOnReleased(KeyEvent event) {
+	private void checkOnReleased(KeyEvent event) {
 		btnConnected.setDisable(txtIpAddres.getText().isEmpty() || txtPort.getText().isEmpty() ? true : false);
 		txtPort.textProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -135,7 +140,9 @@ public class ConnectionController {
 			}
 		});
 	}
-    
+    /**
+    * Metodo che permette di leggere dal file l'impostazioni fornite precedentemente dall'utente
+    */
     static ArrayList<String> readSettingsFromFile() {
 
         ArrayList<String> settings = new ArrayList<>();
@@ -167,7 +174,15 @@ public class ConnectionController {
         return settings;
 
     }
-
+    /**
+     * Metodo che scrive nel file l'indirizzo ip e la porta dell'host
+     * 
+     * @param ipAddress Indirizzo IP dell'host con la quale si vuole creare la
+	 *                  comunicazione
+	 * @param port      Porta dell'host sulla quale è avviato il servizio
+	 * 
+	 * 
+	 */
 	static void writeSettingsInFile(String ipAddress, String port) {
 
 		try (BufferedWriter out = new BufferedWriter(new FileWriter(settingsPath, false))) {
