@@ -29,98 +29,109 @@ import javafx.stage.Stage;
  */
 public class ConnectionController {
 
-	@FXML
-	private Button btnConnected;
-	@FXML
-	private TextField txtIpAddres;
-	@FXML
-	private TextField txtPort;
-	@FXML
-	private Label topLabel;
+    @FXML
+    private Button btnConnected;
+    @FXML
+    private TextField txtIpAddres;
+    @FXML
+    private TextField txtPort;
+    @FXML
+    private Label topLabel;
     @FXML
     private Label bottomLabel2;
     @FXML
     private Label bottomLabel1;
 
-
-	static final String settingsPath = "src/resources/settings.bin";
+    static final String settingsPath = "src/resources/settings.bin";
     static final File f = new File(settingsPath);
     private static final int CORRECT_LENGTH_SETTINGS = 2;
     public static final int IP_POSITION_IN_SETTINGS = 0;
     public static final int PORT_POSITION_IN_SETTINGS = 1;
-    
+
     /**
      * Carico i settaggi all'apertura della finestra, per prepopolare le inputbox
      */
     @FXML
     public void initialize() {
 
-            if(f.exists()) { // Se il file esiste, faccio partire il server con quei parametri.
+        if (f.exists()) { // Se il file esiste, faccio partire il server con quei parametri.
 
-                Image img = new Image("resources/setting.png");
-                ImageView view = new ImageView(img);
-                view.setFitHeight(80);
-                view.setPreserveRatio(true);
-                topLabel.setGraphic(view);
-                topLabel.setText("Settings");
-                topLabel.setFont(new Font("Arial", 30));
-                bottomLabel1.setVisible(false);
-                bottomLabel2.setVisible(false);
-                btnConnected.setDisable(false);
+            Image img = new Image("resources/setting.png");
+            ImageView view = new ImageView(img);
+            view.setFitHeight(80);
+            view.setPreserveRatio(true);
+            topLabel.setGraphic(view);
+            topLabel.setText("Settings");
+            topLabel.setFont(new Font("Arial", 30));
+            bottomLabel1.setVisible(false);
+            bottomLabel2.setVisible(false);
+            btnConnected.setDisable(false);
 
-                ArrayList<String> arrSettings = readSettingsFromFile();
-                if(arrSettings.size() != CORRECT_LENGTH_SETTINGS)
-                    return;
-                
-                txtIpAddres.setText(arrSettings.get(IP_POSITION_IN_SETTINGS));
-                txtPort.setText(arrSettings.get(PORT_POSITION_IN_SETTINGS));
+            ArrayList<String> arrSettings = readSettingsFromFile();
+            if (arrSettings.size() != CORRECT_LENGTH_SETTINGS)
+                return;
 
-            } else {
-                topLabel.setText("Welcome. Please, enter the server parameters for connecting to it and to predict a tree.");
-                bottomLabel1.setVisible(true);
-                bottomLabel2.setVisible(true);
-            }
-   
+            txtIpAddres.setText(arrSettings.get(IP_POSITION_IN_SETTINGS));
+            txtPort.setText(arrSettings.get(PORT_POSITION_IN_SETTINGS));
+
+        } else {
+            topLabel.setText(
+                    "Welcome. Please, enter the server parameters for connecting to it and to predict a tree.");
+            bottomLabel1.setVisible(true);
+            bottomLabel2.setVisible(true);
+        }
+
     }
 
     /**
-	 * Metodo che convalida la connessione validando inizialmente l'indirizzo ip e la porta
-     * fornite dall'utente
+     * Metodo che convalida la connessione validando inizialmente l'indirizzo ip e
+     * la porta fornite dall'utente
      * 
-	 * @param event 
-	 * @throws IOException
-	 */
+     * @param event
+     * @throws IOException
+     */
     @FXML
-    void convalidateConnection(ActionEvent event) throws IOException {
-		
-		// Validazione parametri in input
-		String ip = txtIpAddres.getText();
-		String port = txtPort.getText();
+    void convalidateConnection(ActionEvent event) {
 
-		// Scrivo nel file i parametri
+        // Validazione parametri in input
+        String ip = txtIpAddres.getText();
+        String port = txtPort.getText();
+
+        // Scrivo nel file i parametri
         /* Check if the ip and the port are in the correct format */
-		if (CustomSocket.validateSettings(ip, new Integer(port))) {
-			if (f.exists()) {
-                 // Try to enstablish a connection with the server
-				if (CustomSocket.tryConnection(ip, new Integer(port))) {
-					writeSettingsInFile(ip, port);
-					CustomSocket.restartSocket();
-					Stage stage = (Stage) btnConnected.getScene().getWindow();
-					stage.close();
-				}
-			} else {
-				CustomSocket.initSocket(ip, new Integer(port));
-				writeSettingsInFile(ip, port);
-				Parent tableViewParent = FXMLLoader.load(getClass().getResource("resources/HomeScene.fxml"));
-				Scene tableViewScene = new Scene(tableViewParent);
-				Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-				window.setScene(tableViewScene);
-				window.show();
-			}
-		} else {
-			txtIpAddres.setText("");
-			txtPort.setText("");
+        try {
+            if (CustomSocket.validateSettings(ip, new Integer(port))) {
+                if (f.exists()) {
+                    // Try to enstablish a connection with the server
+                    if (CustomSocket.tryConnection(ip, new Integer(port))) {
+                        writeSettingsInFile(ip, port);
+                        CustomSocket.restartSocket();
+                        Stage stage = (Stage) btnConnected.getScene().getWindow();
+                        stage.close();
+                    }
+                } else {
+                    try {
+                        CustomSocket.initSocket(ip, new Integer(port));
+                        writeSettingsInFile(ip, port);
+                        Parent tableViewParent = FXMLLoader.load(getClass().getResource("resources/HomeScene.fxml"));
+                        Scene tableViewScene = new Scene(tableViewParent);
+                        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        window.setScene(tableViewScene);
+                        window.show();
+                    } catch (IOException e) {
+                        UtilityMethods.printError("Error Dialog", "Connection error",
+                        "Cannot initialize the connection with the server. Make sure that the server is on and the port is correct!");
+                    }
+                }
+            } else {
+                txtIpAddres.setText("");
+                txtPort.setText("");
+            }
+        } catch (NumberFormatException e) {
+            UtilityMethods.printError("Error Dialog", "Connection error",
+            "Cannot convert the string inserted into a number. Please retry with another port!");
         }
+        
 	}
     /**
      * Metodo che permette di abilitare il pulsante btnConnection,dopo aver 

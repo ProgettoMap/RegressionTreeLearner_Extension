@@ -103,6 +103,10 @@ public class HomeController {
 			UtilityMethods.printError("Error Dialog", "Connection error",
 				"The table that you've inserted was not found. Please retry with another name.");
 			CustomSocket.restartSocket();
+		}  catch (DatabaseConnectionException e) {
+			UtilityMethods.printError("Error Dialog", "Connection error",
+				"There has been some connection error with the database server. Please retry later.");
+			CustomSocket.restartSocket();
 		} catch (FileNotFoundException e) {
 			UtilityMethods.printError("Error Dialog", "Connection error",
 				"The file with the name that you've inserted was not found. Please retry with another name.");
@@ -112,7 +116,7 @@ public class HomeController {
 				"Cannot initialize the connection with the server. Detail error: " + e.toString());
 			CustomSocket.closeSocketIfOpened(CustomSocket.getIstance());
 			return;
-		}finally{
+		} finally {
 			input_txt_filename.setText("");
 		}
 	}
@@ -169,17 +173,21 @@ public class HomeController {
 		
 	}
 
-	/** 
-	 * Metodo che comunica al server la decisione del client (lettura da albero già appreso / nuovo apprendimento) e il nome del file / tabella
+	/**
+	 * Metodo che comunica al server la decisione del client (lettura da albero già
+	 * appreso / nuovo apprendimento) e il nome del file / tabella
 	 * 
-	 * @param decision Numero indicante l'apprendimento da una tabella (1) o la lettura da file (2)
+	 * @param decision   Numero indicante l'apprendimento da una tabella (1) o la
+	 *                   lettura da file (2)
 	 * @param sourceName Nome della sorgente di lettura/apprendimento
 	 * 
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 * @throws TableNotFoundException
-	*/
-	void choice(int decision, String sourceName) throws IOException, ClassNotFoundException, TableNotFoundException{
+	 * @throws DatabaseConnectionException
+	 */
+	void choice(int decision, String sourceName)
+			throws IOException, ClassNotFoundException, TableNotFoundException, DatabaseConnectionException {
 		String answer = "";
 		ObjectOutputStream out = CustomSocket.getOutputStream();
 		ObjectInputStream in = CustomSocket.getInputStream();
@@ -188,8 +196,14 @@ public class HomeController {
 			out.writeObject(0);
 			out.writeObject(sourceName);
 			answer = in.readObject().toString();
-			if (!answer.equals("OK")) // Se la risposta non è OK vuol dire che la tabella non è stata trovata
-				throw new TableNotFoundException();
+			if (!answer.equals("OK")){ // Se la risposta non è OK vuol dire che la tabella non è stata trovata
+				if(answer.contains("DatabaseConnectionException")){
+					throw new DatabaseConnectionException();
+				} else {
+					throw new TableNotFoundException();
+				}
+
+			}
 			out.writeObject(1);
 		} else { // Load tree from archive
 			out.writeObject(2);

@@ -12,18 +12,6 @@ import javafx.stage.Stage;
 
 public class MainClient extends Application {
 
-    /*
-    TODO List:
-        - Aggiustare tutti i pannelli, ancorarli e renderli responsive
-        - Gestione di tutte le eccezioni (sopratutto cercare quelle printStackTrace)
-        - Commentare codice
-        - Rifattorizzazione metodi
-        - Estrazione metodi utility
-        - Aggiungere guide
-        - Alla fine confrontare se necessario i due progetti server        
-    */
-
-
     @Override
     public void start(Stage stage) throws Exception {
         
@@ -47,7 +35,7 @@ public class MainClient extends Application {
                         + "We'll redirect you now to the settings window, so you can check if the settings are correct.\n Detail error: " + e.toString());
                 
                 Parent root;
-                try { //TODO: come vogliamo gestire i commenti sul FXML?
+                try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/connected.fxml"));
                     root = loader.load();
                     Stage stage2 = new Stage();
