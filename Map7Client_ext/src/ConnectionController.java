@@ -32,161 +32,167 @@ import javafx.stage.Stage;
 
 public class ConnectionController {
 
-    @FXML
-    private Button btnConnected;
-    @FXML
-    private TextField txtIpAddres;
-    @FXML
-    private TextField txtPort;
+	@FXML
+	private Button btnConnected;
+	@FXML
+	private TextField txtIpAddres;
+	@FXML
+	private TextField txtPort;
 	@FXML
 	private Label topLabel;
 	@FXML
 	private Group bottomLabel;
-	
+
 	static final String settingsPath = "src/resources/settings.bin";
-    static final File f = new File(settingsPath);
+	static final File f = new File(settingsPath);
 
 	@FXML
-    public void initialize() {
-		
-        if(f.exists()) { 
-            Image img = new Image("resources/setting.png");
-            ImageView view = new ImageView(img);
-            view.setFitHeight(80);
-            view.setPreserveRatio(true);
-            topLabel.setGraphic(view);
-            topLabel.setText("Settings");
-            topLabel.setFont(new Font("Arial", 30));
-            bottomLabel.setVisible(false);
-            btnConnected.setDisable(false);
-		}else{
-			topLabel.setText("Welcome. Please, enter the server parameters for connecting to it and to predict a tree.");
+	public void initialize() {
+
+		if (f.exists()) {
+			Image img = new Image("resources/setting.png");
+			ImageView view = new ImageView(img);
+			view.setFitHeight(80);
+			view.setPreserveRatio(true);
+			topLabel.setGraphic(view);
+			topLabel.setText("Settings");
+			topLabel.setFont(new Font("Arial", 30));
+			bottomLabel.setVisible(false);
+			btnConnected.setDisable(false);
+		} else {
+			topLabel.setText(
+					"Welcome. Please, enter the server parameters for connecting to it and to predict a tree.");
 			bottomLabel.setVisible(true);
 		}
-    }
-    @FXML
-    void convalidateConnection(ActionEvent event) throws IOException {
-		
+	}
+
+	/**
+	 * 
+	 * @param event
+	 * @throws IOException
+	 * 
+	 *                     Quando si tenta la connessione questo metodo controlla se
+	 *                     l'indirizzo Ip e la porta sono validi e se su questo
+	 *                     fosse presente anche il server dello stesso programma
+	 */
+	@FXML
+	void convalidateConnection(ActionEvent event) throws IOException {
+
 		// Validazione parametri in input
 		String ip = txtIpAddres.getText();
 		String port = txtPort.getText();
 
-		//TODO: Qui non viene validato nulla! Non viene controllato se la socket è valida, se porta e ip sono validi ecc.
-
 		// Scrivo nel file i parametri
-        if(f.exists()){
-            if(CustomSocket.validateSettings(ip, new Integer(port))) { // Check if the ip and the port are in the correct format
-                if(CustomSocket.tryConnection(ip, new Integer(port))) { // Try to enstablish a connection with the server
-                    writeSettingsInFile(ip, port);
-                    CustomSocket.restartSocket();
-                    Stage stage = (Stage) btnConnected.getScene().getWindow();
-                    stage.close();
-                }
-            }
-        }else{
-            if(CustomSocket.validateSettings(ip, new Integer(port))){
-                writeSettingsInFile(ip, port);
-                CustomSocket.initSocket(ip, new Integer(port));
-                Parent tableViewParent = FXMLLoader.load(getClass().getResource("resources/HomeScene.fxml"));
-                Scene tableViewScene = new Scene(tableViewParent);
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(tableViewScene);
-                window.show();
-            }else{
-                txtIpAddres.setText("");
-                txtPort.setText("");
-            }
-        }
-		
+
+		if (CustomSocket.validateSettings(ip,
+				new Integer(port))) /* Check if the ip and the port are in the correct format */ {
+			if (f.exists()) {
+				if (CustomSocket.tryConnection(ip, new Integer(port))) { // Try to enstablish a connection with the
+																			// server
+					writeSettingsInFile(ip, port);
+					CustomSocket.restartSocket();
+					Stage stage = (Stage) btnConnected.getScene().getWindow();
+					stage.close();
+				}
+
+			} else {
+
+				CustomSocket.initSocket(ip, new Integer(port));
+				writeSettingsInFile(ip, port);
+				Parent tableViewParent = FXMLLoader.load(getClass().getResource("resources/HomeScene.fxml"));
+				Scene tableViewScene = new Scene(tableViewParent);
+				Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				window.setScene(tableViewScene);
+				window.show();
+
+			}
+
+		} else {
+			txtIpAddres.setText("");
+			txtPort.setText("");
+		}
 
 	}
-	
+
 	@FXML
-    void checkOnReleased(KeyEvent event) {
+	void checkOnReleased(KeyEvent event) {
 		btnConnected.setDisable(txtIpAddres.getText().isEmpty() || txtPort.getText().isEmpty() ? true : false);
-        txtPort.textProperty().addListener(new ChangeListener<String>(){
-            @Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, 
-				String newValue) {
+		txtPort.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if (!newValue.matches("\\d*")) {
 					txtPort.setText(newValue.replaceAll("[^\\d]", ""));
 				}
 			}
-        });
+		});
 	}
-	
-    // Carica i settings dal file 
+
+	// Carica i settings dal file
 	void loadSettings() {
-        try { //TODO: sostituire con il metodo sotto della lettura dei settings
-            File f = new File(settingsPath); 
-            if(f.exists()) { // Se il file esiste, faccio partire il server con quei parametri.
-                try(BufferedReader bufferedReader = new BufferedReader(new FileReader(settingsPath))) {
-                    String line = bufferedReader.readLine();
-                    int k = 0;
-                    while(line != null) {
-                        if (k == 0)
-                            txtIpAddres.setText(line);
-                        else 
-                            txtPort.setText(line);
-                        
-                        line = bufferedReader.readLine();
-                        k++;
-                    }
-                }
-            }
-        } catch (FileNotFoundException e) {
-            UtilityMethods.printError("Error Dialog", "File not found",
-                            "We haven't found the file for the settings. Are you sure that this file exists? Detail error: " + e);
-        } catch (IOException e2) {
-            UtilityMethods.printError("Error Dialog", "Cannot read from the file",
-                            "The connection has been lost with the file. Please restart the program. Detail Error: " + e2);
-        }
-    }
+		try { // TODO: sostituire con il metodo sotto della lettura dei settings
+			File f = new File(settingsPath);
+			if (f.exists()) { // Se il file esiste, faccio partire il server con quei parametri.
+				try (BufferedReader bufferedReader = new BufferedReader(new FileReader(settingsPath))) {
+					String line = bufferedReader.readLine();
+					int k = 0;
+					while (line != null) {
+						if (k == 0)
+							txtIpAddres.setText(line);
+						else
+							txtPort.setText(line);
 
-
-
-    static ArrayList<String> readSettingsFromFile() {
-
-        ArrayList<String> settings = new ArrayList<>();
-        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(settingsPath))) {
-            String line = bufferedReader.readLine();
-            int k = 0;
-            String ip = "";
-            Integer port = 0;
-            while(line != null) {
-                if (k == 0)
-                    ip = line;
-                else 
-                    port = new Integer(line);
-                
-                line = bufferedReader.readLine();
-                k++;
-            }
-            settings.add(ip);
-            settings.add(port.toString());
-
-        } catch(FileNotFoundException e) {
-            UtilityMethods.printError("Error Dialog", "File not found",
-            " Detail error: " + e.toString());
-        } catch (IOException e) {
-            UtilityMethods.printError("Error Dialog", "Cannot read from the file",
-            "Detail error: " + e.toString());
-        }
-        return settings;
-    }
-
-    static void writeSettingsInFile(String ipAddress, String port) {
-        try(BufferedWriter out = new BufferedWriter(new FileWriter(settingsPath, false))){
-            out.write(ipAddress);
-            out.newLine();
-            out.write(port);
-        } catch (IOException e) {
-            UtilityMethods.printError("Error Dialog", "Cannot read from the file",
-                    "The connection has been lost with the file. Please restart the program. Detail Error: " + e);
-        }
+						line = bufferedReader.readLine();
+						k++;
+					}
+				}
+			}
+		} catch (FileNotFoundException e) {
+			UtilityMethods.printError("Error Dialog", "File not found",
+					"We haven't found the file for the settings. Are you sure that this file exists? Detail error: "
+							+ e);
+		} catch (IOException e2) {
+			UtilityMethods.printError("Error Dialog", "Cannot read from the file",
+					"The connection has been lost with the file. Please restart the program. Detail Error: " + e2);
+		}
 	}
-	
-    
 
+	static ArrayList<String> readSettingsFromFile() {
+
+		ArrayList<String> settings = new ArrayList<>();
+		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(settingsPath))) {
+			String line = bufferedReader.readLine();
+			int k = 0;
+			String ip = "";
+			Integer port = 0;
+			while (line != null) {
+				if (k == 0)
+					ip = line;
+				else
+					port = new Integer(line);
+
+				line = bufferedReader.readLine();
+				k++;
+			}
+			settings.add(ip);
+			settings.add(port.toString());
+
+		} catch (FileNotFoundException e) {
+			UtilityMethods.printError("Error Dialog", "File not found", " Detail error: " + e.toString());
+		} catch (IOException e) {
+			UtilityMethods.printError("Error Dialog", "Cannot read from the file", "Detail error: " + e.toString());
+		}
+		return settings;
+	}
+
+	static void writeSettingsInFile(String ipAddress, String port) {
+		try (BufferedWriter out = new BufferedWriter(new FileWriter(settingsPath, false))) {
+			out.write(ipAddress);
+			out.newLine();
+			out.write(port);
+		} catch (IOException e) {
+			UtilityMethods.printError("Error Dialog", "Cannot read from the file",
+					"The connection has been lost with the file. Please restart the program. Detail Error: " + e);
+		}
+	}
 
 }

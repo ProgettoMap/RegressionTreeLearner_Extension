@@ -46,6 +46,9 @@ public class HomeController {
 	@FXML
 	private TextField input_txt_filename;
 
+	/**
+	 * Metodo che setta il testo della label dei messaggi
+	 */
 	@FXML
     public void initialize() {
 		log_lbl.setText(CustomSocket.getIstance().toString());

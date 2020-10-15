@@ -23,6 +23,7 @@ public class MainClient extends Application {
         - Sostituire tutte le chiamate ai controller con i metodi initialize
     */
 
+
     @Override
     public void start(Stage stage) throws Exception {
         
@@ -93,6 +94,12 @@ public class MainClient extends Application {
             stage.show(); 
         }
     }
+  
+    /**
+     * @param args valori di default
+     * 
+     * Funzione di avvio del programma
+     */
     public static void main(String[] args) {
         launch(args);
     }
