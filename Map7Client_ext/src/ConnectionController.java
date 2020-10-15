@@ -71,13 +71,11 @@ public class ConnectionController {
 	}
 
 	/**
-	 * 
+	 * Metodo che convalida la connessione validando inizialmente l'indirizzo ip e la porta
+     * fornite dall'utente
+     * 
 	 * @param event
 	 * @throws IOException
-	 * 
-	 *                     Quando si tenta la connessione questo metodo controlla se
-	 *                     l'indirizzo Ip e la porta sono validi e se su questo
-	 *                     fosse presente anche il server dello stesso programma
 	 */
 	@FXML
 	void convalidateConnection(ActionEvent event) throws IOException {
@@ -117,9 +115,14 @@ public class ConnectionController {
 		}
 
 	}
-
+    /**
+     * Metodo che permette di abilitare il pulsante btnConnection,dopo aver 
+     * riempito le caselle di testo IpAddres e Port
+     * 
+     * @param event
+     */
 	@FXML
-	void checkOnReleased(KeyEvent event) {
+	private void checkOnReleased(KeyEvent event) {
 		btnConnected.setDisable(txtIpAddres.getText().isEmpty() || txtPort.getText().isEmpty() ? true : false);
 		txtPort.textProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -131,8 +134,11 @@ public class ConnectionController {
 		});
 	}
 
-	// Carica i settings dal file
-	void loadSettings() {
+    /**
+    * Metodo che carica nella finestra di setting indirizzo ip e la porta caricate
+    * dall'utente
+    */
+	public void loadSettings() {
 		try { // TODO: sostituire con il metodo sotto della lettura dei settings
 			File f = new File(settingsPath);
 			if (f.exists()) { // Se il file esiste, faccio partire il server con quei parametri.
@@ -159,8 +165,11 @@ public class ConnectionController {
 					"The connection has been lost with the file. Please restart the program. Detail Error: " + e2);
 		}
 	}
-
-	static ArrayList<String> readSettingsFromFile() {
+    /**
+    * Metodo che permette di leggere dal file l'impostazioni fornite precedentemente dall'utente
+    *
+    */
+	public static ArrayList<String> readSettingsFromFile() {
 
 		ArrayList<String> settings = new ArrayList<>();
 		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(settingsPath))) {
@@ -187,8 +196,17 @@ public class ConnectionController {
 		}
 		return settings;
 	}
-
-	static void writeSettingsInFile(String ipAddress, String port) {
+    /**
+     * Metodo che scrive nel file l'indirizzo ip e la porta dell'host
+     * 
+     * @param ipAddress Indirizzo IP dell'host con la quale si vuole creare la
+	 *                  comunicazione
+	 * @param port      Porta dell'host sulla quale è avviato il servizio
+	 * 
+	 * 
+	 */
+    
+	private static void writeSettingsInFile(String ipAddress, String port) {
 		try (BufferedWriter out = new BufferedWriter(new FileWriter(settingsPath, false))) {
 			out.write(ipAddress);
 			out.newLine();
