@@ -3,6 +3,14 @@ import javafx.scene.control.Alert.AlertType;
 
 public class UtilityMethods {
 
+	/**
+	 * 
+	 * @param title Titolo che comparirà nella finestra di popup
+	 * @param headerText Intestazione della finestra popup
+	 * @param contentText Contenuto del testo della finestra popup
+	 * 
+	 * Apre una finestra popup con titolo, intestazione e contenuto dei parametri passati in input
+	 */
 	public static void printError(String title, String headerText, String contentText) {
 
 		Log.inserisciMessaggio(contentText);

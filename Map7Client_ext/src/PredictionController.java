@@ -55,7 +55,7 @@ public class PredictionController {
 		} catch (IOException | ClassNotFoundException e) {
 			UtilityMethods.printError("Error Dialog", "Connection error",
 					"Cannot initialize the connection with the server. Detail error: " + e);
-			CustomSocket.closeSocketIfOpened();
+			CustomSocket.closeSocketIfOpened(CustomSocket.getIstance());
 		}
 	}
 
@@ -137,6 +137,13 @@ public class PredictionController {
 	@FXML
     private ImageView btnHome;
 
+	/**
+	 * 
+	 * @param event Oggetto che rappresenta l'azione effettuata (click del Button)
+	 * @throws IOException
+	 * 
+	 * Permette di tornare alla finestra principale
+	 */
     @FXML
 	public void backHome(MouseEvent event) throws IOException {
 		

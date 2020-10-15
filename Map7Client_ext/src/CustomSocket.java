@@ -21,6 +21,16 @@ public class CustomSocket {
 	private CustomSocket() {
 	}
 
+
+	/**
+	 * Metodo che inizializza la socket 
+	 * 
+	 * @param ip Indirizzo IP dell'host con la quale si vuole creare la comunicazione
+	 * @param port Porta dell'host sulla quale è avviato il servizio
+	 * 
+	 * 
+	 * @throws IOException
+	 */
 	public static void initSocket(String ip, Integer port) throws IOException {
 
 		if (socket != null && !socket.isClosed())
@@ -41,15 +51,27 @@ public class CustomSocket {
 		setOutputStream(socket.getOutputStream());
 		setInputStream(socket.getInputStream());
 	}
-
+	/**
+	 * Metodo che restituisce la generica istanza della socket
+	 *
+	 * @return socket 
+	 */
 	public static Socket getIstance() {
 		return socket;
 	}
-
+	/**
+	 * Metodo che restituisce il flusso in output della socket
+	 *
+	 * @return ObjectOutputStream Restituisce la socket o null  
+	 */
 	public static ObjectOutputStream getOutputStream() {
 		return (socket != null) ? out : null;
 	}
-
+	/**
+	 * Metodo che setta il flusso della socket
+	 *
+	 * @param out flusso della socket 
+	 */
 	public static void setOutputStream(OutputStream out) {
 		try {
 			CustomSocket.out = new ObjectOutputStream(out);
@@ -58,11 +80,19 @@ public class CustomSocket {
 					"There has been some errors with the output flow. Detail error: " + e);
 		}
 	}
-
+	/**
+	 * Metodo che restituisce il flusso in input della socket
+	 *
+	 * @return ObjectInputStream Restituisce la socket o null  
+	 */
 	public static ObjectInputStream getInputStream() {
 		return (socket != null) ? in : null;
 	}
-
+	/**
+	 * Metodo che setta il flusso di Input della socket
+	 * 
+	 * @param in flusso di input della socket
+	 */
 	public static void setInputStream(InputStream in) {
 		try {
 			CustomSocket.in = new ObjectInputStream(in);
@@ -71,30 +101,33 @@ public class CustomSocket {
 					"There has been some errors with the input flow. Detail error: " + e);
 		}
 	}
-
+	/**
+	 * Metodo che verifica la corretta validità di una dato indirizzo ip
+	 * es. (127.0.0.7)
+	 * @param ip Indirizzo IP dell'host con la quale si vuole creare la
+	 *           comunicazione
+	 * @return Valore booleano che vale true se l'indirizzo ip rispetta il matches, false altrimenti
+	 *
+	 */
 	private static boolean validateIp(String ip) {
 		return ip.matches("^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$");
 	}
-
+	/**
+	 * Metodo che verifica la corretta validità di una data porta
+	 * es. (8107)
+	 * @param port Porta dell'host sulla quale è avviato il servizio
+	 * @return Valore booleano che vale true se la porta rispetta il matches, false altrimenti
+	 * 
+	 */
 	private static boolean validatePort(Integer port) {
 		return port.toString()
 				.matches("^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$");
 	}
-
-	static void closeSocketIfOpened() {
-		if (socket != null && !socket.isClosed()) {
-			try {
-				socket.close();
-				in.close();
-				out.close();
-			} catch (IOException e) {
-				UtilityMethods.printError("Error Dialog", "Socket error",
-						"Socket has not been closed correctly. Detail error: " + e);
-			}
-		}
-	}
-
-	// Override del metodo, che permette di chiudere una socket passata in input
+	/**
+	 * Metodo che chiude il flusso della socket se è stata già  inizializzata
+	 * 
+	 * @param socket 
+	 */
 	static void closeSocketIfOpened(Socket socket) {
 		if (socket != null && !socket.isClosed()) {
 			try {
@@ -107,7 +140,17 @@ public class CustomSocket {
 			}
 		}
 	}
-
+	/**
+	 * Metodo che verifica la validità dell'indirizzo ip e della porta 
+	 * 
+	 * @param ipAddress Indirizzo IP dell'host con la quale si vuole creare la
+	 *                  comunicazione
+	 * @param port      Porta dell'host sulla quale è avviato il servizio
+	 * 
+	 * @return Valore booleano che vale true se l'indirizzo ip e la porta sono validati,falso altrimenti
+	 
+	 */
+	
 	static boolean validateSettings(String ip, Integer port) {
 
 		if (!ip.isEmpty() && !port.toString().isEmpty()) {
@@ -163,7 +206,9 @@ public class CustomSocket {
 		}
 		return result;
 	}
-
+	/**
+	 * Metodo che permette di riavviare la socket
+	 */
 	public static void restartSocket() {
 		CustomSocket.closeSocketIfOpened(socket);
 		ArrayList<String> settings = ConnectionController.readSettingsFromFile();

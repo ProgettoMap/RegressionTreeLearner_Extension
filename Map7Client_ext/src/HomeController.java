@@ -46,6 +46,9 @@ public class HomeController {
 	@FXML
 	private TextField input_txt_filename;
 
+	/**
+	 * Metodo che setta il testo della label dei messaggi
+	 */
 	@FXML
     public void initialize() {
 		log_lbl.setText(CustomSocket.getIstance().toString());
@@ -107,7 +110,7 @@ public class HomeController {
 		} catch ( IOException | ClassNotFoundException e ) {
 			UtilityMethods.printError("Error Dialog", "Connection error",
 				"Cannot initialize the connection with the server. Detail error: " + e.toString());
-			CustomSocket.closeSocketIfOpened();
+			CustomSocket.closeSocketIfOpened(CustomSocket.getIstance());
 			return;
 		}finally{
 			input_txt_filename.setText("");
