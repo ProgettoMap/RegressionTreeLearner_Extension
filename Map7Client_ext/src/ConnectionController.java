@@ -140,9 +140,11 @@ public class ConnectionController {
 			}
 		});
 	}
+    
     /**
-    * Metodo che permette di leggere dal file l'impostazioni fornite precedentemente dall'utente
-    */
+     * Metodo che permette di leggere dal file l'impostazioni fornite precedentemente dall'utente
+     * @return Parametri di connessione sottoforma di ArrayList di stringhe
+     */
     static ArrayList<String> readSettingsFromFile() {
 
         ArrayList<String> settings = new ArrayList<>();

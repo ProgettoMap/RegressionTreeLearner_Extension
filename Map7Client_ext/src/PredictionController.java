@@ -37,6 +37,9 @@ public class PredictionController {
 	@FXML
 	private ComboBox<String> cmbxChoiseBranch;
 
+	@FXML
+	private ImageView btnHome;
+	
 	final String regularEx = new String("[0-9]+:(.*)");
 
 	@FXML
@@ -59,6 +62,14 @@ public class PredictionController {
 		}
 	}
 
+	
+	/** 
+	 * Metodo che inizializza la fase di predizione dell'albero di regressione fornito dall'utente
+	 * 
+	 * @param event Oggetto che rappresenta l'azione effettuata (click del Button)
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	@FXML
 	void predictionPhase(ActionEvent event) throws ClassNotFoundException, IOException {
 		
@@ -82,6 +93,12 @@ public class PredictionController {
 		}
 	}
 
+	
+	/** 
+	 * Metodo scatenato all'invio del bottone che invia la scelta effettuata dall'utente 
+	 * @param event Oggetto che rappresenta l'azione effettuata (click del Button)
+	 * @throws IOException
+	 */
 	@FXML
 	void submitChoice(ActionEvent event) throws IOException {
 
@@ -134,15 +151,11 @@ public class PredictionController {
 		cmbxChoiseBranch.setVisible(false);
 	}
 
-	@FXML
-    private ImageView btnHome;
 
 	/**
-	 * 
+	 * Oggetto che rappresenta l'azione effettuata (click del Button)
 	 * @param event Oggetto che rappresenta l'azione effettuata (click del Button)
 	 * @throws IOException
-	 * 
-	 * Permette di tornare alla finestra principale
 	 */
     @FXML
 	public void backHome(MouseEvent event) throws IOException {
@@ -158,6 +171,12 @@ public class PredictionController {
 	
 	}
 
+	
+	/** 
+	 * Metodo che riceve dal server le regole e le stampa nell'area di testo
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	void printRules() throws ClassNotFoundException, IOException {
 
 		String answer = "";
@@ -171,6 +190,12 @@ public class PredictionController {
 	
 	}
 
+	
+	/** 
+	 * Metodo che riceve dal server l'albero e lo stampa nell'area di testo
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	void printTree() throws ClassNotFoundException, IOException {
 		
 		String answer = "";
