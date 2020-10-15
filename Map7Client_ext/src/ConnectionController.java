@@ -40,8 +40,11 @@ public class ConnectionController {
 	private TextField txtPort;
 	@FXML
 	private Label topLabel;
-	@FXML
-	private Group bottomLabel;
+    @FXML
+    private Label bottomLabel2;
+    @FXML
+    private Label bottomLabel1;
+
 
 	static final String settingsPath = "src/resources/settings.bin";
 	static final File f = new File(settingsPath);
@@ -57,12 +60,14 @@ public class ConnectionController {
 			topLabel.setGraphic(view);
 			topLabel.setText("Settings");
 			topLabel.setFont(new Font("Arial", 30));
-			bottomLabel.setVisible(false);
+			bottomLabel1.setVisible(false);
+			bottomLabel2.setVisible(false);
 			btnConnected.setDisable(false);
 		} else {
 			topLabel.setText(
 					"Welcome. Please, enter the server parameters for connecting to it and to predict a tree.");
-			bottomLabel.setVisible(true);
+			bottomLabel1.setVisible(true);
+			bottomLabel2.setVisible(true);
 		}
 	}
 
