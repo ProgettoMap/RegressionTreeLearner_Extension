@@ -91,7 +91,8 @@ public class HomeController {
 			Scene tableViewScene = new Scene(tableViewParent);
 			Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			window.getIcons().add(new Image("resources/favicon.png"));
-
+			window.setMinWidth(699);
+            window.setMinHeight(615);
 			window.setScene(tableViewScene);
 			window.show();
 		
@@ -129,6 +130,8 @@ public class HomeController {
 			stage.setTitle("Log Window");
 			stage.getIcons().add(new Image("resources/favicon.png"));
 			stage.setScene(new Scene(root));
+			stage.setMinWidth(586);
+			stage.setMinHeight(378);
 			stage.show();
 		} catch (IOException e) {
 			UtilityMethods.printError("Error Dialog", "Input/Output Error",
@@ -155,9 +158,6 @@ public class HomeController {
 			stage.getIcons().add(new Image("resources/favicon.png"));
 			stage.show();
 			
-			// Carico i settaggi all'apertura della finestra, per prepopolare le inputbox
-			ConnectionController settingsctlr = (ConnectionController) loader.getController();
-	        settingsctlr.loadSettings();
         }
         catch (IOException e) {
 			UtilityMethods.printError("Error Dialog", "Input/Output Error",

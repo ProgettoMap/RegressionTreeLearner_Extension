@@ -2,8 +2,6 @@
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -36,37 +34,22 @@ public class PredictionController {
 	ObjectOutputStream out;
 	ObjectInputStream in;
 
-//	FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/log.fxml"));
-//	LogController logctr = (LogController) loader.getController();
-
 	@FXML
 	private ComboBox<String> cmbxChoiseBranch;
 
 	final String regularEx = new String("[0-9]+:(.*)");
 
-	//TODO serve un metodo start che lanci printRules e printtree
-
 	@FXML
 	private void initialize() {
+		
 		in = CustomSocket.getInputStream();
-		String answer = "";
 		try {
-			while (!(answer = in.readObject().toString()).equals("FINISH")) {
-				if (!answer.toLowerCase().contains("error"))
-					txtAreaLoad.setText(txtAreaLoad.getText() + "\n" + answer); // Reading rules
-				else
-					UtilityMethods.printError("Error Dialog", "Error in printing rules", "There has been an error while printing rules. Detail error: " + answer);
-			}
+			printRules();
+			printTree();
 
-			while (!(answer = in.readObject().toString()).equals("FINISH")) { // TODO: Perchè nel print rules sta anche il print tree?
-				if (!answer.toLowerCase().contains("error"))
-					txtAreaLoad.setText(txtAreaLoad.getText() + "\n" + answer); // Reading rules
-				else
-					UtilityMethods.printError("Error Dialog", "Error in printing rules", "There has been an error while printing rules. Detail error: " + answer);
-			}
-			answer = in.readObject().toString();
+			String answer = in.readObject().toString();
 			if (!answer.equals("OK")) {
-				UtilityMethods.printError("Error Dialog", "Error in printing rules", "There has been some generic error. Detail error: " + answer);
+				UtilityMethods.printError("Error Dialog", "Generic error", "There has been some generic error. Detail error: " + answer);
 				return;
 			}
 		} catch (IOException | ClassNotFoundException e) {
@@ -79,7 +62,7 @@ public class PredictionController {
 	@FXML
 	void predictionPhase(ActionEvent event) throws ClassNotFoundException, IOException {
 		
-		out = CustomSocket.getOutputStream(); // Aggiorno il valore di out
+		out = CustomSocket.getOutputStream(); // Aggiorno il valore di out e di in
 		in = CustomSocket.getInputStream();
 		String answer = "";
 		btnPredPhase.setDisable(true);
@@ -131,12 +114,10 @@ public class PredictionController {
 	}
 
 	private void setComboItem(String answer) {
-
 		String[] answerSplitted = answer.split("\n");
 		ObservableList<String> list = FXCollections.observableArrayList(answerSplitted);
 		cmbxChoiseBranch.setValue(list.get(0));
 		cmbxChoiseBranch.setItems(list);
-
 	}
 	
 	private void repeatPrediction(String answer) throws IOException {
@@ -167,6 +148,32 @@ public class PredictionController {
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		window.setScene(tableViewScene);
 		window.show(); 
+	
+	}
+
+	void printRules() throws ClassNotFoundException, IOException {
+
+		String answer = "";
+		
+		while (!(answer = in.readObject().toString()).equals("FINISH")) {
+			if (!answer.toLowerCase().contains("error"))
+				txtAreaLoad.setText(txtAreaLoad.getText() + "\n" + answer); // Reading rules
+			else
+				UtilityMethods.printError("Error Dialog", "Error in printing rules", "There has been an error while printing rules. Detail error: " + answer);
+		}
+	
+	}
+
+	void printTree() throws ClassNotFoundException, IOException {
+		
+		String answer = "";
+
+		while (!(answer = in.readObject().toString()).equals("FINISH")) {
+			if (!answer.toLowerCase().contains("error"))
+				txtAreaLoad.setText(txtAreaLoad.getText() + "\n" + answer); // Reading tree
+			else
+				UtilityMethods.printError("Error Dialog", "Error in printing tree", "There has been an error while printing tree. Detail error: " + answer);
+		}
 	
 	}
 

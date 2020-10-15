@@ -5,6 +5,6 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LogController">
    <children>
-      <TextArea fx:id="logArea" disable="true" editable="false" layoutX="7.0" layoutY="9.0" prefHeight="378.0" prefWidth="586.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="7.0" />
+      <TextArea fx:id="logArea" disable="true" editable="false" layoutX="7.0" layoutY="9.0" prefHeight="378.0" prefWidth="586.0" style="-fx-text-fill: black; -fx-opacity: 1;" wrapText="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="7.0" />
    </children>
 </AnchorPane>

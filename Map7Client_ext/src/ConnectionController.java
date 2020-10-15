@@ -45,25 +45,42 @@ public class ConnectionController {
 	
 	static final String settingsPath = "src/resources/settings.bin";
     static final File f = new File(settingsPath);
-
-	@FXML
+    private static final int CORRECT_LENGTH_SETTINGS = 2;
+    public static final int IP_POSITION_IN_SETTINGS = 0;
+    public static final int PORT_POSITION_IN_SETTINGS = 1;
+    
+    /**
+     * Carico i settaggi all'apertura della finestra, per prepopolare le inputbox
+     */
+    @FXML
     public void initialize() {
-		
-        if(f.exists()) { 
-            Image img = new Image("resources/setting.png");
-            ImageView view = new ImageView(img);
-            view.setFitHeight(80);
-            view.setPreserveRatio(true);
-            topLabel.setGraphic(view);
-            topLabel.setText("Settings");
-            topLabel.setFont(new Font("Arial", 30));
-            bottomLabel.setVisible(false);
-            btnConnected.setDisable(false);
-		}else{
-			topLabel.setText("Welcome. Please, enter the server parameters for connecting to it and to predict a tree.");
-			bottomLabel.setVisible(true);
-		}
+
+            if(f.exists()) { // Se il file esiste, faccio partire il server con quei parametri.
+
+                Image img = new Image("resources/setting.png");
+                ImageView view = new ImageView(img);
+                view.setFitHeight(80);
+                view.setPreserveRatio(true);
+                topLabel.setGraphic(view);
+                topLabel.setText("Settings");
+                topLabel.setFont(new Font("Arial", 30));
+                bottomLabel.setVisible(false);
+                btnConnected.setDisable(false);
+
+                ArrayList<String> arrSettings = readSettingsFromFile();
+                if(arrSettings.size() != CORRECT_LENGTH_SETTINGS)
+                    return;
+                
+                txtIpAddres.setText(arrSettings.get(IP_POSITION_IN_SETTINGS));
+                txtPort.setText(arrSettings.get(PORT_POSITION_IN_SETTINGS));
+
+            } else {
+                topLabel.setText("Welcome. Please, enter the server parameters for connecting to it and to predict a tree.");
+                bottomLabel.setVisible(true);
+            }
+   
     }
+
     @FXML
     void convalidateConnection(ActionEvent event) throws IOException {
 		
@@ -97,8 +114,6 @@ public class ConnectionController {
                 txtPort.setText("");
             }
         }
-		
-
 	}
 	
 	@FXML
@@ -114,37 +129,7 @@ public class ConnectionController {
 			}
         });
 	}
-	
-    // Carica i settings dal file 
-	void loadSettings() {
-        try { //TODO: sostituire con il metodo sotto della lettura dei settings
-            File f = new File(settingsPath); 
-            if(f.exists()) { // Se il file esiste, faccio partire il server con quei parametri.
-                try(BufferedReader bufferedReader = new BufferedReader(new FileReader(settingsPath))) {
-                    String line = bufferedReader.readLine();
-                    int k = 0;
-                    while(line != null) {
-                        if (k == 0)
-                            txtIpAddres.setText(line);
-                        else 
-                            txtPort.setText(line);
-                        
-                        line = bufferedReader.readLine();
-                        k++;
-                    }
-                }
-            }
-        } catch (FileNotFoundException e) {
-            UtilityMethods.printError("Error Dialog", "File not found",
-                            "We haven't found the file for the settings. Are you sure that this file exists? Detail error: " + e);
-        } catch (IOException e2) {
-            UtilityMethods.printError("Error Dialog", "Cannot read from the file",
-                            "The connection has been lost with the file. Please restart the program. Detail Error: " + e2);
-        }
-    }
-
-
-
+    
     static ArrayList<String> readSettingsFromFile() {
 
         ArrayList<String> settings = new ArrayList<>();
@@ -154,7 +139,7 @@ public class ConnectionController {
             String ip = "";
             Integer port = 0;
             while(line != null) {
-                if (k == 0)
+                if (k == IP_POSITION_IN_SETTINGS)
                     ip = line;
                 else 
                     port = new Integer(line);
@@ -167,10 +152,10 @@ public class ConnectionController {
 
         } catch(FileNotFoundException e) {
             UtilityMethods.printError("Error Dialog", "File not found",
-            " Detail error: " + e.toString());
+            "We haven't found the file for the settings. Are you sure that this file exists? Detail error: " + e);
         } catch (IOException e) {
             UtilityMethods.printError("Error Dialog", "Cannot read from the file",
-            "Detail error: " + e.toString());
+                            "The connection has been lost with the file. Please restart the program. Detail Error: " + e);
         }
         return settings;
     }

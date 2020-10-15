@@ -167,8 +167,8 @@ public class CustomSocket {
 	public static void restartSocket() {
 		CustomSocket.closeSocketIfOpened(socket);
 		ArrayList<String> settings = ConnectionController.readSettingsFromFile();
-		String ip = settings.get(0);
-		Integer port = new Integer(settings.get(1));
+		String ip = settings.get(ConnectionController.IP_POSITION_IN_SETTINGS);
+		Integer port = new Integer(settings.get(ConnectionController.PORT_POSITION_IN_SETTINGS));
 		try {
 			CustomSocket.initSocket(ip, port);
 		} catch (IOException e) {

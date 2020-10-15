@@ -20,7 +20,7 @@ public class MainClient extends Application {
         - Rifattorizzazione metodi
         - Estrazione metodi utility
         - Aggiungere guide
-        - Sostituire tutte le chiamate ai controller con i metodi initialize
+        - Alla fine confrontare se necessario i due progetti server        
     */
 
     @Override
@@ -57,8 +57,6 @@ public class MainClient extends Application {
                     stage2.setScene(new Scene(root));
                     stage2.show();
                     
-                    ConnectionController settingsctlr = (ConnectionController) loader.getController();
-                    settingsctlr.loadSettings();
                 } catch (IOException e1) {
                     UtilityMethods.printError("Error Dialog", "Input/Output Error",
                         "Something has gone wrong while executing the program.\nDetail Error: " + e1.toString());
@@ -87,8 +85,8 @@ public class MainClient extends Application {
             Scene scene = new Scene(root);
             stage.setTitle("Regression Tree Learner - Settings");
             stage.getIcons().add(new Image("resources/favicon.png"));
-            stage.setMinHeight(345);
             stage.setMinWidth(330);
+            stage.setMinHeight(345);
             stage.setScene(scene);
             stage.show(); 
         }
