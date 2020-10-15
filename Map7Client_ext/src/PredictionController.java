@@ -72,7 +72,7 @@ public class PredictionController {
 		} catch (IOException | ClassNotFoundException e) {
 			UtilityMethods.printError("Error Dialog", "Connection error",
 					"Cannot initialize the connection with the server. Detail error: " + e);
-			CustomSocket.closeSocketIfOpened();
+			CustomSocket.closeSocketIfOpened(CustomSocket.getIstance());
 		}
 	}
 

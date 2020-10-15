@@ -106,7 +106,7 @@ public class HomeController {
 		} catch ( IOException | ClassNotFoundException e ) {
 			UtilityMethods.printError("Error Dialog", "Connection error",
 				"Cannot initialize the connection with the server. Detail error: " + e.toString());
-			CustomSocket.closeSocketIfOpened();
+			CustomSocket.closeSocketIfOpened(CustomSocket.getIstance());
 			return;
 		}finally{
 			input_txt_filename.setText("");

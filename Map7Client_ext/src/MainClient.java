@@ -73,7 +73,7 @@ public class MainClient extends Application {
             stage.setTitle("Regression Tree Learner");
             stage.getIcons().add(new Image("resources/favicon.png"));
             stage.setOnCloseRequest(event -> { // Quando clicco sul pulsante di chiusura della schermata principale, chiuderò la socket (se aperta)
-                CustomSocket.closeSocketIfOpened();
+                CustomSocket.closeSocketIfOpened(CustomSocket.getIstance());
             });
             stage.setMinHeight(266);
             stage.setMinWidth(429);

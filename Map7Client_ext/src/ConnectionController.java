@@ -64,6 +64,7 @@ public class ConnectionController {
 			bottomLabel.setVisible(true);
 		}
     }
+
     @FXML
     void convalidateConnection(ActionEvent event) throws IOException {
 		
