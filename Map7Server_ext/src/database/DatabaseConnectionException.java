@@ -4,10 +4,8 @@ package database;
 @SuppressWarnings("serial")
 public class DatabaseConnectionException extends Exception {
 
-	@SuppressWarnings("javadoc")
 	public DatabaseConnectionException() {}
 
-	@SuppressWarnings("javadoc")
 	public DatabaseConnectionException(String message) { super(message); }
 
 }

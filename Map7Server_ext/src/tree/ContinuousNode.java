@@ -1,6 +1,5 @@
 package tree;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +9,7 @@ import data.Data;
 
 /** Classe che modella un nodo corrispondente ad un attributo continuo */
 @SuppressWarnings("serial")
-class ContinuousNode extends SplitNode implements Serializable {
+class ContinuousNode extends SplitNode {
 
 	/**
 	 * Costruttore di classe

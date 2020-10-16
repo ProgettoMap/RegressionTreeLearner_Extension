@@ -1,14 +1,12 @@
 package tree;
 
-import java.io.Serializable;
-
 import data.Data;
 
 /**
  * Classe che modella l'entità nodo fogliare
  */
 @SuppressWarnings("serial")
-class LeafNode extends Node implements Serializable{
+class LeafNode extends Node {
 
 
 	private Double predictedClassValue; 

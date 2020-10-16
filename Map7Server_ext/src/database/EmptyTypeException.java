@@ -4,10 +4,8 @@ package database;
 @SuppressWarnings("serial")
 class EmptyTypeException extends Exception {
 
-	@SuppressWarnings("javadoc")
 	EmptyTypeException() { }
 
-	@SuppressWarnings("javadoc")
 	EmptyTypeException(String arg0) { super(arg0); }
 
 }

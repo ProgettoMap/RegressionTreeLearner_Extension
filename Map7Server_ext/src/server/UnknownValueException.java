@@ -4,11 +4,9 @@ package server;
 @SuppressWarnings("serial")
 public class UnknownValueException extends Exception {
 
-	@SuppressWarnings("javadoc")
 	public UnknownValueException() {
 	}
 
-	@SuppressWarnings("javadoc")
 	public UnknownValueException(String arg0) {
 		super(arg0);
 	}

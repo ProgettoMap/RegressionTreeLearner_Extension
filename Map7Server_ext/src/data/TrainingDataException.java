@@ -15,10 +15,8 @@ package data;
 @SuppressWarnings("serial")
 public class TrainingDataException extends Exception {
 
-	@SuppressWarnings("javadoc")
 	public TrainingDataException() { }
 
-	@SuppressWarnings("javadoc")
 	public TrainingDataException(String message) { super(message); }
 
 }

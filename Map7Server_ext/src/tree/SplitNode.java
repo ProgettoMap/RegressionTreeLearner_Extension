@@ -9,7 +9,7 @@ import data.Data;
 
 /** Classe che modella l'entità nodo non fogliare */
 @SuppressWarnings("serial")
-abstract class SplitNode extends Node implements Comparable<SplitNode>, Serializable {
+abstract class SplitNode extends Node implements Comparable<SplitNode> {
 
 	// NOTE: uno splitNode ha più splitInfo
 

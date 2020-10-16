@@ -1,6 +1,5 @@
 package tree;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import data.Attribute;
@@ -8,7 +7,7 @@ import data.Data;
 
 /** Classe che modella il nodo di split relativo ad un attributo indipendente discreto */
 @SuppressWarnings("serial")
-class DiscreteNode extends SplitNode implements Serializable {
+class DiscreteNode extends SplitNode {
 
 	/**
 	 *
