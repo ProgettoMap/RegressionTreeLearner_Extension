@@ -8,11 +8,6 @@ import javafx.scene.control.Alert.AlertType;
  */
 
 public class UtilityMethods {
-	
-	private UtilityMethods(){
-		
-	}
-
 	/**
 	 * 
 	 * @param title Titolo che comparirà nella finestra di popup

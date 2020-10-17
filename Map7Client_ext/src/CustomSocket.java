@@ -18,9 +18,6 @@ public class CustomSocket {
 	private static ObjectOutputStream out = null;
 	private static ObjectInputStream in = null;
 
-	private CustomSocket() {
-	}
-
 
 	/**
 	 * Metodo che inizializza la socket 

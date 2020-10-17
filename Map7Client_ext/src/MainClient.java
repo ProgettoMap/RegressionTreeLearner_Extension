@@ -16,10 +16,6 @@ import javafx.stage.Stage;
  */
 
 public class MainClient extends Application {
-	private MainClient() {
-		
-	}
-
     @Override
     public void start(Stage stage) throws Exception {
         

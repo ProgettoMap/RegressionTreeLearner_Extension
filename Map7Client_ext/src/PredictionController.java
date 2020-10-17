@@ -48,10 +48,6 @@ public class PredictionController {
 	
 	final String regularEx = new String("[0-9]+:(.*)");
 	
-	private PredictionController() {
-	
-	}
-
 	@FXML
 	private void initialize() {
 		

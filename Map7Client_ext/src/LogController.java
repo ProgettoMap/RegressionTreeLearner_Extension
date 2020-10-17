@@ -7,9 +7,6 @@ import javafx.scene.control.TextArea;
  */
 public class LogController {
 	
-	private LogController() {
-	}
-
     @FXML
     private TextArea logArea;
 

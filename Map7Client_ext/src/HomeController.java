@@ -51,10 +51,6 @@ public class HomeController {
 	@FXML
 	private TextField input_txt_filename;
 
-	private HomeController() {
-
-	}
-
 	/**
 	 * Metodo che setta il testo della label dei messaggi
 	 */

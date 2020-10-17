@@ -50,10 +50,6 @@ public class ConnectionController {
     private static final int CORRECT_LENGTH_SETTINGS = 2;
     public static final int IP_POSITION_IN_SETTINGS = 0;
     public static final int PORT_POSITION_IN_SETTINGS = 1;
-
-    private ConnectionController() {
-    	
-    }
     
     /**
      * Carico i settaggi all'apertura della finestra, per prepopolare le inputbox
