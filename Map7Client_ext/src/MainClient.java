@@ -10,7 +10,15 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+/**
+ * Classe principale dell'applicativo contentente il metodo iniziale del programma
+ *
+ */
+
 public class MainClient extends Application {
+	private MainClient() {
+		
+	}
 
     @Override
     public void start(Stage stage) throws Exception {

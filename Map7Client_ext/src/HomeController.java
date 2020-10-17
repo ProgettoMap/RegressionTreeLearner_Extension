@@ -20,6 +20,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * Classe controller che gestisce la schermata principale home
+ *
+ */
+
 public class HomeController {
 
 	@FXML
@@ -46,39 +51,48 @@ public class HomeController {
 	@FXML
 	private TextField input_txt_filename;
 
+	private HomeController() {
+
+	}
+
 	/**
 	 * Metodo che setta il testo della label dei messaggi
 	 */
 	@FXML
-    public void initialize() {
+	public void initialize() {
 		log_lbl.setText(CustomSocket.getIstance().toString());
-    }
+	}
 
 	/**
 	 * Metodo richiamato al click di un radioButton qualsiasi
 	 * 
-	 * @param event Oggetto che rappresenta l'azione effettuata (click del radioButton)
-	 * @throws IOException
+	 * @param event Oggetto che rappresenta l'azione effettuata (click del
+	 *              radioButton)
+	 * @throws IOException Eccezione lanciata quando si verifica un problema con
+	 *                     l'output stream
 	 */
 	public void pressSelection(ActionEvent event) throws IOException {
 		input_txt_filename.setDisable(false); // Abilito e rendo editabile l'inputbox
-		input_txt_filename.setEditable(true);	
+		input_txt_filename.setEditable(true);
 	}
-    
-	/** 
-	 * 	Controllo dinamico effettuato all'inserimento di qualsiasi testo nella inputbox del nome del file, 
-	 *	per abilitare o disabilitare il bottone di process se la input è riempita o vuota
+
+	/**
+	 * Controllo dinamico effettuato all'inserimento di qualsiasi testo nella
+	 * inputbox del nome del file, per abilitare o disabilitare il bottone di
+	 * process se la input è riempita o vuota
 	 *
-	 * 	@param event Oggetto che rappresenta l'azione effettuata (inserimento del testo)
+	 * @param event Oggetto che rappresenta l'azione effettuata (inserimento del
+	 *              testo)
 	 */
 	@FXML
-    void checkOnPressed(KeyEvent event) {
+	void checkOnPressed(KeyEvent event) {
 		processBtn.setDisable(input_txt_filename.getText().isEmpty());
 	}
-	
+
 	/**
-	 * Metodo richiamato al click del bottone Process
-	 * Comunica la decisione effettuata dall'utente e il nome del file / tabella da cui leggere / apprendere l'albero
+	 * Metodo richiamato al click del bottone Process Comunica la decisione
+	 * effettuata dall'utente e il nome del file / tabella da cui leggere /
+	 * apprendere l'albero
 	 * 
 	 * @param event Oggetto che rappresenta l'azione effettuata (click del bottone)
 	 */
@@ -86,7 +100,7 @@ public class HomeController {
 
 		int decision = rblearn.isSelected() ? 1 : 2;
 		String sourceName = input_txt_filename.getText();
-	
+
 		try {
 			choice(decision, sourceName); // Comunica la decisione al server
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/PredictionScene.fxml"));
@@ -95,36 +109,37 @@ public class HomeController {
 			Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			window.getIcons().add(new Image("resources/favicon.png"));
 			window.setMinWidth(699);
-            window.setMinHeight(615);
+			window.setMinHeight(615);
 			window.setScene(tableViewScene);
 			window.show();
-		
-		}  catch (TableNotFoundException e) {
+
+		} catch (TableNotFoundException e) {
 			UtilityMethods.printError("Error Dialog", "Connection error",
-				"The table that you've inserted was not found. Please retry with another name.");
+					"The table that you've inserted was not found. Please retry with another name.");
 			CustomSocket.restartSocket();
-		}  catch (DatabaseConnectionException e) {
+		} catch (DatabaseConnectionException e) {
 			UtilityMethods.printError("Error Dialog", "Connection error",
-				"There has been some connection error with the database server. Please retry later.");
+					"There has been some connection error with the database server. Please retry later.");
 			CustomSocket.restartSocket();
 		} catch (FileNotFoundException e) {
 			UtilityMethods.printError("Error Dialog", "Connection error",
-				"The file with the name that you've inserted was not found. Please retry with another name.");
+					"The file with the name that you've inserted was not found. Please retry with another name.");
 			CustomSocket.restartSocket();
-		} catch ( IOException | ClassNotFoundException e ) {
+		} catch (IOException | ClassNotFoundException e) {
 			UtilityMethods.printError("Error Dialog", "Connection error",
-				"Cannot initialize the connection with the server. Detail error: " + e.toString());
+					"Cannot initialize the connection with the server. Detail error: " + e.toString());
 			CustomSocket.closeSocketIfOpened(CustomSocket.getIstance());
 			return;
 		} finally {
 			input_txt_filename.setText("");
 		}
 	}
-	
-	/** 
+
+	/**
 	 * Metodo che permette l'apertura della finestra del log degli errori
 	 * 
-	 * @param event Oggetto che rappresenta l'azione effettuata (click dell'elemento menu)
+	 * @param event Oggetto che rappresenta l'azione effettuata (click dell'elemento
+	 *              menu)
 	 */
 	@FXML
 	void openLogDialog(ActionEvent event) {
@@ -142,35 +157,36 @@ public class HomeController {
 			stage.show();
 		} catch (IOException e) {
 			UtilityMethods.printError("Error Dialog", "Input/Output Error",
-                        "Something has gone wrong while executing the program.\nDetail Error: " + e.toString());
+					"Something has gone wrong while executing the program.\nDetail Error: " + e.toString());
 		}
 	}
 
-	/** 
+	/**
 	 * Metodo che permette l'apertura della finestra delle impostazioni
-	 * @param event Oggetto che rappresenta l'azione effettuata (click dell'elemento del menu)
+	 * 
+	 * @param event Oggetto che rappresenta l'azione effettuata (click dell'elemento
+	 *              del menu)
 	 */
 	@FXML
-    void openSettingsWindow(ActionEvent event) {
+	void openSettingsWindow(ActionEvent event) {
 
 		Parent root;
-        try {
+		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/connected.fxml"));
-            root = loader.load();
-            Stage stage = new Stage();
+			root = loader.load();
+			Stage stage = new Stage();
 			stage.setTitle("Regression Tree Learner - Settings");
 			stage.setMinHeight(345);
-            stage.setMinWidth(330);
+			stage.setMinWidth(330);
 			stage.setScene(new Scene(root));
 			stage.getIcons().add(new Image("resources/favicon.png"));
 			stage.show();
-			
-        }
-        catch (IOException e) {
+
+		} catch (IOException e) {
 			UtilityMethods.printError("Error Dialog", "Input/Output Error",
-			"Something has gone wrong while executing the program.\nDetail Error: " + e.toString()); 
+					"Something has gone wrong while executing the program.\nDetail Error: " + e.toString());
 		}
-		
+
 	}
 
 	/**
@@ -181,10 +197,14 @@ public class HomeController {
 	 *                   lettura da file (2)
 	 * @param sourceName Nome della sorgente di lettura/apprendimento
 	 * 
-	 * @throws IOException
-	 * @throws ClassNotFoundException
-	 * @throws TableNotFoundException
-	 * @throws DatabaseConnectionException
+	 * @throws IOException                 Eccezione lanciata quando si verifica un
+	 *                                     problema con l'output stream
+	 * @throws ClassNotFoundException      Eccezione lanciata quando si hanno
+	 *                                     problemi con la serialiazzazione
+	 * @throws TableNotFoundException      Eccezione lanciata quando la tabella non
+	 *                                     viene trovata nel database
+	 * @throws DatabaseConnectionException Eccezione lanciata quando si verifica un
+	 *                                     problemo con il DB server
 	 */
 	void choice(int decision, String sourceName)
 			throws IOException, ClassNotFoundException, TableNotFoundException, DatabaseConnectionException {
@@ -196,8 +216,8 @@ public class HomeController {
 			out.writeObject(0);
 			out.writeObject(sourceName);
 			answer = in.readObject().toString();
-			if (!answer.equals("OK")){ // Se la risposta non è OK vuol dire che la tabella non è stata trovata
-				if(answer.contains("DatabaseConnectionException")){
+			if (!answer.equals("OK")) { // Se la risposta non è OK vuol dire che la tabella non è stata trovata
+				if (answer.contains("DatabaseConnectionException")) {
 					throw new DatabaseConnectionException();
 				} else {
 					throw new TableNotFoundException();

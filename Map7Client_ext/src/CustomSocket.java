@@ -9,8 +9,8 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 /**
- * Classe che rappresenta l'entità Socket ma che contiene i metodi necessari per
- * la scrittura, lettura, convalidazione di varie proprietà
+ * Classe che rappresenta l'entità Socket.
+ *  Contiene i metodi necessari per la scrittura, lettura, convalidazione di varie proprietà
  */
 public class CustomSocket {
 
@@ -29,7 +29,7 @@ public class CustomSocket {
 	 * @param port Porta dell'host sulla quale è avviato il servizio
 	 * 
 	 * 
-	 * @throws IOException
+	 * @throws IOException Eccezione lanciata quando si verifica un problema con l'output stream
 	 */
 	public static void initSocket(String ip, Integer port) throws IOException {
 
@@ -54,7 +54,7 @@ public class CustomSocket {
 	/**
 	 * Metodo che restituisce la generica istanza della socket
 	 *
-	 * @return socket 
+	 * @return socket Istanza della classe CustomSocket
 	 */
 	public static Socket getIstance() {
 		return socket;
@@ -68,7 +68,7 @@ public class CustomSocket {
 		return (socket != null) ? out : null;
 	}
 	/**
-	 * Metodo che setta il flusso della socket
+	 * Metodo che setta il flusso di Output della socket
 	 *
 	 * @param out flusso della socket 
 	 */
@@ -83,7 +83,7 @@ public class CustomSocket {
 	/**
 	 * Metodo che restituisce il flusso in input della socket
 	 *
-	 * @return ObjectInputStream Restituisce la socket o null  
+	 * @return in Valore della InputStream
 	 */
 	public static ObjectInputStream getInputStream() {
 		return (socket != null) ? in : null;
@@ -91,7 +91,7 @@ public class CustomSocket {
 	/**
 	 * Metodo che setta il flusso di Input della socket
 	 * 
-	 * @param in flusso di input della socket
+	 * @param in Flusso di input della socket
 	 */
 	public static void setInputStream(InputStream in) {
 		try {
@@ -126,7 +126,7 @@ public class CustomSocket {
 	/**
 	 * Metodo che chiude il flusso della socket se è stata già  inizializzata
 	 * 
-	 * @param socket 
+	 * @param socket Canale di comunicazione con il server
 	 */
 	static void closeSocketIfOpened(Socket socket) {
 		if (socket != null && !socket.isClosed()) {
@@ -143,7 +143,7 @@ public class CustomSocket {
 	/**
 	 * Metodo che verifica la validità dell'indirizzo ip e della porta 
 	 * 
-	 * @param ipAddress Indirizzo IP dell'host con la quale si vuole creare la
+	 * @param ip Indirizzo IP dell'host con la quale si vuole creare la
 	 *                  comunicazione
 	 * @param port      Porta dell'host sulla quale è avviato il servizio
 	 * 
@@ -162,7 +162,7 @@ public class CustomSocket {
 			if (!validatePort(new Integer(port))) {
 				UtilityMethods.printError("Error Dialog", "There's some error with the port...",
 						"The port that you've entered isn't correct. Please, start again the program and insert a valid port (value between 1 and 65535)");
-				return false;
+			return false;
 			}
 		} else { // Numero parametri insufficiente
 			UtilityMethods.printError("Error Dialog", "Settings doesn't match the right format...",

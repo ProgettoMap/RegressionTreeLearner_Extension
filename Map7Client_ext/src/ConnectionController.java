@@ -25,7 +25,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
- * Controller per la gestione del primo avvio del programma
+ * Classe di tipo controller per la gestione del primo avvio del programma
  */
 public class ConnectionController {
 
@@ -43,11 +43,18 @@ public class ConnectionController {
     private Label bottomLabel1;
 
     static final String settingsPath = "src/resources/settings.bin";
-    static final File f = new File(settingsPath);
+    /**
+     * File di salvataggio settings
+     */
+    static final File f = new File(settingsPath); 
     private static final int CORRECT_LENGTH_SETTINGS = 2;
     public static final int IP_POSITION_IN_SETTINGS = 0;
     public static final int PORT_POSITION_IN_SETTINGS = 1;
 
+    private ConnectionController() {
+    	
+    }
+    
     /**
      * Carico i settaggi all'apertura della finestra, per prepopolare le inputbox
      */
@@ -87,8 +94,7 @@ public class ConnectionController {
      * Metodo che convalida la connessione validando inizialmente l'indirizzo ip e
      * la porta fornite dall'utente
      * 
-     * @param event
-     * @throws IOException
+     * @param event Oggetto che rappresenta l'azione effettuata (click dell'bottone)
      */
     @FXML
     void convalidateConnection(ActionEvent event) {
@@ -137,7 +143,7 @@ public class ConnectionController {
      * Metodo che permette di abilitare il pulsante btnConnection,dopo aver 
      * riempito le caselle di testo IpAddres e Port
      * 
-     * @param event
+     * @param event Oggetto che rappresenta l'azione effettuata (rilascio del pulsante)
      */
 	@FXML
 	private void checkOnReleased(KeyEvent event) {

@@ -1,7 +1,17 @@
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * Classe contenente metodi complementari al pacchetto
+ * applicativo
+ *
+ */
+
 public class UtilityMethods {
+	
+	private UtilityMethods(){
+		
+	}
 
 	/**
 	 * 

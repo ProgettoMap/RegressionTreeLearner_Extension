@@ -20,6 +20,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+
+/**
+ * Classe di tipo controller che gestisce la schermata dove viene 
+ * eseguita la fase di predizione 
+ *
+ */
 public class PredictionController {
 
 	@FXML
@@ -41,6 +47,10 @@ public class PredictionController {
 	private ImageView btnHome;
 	
 	final String regularEx = new String("[0-9]+:(.*)");
+	
+	private PredictionController() {
+	
+	}
 
 	@FXML
 	private void initialize() {
@@ -67,8 +77,8 @@ public class PredictionController {
 	 * Metodo che inizializza la fase di predizione dell'albero di regressione fornito dall'utente
 	 * 
 	 * @param event Oggetto che rappresenta l'azione effettuata (click del Button)
-	 * @throws ClassNotFoundException
-	 * @throws IOException
+	 * @throws IOException Eccezione lanciata quando si verifica un problema con l'output stream
+	 * @throws ClassNotFoundException Eccezione lanciata quando si hanno problemi con la serialiazzazione
 	 */
 	@FXML
 	void predictionPhase(ActionEvent event) throws ClassNotFoundException, IOException {
@@ -97,7 +107,7 @@ public class PredictionController {
 	/** 
 	 * Metodo scatenato all'invio del bottone che invia la scelta effettuata dall'utente 
 	 * @param event Oggetto che rappresenta l'azione effettuata (click del Button)
-	 * @throws IOException
+	 * @throws IOException Eccezione lanciata quando si verifica un problema con l'output stream
 	 */
 	@FXML
 	void submitChoice(ActionEvent event) throws IOException {
@@ -155,7 +165,7 @@ public class PredictionController {
 	/**
 	 * Oggetto che rappresenta l'azione effettuata (click del Button)
 	 * @param event Oggetto che rappresenta l'azione effettuata (click del Button)
-	 * @throws IOException
+	 * @throws IOException Eccezione lanciata quando si verifica un problema con l'output stream
 	 */
     @FXML
 	public void backHome(MouseEvent event) throws IOException {
@@ -174,8 +184,8 @@ public class PredictionController {
 	
 	/** 
 	 * Metodo che riceve dal server le regole e le stampa nell'area di testo
-	 * @throws ClassNotFoundException
-	 * @throws IOException
+	 * @throws ClassNotFoundException Eccezione lanciata quando si hanno problemi con la serialiazzazione
+	 * @throws IOException Eccezione lanciata quando si verifica un problema con l'output stream
 	 */
 	void printRules() throws ClassNotFoundException, IOException {
 
@@ -193,8 +203,8 @@ public class PredictionController {
 	
 	/** 
 	 * Metodo che riceve dal server l'albero e lo stampa nell'area di testo
-	 * @throws ClassNotFoundException
-	 * @throws IOException
+	 * @throws ClassNotFoundException Eccezione lanciata quando si hanno problemi con la serialiazzazione
+	 * @throws IOException Eccezione la nciata quando si verifica un problema con l'output stream
 	 */
 	void printTree() throws ClassNotFoundException, IOException {
 		

@@ -1,7 +1,14 @@
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
+/**
+ * Classe di tipo controller che gestisce la schermata di messggi di log 
+ *
+ */
 public class LogController {
+	
+	private LogController() {
+	}
 
     @FXML
     private TextArea logArea;
