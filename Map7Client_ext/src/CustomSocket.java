@@ -129,8 +129,10 @@ public class CustomSocket {
 		if (socket != null && !socket.isClosed()) {
 			try {
 				socket.close();
-				in.close();
-				out.close();
+				if(in != null)
+					in.close();
+				if(out != null)
+					out.close();
 			} catch (IOException e) {
 				UtilityMethods.printError("Error Dialog", "Socket error",
 						"Socket has not been closed correctly. Detail error: " + e);
