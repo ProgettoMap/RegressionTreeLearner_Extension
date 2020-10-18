@@ -19,7 +19,7 @@ class MainServer {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 
-		System.out.println("Regression Tree Learner\n");
+		System.out.println("Regression Tree Learner - Server\n");
 		try {
 			boolean connectionError; // Flag usato per ripetere il ciclo nel caso in cui la porta sia già in uso
 			do {
@@ -28,15 +28,19 @@ class MainServer {
 				int port = 0;
 				do {
 					try {
-						System.out.println("Insert the port on which to create the connection: ");
+						System.out.println("Insert the port on which to create the connection [1024 ~ 65535]: ");
 						isNumber = true;
 						port = Integer.parseInt(scanner.nextLine()); // E' stato deciso di leggere in input una stringa. Nel caso in cui l'utente ha inserito una stringa non convertibile in intero, viene scatenata un'eccezione
+						if(port < 1024 || port > 65535)
+						System.err.println(
+							"[!] Error [!] The port number is not in the range specified first. Please insert a port in the range.\n");
+
 					} catch (NumberFormatException e) {
 						System.err.println(
 								"[!] Error [!] The string that you've entered is not a number.");
 						isNumber = false;
 					}
-				} while ( ! isNumber );
+				} while ( ! isNumber || (port < 1024 || port > 65535) );
 
 				try {
 					new MultiServer(port);

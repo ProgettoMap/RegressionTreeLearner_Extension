@@ -14,7 +14,6 @@ import javafx.stage.Stage;
  * Classe principale dell'applicativo contentente il metodo iniziale del programma
  *
  */
-
 public class MainClient extends Application {
     @Override
     public void start(Stage stage) throws Exception {
@@ -45,8 +44,8 @@ public class MainClient extends Application {
                     Stage stage2 = new Stage();
                     stage2.setTitle("Regression Tree Learner - Settings");
                     stage2.getIcons().add(new Image("resources/favicon.png"));
-                    stage.setMinHeight(345);
-                    stage.setMinWidth(330);
+                    stage2.setMinHeight(345);
+                    stage2.setMinWidth(330);
                     stage2.setScene(new Scene(root));
                     stage2.show();
                     
@@ -76,7 +75,7 @@ public class MainClient extends Application {
             // aprirò la schermata di configurazione iniziale
             Parent root = new FXMLLoader(getClass().getResource("resources/connected.fxml")).load();
             Scene scene = new Scene(root);
-            stage.setTitle("Regression Tree Learner - Settings");
+            stage.setTitle("Regression Tree Learner");
             stage.getIcons().add(new Image("resources/favicon.png"));
             stage.setMinWidth(330);
             stage.setMinHeight(345);

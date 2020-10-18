@@ -117,7 +117,7 @@ public class CustomSocket {
 	 * 
 	 */
 	private static boolean validatePort(Integer port) {
-		return port.toString()
+		return port >= 1024 && port <= 65535 && port.toString()
 				.matches("^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$");
 	}
 	/**
@@ -160,7 +160,7 @@ public class CustomSocket {
 			}
 			if (!validatePort(new Integer(port))) {
 				UtilityMethods.printError("Error Dialog", "There's some error with the port...",
-						"The port that you've entered isn't correct. Please, start again the program and insert a valid port (value between 1 and 65535)");
+						"The port that you've entered isn't correct. Please, start again the program and insert a valid port (value between 1024 and 65535)");
 			return false;
 			}
 		} else { // Numero parametri insufficiente

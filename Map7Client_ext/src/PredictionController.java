@@ -133,7 +133,7 @@ public class PredictionController {
 			}
 		} catch (ClassNotFoundException e) {
 			UtilityMethods.printError("Error Dialog", "Message error", "There are some components in the program that cannot be found. Detail error: " + e);
-		} // Read trees
+		}
 	}
 
 	private void setComboItem(String answer) {
@@ -172,6 +172,10 @@ public class PredictionController {
 		Parent tableViewParent = FXMLLoader.load(getClass().getResource("resources/HomeScene.fxml"));
 		Scene tableViewScene = new Scene(tableViewParent); // This line gets the Stage information
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		window.setMinHeight(276);
+		window.setHeight(276);
+		window.setMinWidth(429);
+		window.setWidth(429);
 		window.setScene(tableViewScene);
 		window.show(); 
 	
