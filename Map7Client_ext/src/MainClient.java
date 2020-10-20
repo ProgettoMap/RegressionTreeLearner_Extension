@@ -20,7 +20,7 @@ public class MainClient extends Application {
     public void start(Stage stage) throws Exception {
         
         // All'avvio del programma leggo il file contenente i settings per connettersi al server
-        File f = new File(ConnectionController.settingsPath);
+    	File f = ConnectionController.f;
         if(f.exists()) { // Se il file esiste, faccio partire il server con quei parametri.
             
             ArrayList<String> settings = ConnectionController.readSettingsFromFile();
@@ -44,7 +44,7 @@ public class MainClient extends Application {
                     root = loader.load();
                     Stage stage2 = new Stage();
                     stage2.setTitle("Regression Tree Learner - Settings");
-                    stage2.getIcons().add(new Image("resources/favicon.png"));
+                    stage2.getIcons().add(new Image("resources/image/favicon.png"));
                     stage.setMinHeight(345);
                     stage.setMinWidth(330);
                     stage2.setScene(new Scene(root));
@@ -62,11 +62,11 @@ public class MainClient extends Application {
             Parent tableViewParent = FXMLLoader.load(getClass().getResource("resources/HomeScene.fxml"));
             Scene scene = new Scene(tableViewParent);
             stage.setTitle("Regression Tree Learner");
-            stage.getIcons().add(new Image("resources/favicon.png"));
+            stage.getIcons().add(new Image("resources/image/favicon.png"));
             stage.setOnCloseRequest(event -> { // Quando clicco sul pulsante di chiusura della schermata principale, chiuderò la socket (se aperta)
                 CustomSocket.closeSocketIfOpened(CustomSocket.getIstance());
             });
-            stage.setMinHeight(266);
+            stage.setMinHeight(300);
             stage.setMinWidth(429);
             stage.setScene(scene);
             stage.show();
@@ -77,7 +77,7 @@ public class MainClient extends Application {
             Parent root = new FXMLLoader(getClass().getResource("resources/connected.fxml")).load();
             Scene scene = new Scene(root);
             stage.setTitle("Regression Tree Learner - Settings");
-            stage.getIcons().add(new Image("resources/favicon.png"));
+            stage.getIcons().add(new Image("resources/image/favicon.png"));
             stage.setMinWidth(330);
             stage.setMinHeight(345);
             stage.setScene(scene);

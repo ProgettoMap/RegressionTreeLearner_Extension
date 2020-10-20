@@ -7,7 +7,7 @@ import javafx.scene.control.Alert.AlertType;
  *
  */
 
-public class UtilityMethods {
+class UtilityMethods {
 	/**
 	 * 
 	 * @param title Titolo che comparirà nella finestra di popup
@@ -16,7 +16,7 @@ public class UtilityMethods {
 	 * 
 	 * Apre una finestra popup con titolo, intestazione e contenuto dei parametri passati in input
 	 */
-	public static void printError(String title, String headerText, String contentText) {
+	static void printError(String title, String headerText, String contentText) {
 
 		Log.inserisciMessaggio(contentText);
 		Alert alert = new Alert(AlertType.ERROR);

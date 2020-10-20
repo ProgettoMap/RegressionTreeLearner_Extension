@@ -37,8 +37,8 @@ public class PredictionController {
 	@FXML
 	private Button btnSubmit;
 
-	ObjectOutputStream out;
-	ObjectInputStream in;
+	private ObjectOutputStream out;
+	private ObjectInputStream in;
 
 	@FXML
 	private ComboBox<String> cmbxChoiseBranch;
@@ -77,7 +77,7 @@ public class PredictionController {
 	 * @throws ClassNotFoundException Eccezione lanciata quando si hanno problemi con la serialiazzazione
 	 */
 	@FXML
-	void predictionPhase(ActionEvent event) throws ClassNotFoundException, IOException {
+	private void predictionPhase(ActionEvent event) throws ClassNotFoundException, IOException {
 		
 		out = CustomSocket.getOutputStream(); // Aggiorno il valore di out e di in
 		in = CustomSocket.getInputStream();
@@ -106,7 +106,7 @@ public class PredictionController {
 	 * @throws IOException Eccezione lanciata quando si verifica un problema con l'output stream
 	 */
 	@FXML
-	void submitChoice(ActionEvent event) throws IOException {
+	private void submitChoice(ActionEvent event) throws IOException {
 
 		out = CustomSocket.getOutputStream();
 		in = CustomSocket.getInputStream();
@@ -164,7 +164,7 @@ public class PredictionController {
 	 * @throws IOException Eccezione lanciata quando si verifica un problema con l'output stream
 	 */
     @FXML
-	public void backHome(MouseEvent event) throws IOException {
+    private void backHome(MouseEvent event) throws IOException {
 		
 		//Riapertura della socket 
 		CustomSocket.restartSocket();
@@ -173,7 +173,12 @@ public class PredictionController {
 		Scene tableViewScene = new Scene(tableViewParent); // This line gets the Stage information
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		window.setScene(tableViewScene);
+		window.setMinHeight(300);
+		window.setMinWidth(429);
+        window.setHeight(300);
+        window.setWidth(429);
 		window.show(); 
+
 	
 	}
 
@@ -183,7 +188,7 @@ public class PredictionController {
 	 * @throws ClassNotFoundException Eccezione lanciata quando si hanno problemi con la serialiazzazione
 	 * @throws IOException Eccezione lanciata quando si verifica un problema con l'output stream
 	 */
-	void printRules() throws ClassNotFoundException, IOException {
+    private void printRules() throws ClassNotFoundException, IOException {
 
 		String answer = "";
 		
@@ -202,7 +207,7 @@ public class PredictionController {
 	 * @throws ClassNotFoundException Eccezione lanciata quando si hanno problemi con la serialiazzazione
 	 * @throws IOException Eccezione la nciata quando si verifica un problema con l'output stream
 	 */
-	void printTree() throws ClassNotFoundException, IOException {
+    private void printTree() throws ClassNotFoundException, IOException {
 		
 		String answer = "";
 

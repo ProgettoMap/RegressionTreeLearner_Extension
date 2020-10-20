@@ -48,18 +48,18 @@ public class ConnectionController {
      */
     static final File f = new File(settingsPath); 
     private static final int CORRECT_LENGTH_SETTINGS = 2;
-    public static final int IP_POSITION_IN_SETTINGS = 0;
-    public static final int PORT_POSITION_IN_SETTINGS = 1;
+    static final int IP_POSITION_IN_SETTINGS = 0;
+    static final int PORT_POSITION_IN_SETTINGS = 1;
     
     /**
      * Carico i settaggi all'apertura della finestra, per prepopolare le inputbox
      */
     @FXML
-    public void initialize() {
+    private void initialize() {
 
         if (f.exists()) { // Se il file esiste, faccio partire il server con quei parametri.
 
-            Image img = new Image("resources/setting.png");
+            Image img = new Image("resources/image/setting.png");
             ImageView view = new ImageView(img);
             view.setFitHeight(80);
             view.setPreserveRatio(true);
@@ -93,7 +93,7 @@ public class ConnectionController {
      * @param event Oggetto che rappresenta l'azione effettuata (click dell'bottone)
      */
     @FXML
-    void convalidateConnection(ActionEvent event) {
+    private void convalidateConnection(ActionEvent event) {
 
         // Validazione parametri in input
         String ip = txtIpAddres.getText();
@@ -158,7 +158,7 @@ public class ConnectionController {
      * Metodo che permette di leggere dal file l'impostazioni fornite precedentemente dall'utente
      * @return Parametri di connessione sottoforma di ArrayList di stringhe
      */
-    static ArrayList<String> readSettingsFromFile() {
+	static ArrayList<String> readSettingsFromFile() {
 
         ArrayList<String> settings = new ArrayList<>();
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(settingsPath))) {
@@ -198,7 +198,7 @@ public class ConnectionController {
 	 * 
 	 * 
 	 */
-	static void writeSettingsInFile(String ipAddress, String port) {
+	private static void writeSettingsInFile(String ipAddress, String port) {
 
 		try (BufferedWriter out = new BufferedWriter(new FileWriter(settingsPath, false))) {
 			out.write(ipAddress);
