@@ -115,11 +115,8 @@ public class ConnectionController {
                     try {
                         CustomSocket.initSocket(ip, new Integer(port));
                         writeSettingsInFile(ip, port);
-                        Parent tableViewParent = FXMLLoader.load(getClass().getResource("resources/HomeScene.fxml"));
-                        Scene tableViewScene = new Scene(tableViewParent);
-                        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        window.setScene(tableViewScene);
-                        window.show();
+                        UtilityMethods.open((Stage) ((Node) event.getSource()).getScene().getWindow(),getClass(),"resources/HomeScene.fxml", "Regression Tree Learner", "resources/image/favicon.png", 330, 345);
+
                     } catch (IOException e) {
                         UtilityMethods.printError("Error Dialog", "Connection error",
                         "Cannot initialize the connection with the server. Make sure that the server is on and the port is correct!");

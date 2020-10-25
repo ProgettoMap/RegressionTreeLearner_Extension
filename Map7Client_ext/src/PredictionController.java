@@ -6,10 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -27,27 +24,19 @@ import javafx.stage.Stage;
  *
  */
 public class PredictionController {
-
-	@FXML
-	private TextArea txtAreaLoad;
-
-	@FXML
-	private Button btnPredPhase;
-
-	@FXML
-	private Button btnSubmit;
-
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
-
+	@FXML
+	private TextArea txtAreaLoad;
+	@FXML
+	private Button btnPredPhase;
+	@FXML
+	private Button btnSubmit;
 	@FXML
 	private ComboBox<String> cmbxChoiseBranch;
-
 	@FXML
 	private ImageView btnHome;
-	
-	final String regularEx = new String("[0-9]+:(.*)");
-	
+		
 	@FXML
 	private void initialize() {
 		
@@ -168,17 +157,7 @@ public class PredictionController {
 		
 		//Riapertura della socket 
 		CustomSocket.restartSocket();
-
-		Parent tableViewParent = FXMLLoader.load(getClass().getResource("resources/HomeScene.fxml"));
-		Scene tableViewScene = new Scene(tableViewParent); // This line gets the Stage information
-		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		window.setScene(tableViewScene);
-		window.setMinHeight(300);
-		window.setMinWidth(429);
-        window.setHeight(300);
-        window.setWidth(429);
-		window.show(); 
-
+		UtilityMethods.open((Stage) ((Node) event.getSource()).getScene().getWindow(),getClass(),"resources/HomeScene.fxml", "Regression Tree Learner", "resources/image/favicon.png", 300, 429);
 	
 	}
 
