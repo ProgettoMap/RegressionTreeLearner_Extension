@@ -25,6 +25,7 @@ import javafx.stage.Stage;
  *
  */
 
+
 public class HomeController {
 
 	@FXML
@@ -68,7 +69,8 @@ public class HomeController {
 	 * @throws IOException Eccezione lanciata quando si verifica un problema con
 	 *                     l'output stream
 	 */
-	public void pressSelection(ActionEvent event) throws IOException {
+	@FXML
+	private void pressSelection(ActionEvent event) throws IOException {
 		input_txt_filename.setDisable(false); // Abilito e rendo editabile l'inputbox
 		input_txt_filename.setEditable(true);
 	}
@@ -93,7 +95,8 @@ public class HomeController {
 	 * 
 	 * @param event Oggetto che rappresenta l'azione effettuata (click del bottone)
 	 */
-	public void processButton(ActionEvent event) {
+	@FXML
+	private void processButton(ActionEvent event) {
 
 		int decision = rblearn.isSelected() ? 1 : 2;
 		String sourceName = input_txt_filename.getText();
@@ -139,7 +142,7 @@ public class HomeController {
 	 *              menu)
 	 */
 	@FXML
-	public void openLogDialog(ActionEvent event) {
+	private void openLogDialog(ActionEvent event) {
 
 		Parent root;
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/LogScene.fxml"));
@@ -165,7 +168,7 @@ public class HomeController {
 	 *              del menu)
 	 */
 	@FXML
-	public void openSettingsWindow(ActionEvent event) {
+	private void openSettingsWindow(ActionEvent event) {
 
 		Parent root;
 		try {

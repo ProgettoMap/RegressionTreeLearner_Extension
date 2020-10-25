@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /** Classe che rappresenta l'entità Log, ovvero un registro che contiene tutti gli errori */
-public class Log {
+class Log {
 
     private static ArrayList<String> log = new ArrayList<>(); // Arraylist di stringhe contenente tutte le stringhe di errore
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss"); // Classe utility per ottenere il timestamp in human-readable form

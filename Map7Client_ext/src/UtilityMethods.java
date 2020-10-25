@@ -1,8 +1,5 @@
 import java.io.IOException;
-import java.net.URL;
-
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -15,7 +12,7 @@ import javafx.stage.Stage;
  *
  */
 
-public class UtilityMethods {
+class UtilityMethods {
 	/**
 	 * 
 	 * @param title       Titolo che comparirà nella finestra di popup

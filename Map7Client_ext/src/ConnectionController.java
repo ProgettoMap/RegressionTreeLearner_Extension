@@ -6,15 +6,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -115,7 +110,8 @@ public class ConnectionController {
                     try {
                         CustomSocket.initSocket(ip, new Integer(port));
                         writeSettingsInFile(ip, port);
-                        UtilityMethods.open((Stage) ((Node) event.getSource()).getScene().getWindow(),getClass(),"resources/HomeScene.fxml", "Regression Tree Learner", "resources/image/favicon.png", 330, 345);
+                      
+                        
 
                     } catch (IOException e) {
                         UtilityMethods.printError("Error Dialog", "Connection error",
