@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="615.0" prefWidth="699.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PredictionController">
+<AnchorPane fx:id="anchorPane" prefHeight="615.0" prefWidth="699.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PredictionController">
    <children>
       <Button fx:id="btnPredPhase" layoutX="581.0" layoutY="568.0" mnemonicParsing="false" onAction="#predictionPhase" text="Predicting Phase" AnchorPane.bottomAnchor="22.0" AnchorPane.rightAnchor="14.0" />
       <TextArea fx:id="txtAreaLoad" editable="false" layoutX="14.0" layoutY="42.0" prefHeight="519.0" prefWidth="672.0" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="42.0" />

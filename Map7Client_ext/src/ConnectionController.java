@@ -73,8 +73,7 @@ public class ConnectionController {
             txtPort.setText(arrSettings.get(PORT_POSITION_IN_SETTINGS));
 
         } else {
-            topLabel.setText(
-                    "Welcome. Please, enter the server parameters for connecting to it and to predict a tree.");
+            topLabel.setText("Welcome. Insert the parameters for connection to the server.");
             bottomLabel1.setVisible(true);
             bottomLabel2.setVisible(true);
         }

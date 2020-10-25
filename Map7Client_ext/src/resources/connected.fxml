@@ -5,12 +5,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="320.0" minWidth="328.0" prefHeight="320.0" prefWidth="328.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConnectionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="320.0" minWidth="328.0" prefHeight="320.0" prefWidth="328.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConnectionController">
    <children>
       <Button fx:id="btnConnected" disable="true" layoutX="229.0" layoutY="193.0" mnemonicParsing="false" onAction="#convalidateConnection" text="Connect" AnchorPane.rightAnchor="39.0" />
       <TextField fx:id="txtIpAddres" focusTraversable="false" layoutX="63.0" layoutY="111.0" onKeyReleased="#checkOnReleased" prefHeight="25.0" prefWidth="196.0" promptText="IP Address" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="69.0" />
       <TextField fx:id="txtPort" focusTraversable="false" layoutX="63.0" layoutY="148.0" onKeyReleased="#checkOnReleased" prefHeight="25.0" prefWidth="196.0" promptText="Number of Port" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="69.0" />
-      <Label fx:id="topLabel" layoutX="18.0" layoutY="14.0" prefHeight="49.0" prefWidth="285.0" text="Welcome. Please, enter the server parameters for connecting to it and to predict a tree." wrapText="true" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="14.0" />
+      <Label fx:id="topLabel" layoutX="18.0" layoutY="14.0" prefHeight="49.0" prefWidth="285.0" text="Welcome. Insert the parameters for connection to the server" wrapText="true" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="14.0" />
       <Label fx:id="bottomLabel2" layoutX="11.0" layoutY="264.0" opacity="0.43" prefHeight="42.0" prefWidth="300.0" text="You can change the default settings from the Menu -&gt; Settings" wrapText="true" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" />
       <Label fx:id="bottomLabel1" layoutX="11.0" layoutY="218.0" opacity="0.45" prefHeight="58.0" prefWidth="292.0" text="This window will appear once, then will be loaded the last settings inserted" wrapText="true" AnchorPane.bottomAnchor="44.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" />
    </children>
