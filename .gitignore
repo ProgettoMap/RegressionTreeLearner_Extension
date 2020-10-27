@@ -34,3 +34,5 @@ doc
 *.dat
 Map7Client_ext/src/resources/settings.bin
 Map7Client_ext/src/resources/settings.json
+Map7Client_ext/RegressionTreeLearner.bat
+Map7Server_ext/RegressionTreeLearner_server.bat

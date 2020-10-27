@@ -9,7 +9,6 @@ import javafx.stage.Stage;
  * Classe principale dell'applicativo contentente il metodo iniziale del programma
  *
  */
-
 public class MainClient extends Application {
     @Override
     public void start(Stage stage) throws Exception {
