@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Classe che rappresenta l'entità Socket.
  *  Contiene i metodi necessari per la scrittura, lettura, convalidazione di varie proprietà
  */
-public class CustomSocket {
+class CustomSocket {
 
 	private static Socket socket;
 	private static ObjectOutputStream out = null;
@@ -28,7 +28,7 @@ public class CustomSocket {
 	 * 
 	 * @throws IOException Eccezione lanciata quando si verifica un problema con l'output stream
 	 */
-	public static void initSocket(String ip, Integer port) throws IOException {
+	static void initSocket(String ip, Integer port) throws IOException {
 
 		if (socket != null && !socket.isClosed())
 			return; // Se la socket è già settata
@@ -53,7 +53,7 @@ public class CustomSocket {
 	 *
 	 * @return socket Istanza della classe CustomSocket
 	 */
-	public static Socket getIstance() {
+	static Socket getIstance() {
 		return socket;
 	}
 	/**
@@ -61,7 +61,7 @@ public class CustomSocket {
 	 *
 	 * @return ObjectOutputStream Restituisce la socket o null  
 	 */
-	public static ObjectOutputStream getOutputStream() {
+	static ObjectOutputStream getOutputStream() {
 		return (socket != null) ? out : null;
 	}
 	/**
@@ -69,7 +69,7 @@ public class CustomSocket {
 	 *
 	 * @param out flusso della socket 
 	 */
-	public static void setOutputStream(OutputStream out) {
+	private static void setOutputStream(OutputStream out) {
 		try {
 			CustomSocket.out = new ObjectOutputStream(out);
 		} catch (IOException e) {
@@ -82,7 +82,7 @@ public class CustomSocket {
 	 *
 	 * @return in Valore della InputStream
 	 */
-	public static ObjectInputStream getInputStream() {
+	static ObjectInputStream getInputStream() {
 		return (socket != null) ? in : null;
 	}
 	/**
@@ -90,7 +90,7 @@ public class CustomSocket {
 	 * 
 	 * @param in Flusso di input della socket
 	 */
-	public static void setInputStream(InputStream in) {
+	private static void setInputStream(InputStream in) {
 		try {
 			CustomSocket.in = new ObjectInputStream(in);
 		} catch (IOException e) {
@@ -182,7 +182,7 @@ public class CustomSocket {
 	 * @return Valore booleano che indica la possibilità di effettuare la
 	 *         comunicazione
 	 */
-	public static boolean tryConnection(String ipAddress, Integer port) {
+	static boolean tryConnection(String ipAddress, Integer port) {
 		boolean result = true;
 		InetAddress addr = null;
 		try {
@@ -208,7 +208,7 @@ public class CustomSocket {
 	/**
 	 * Metodo che permette di riavviare la socket
 	 */
-	public static void restartSocket() {
+	static void restartSocket() {
 		CustomSocket.closeSocketIfOpened(socket);
 		ArrayList<String> settings = ConnectionController.readSettingsFromFile();
 		String ip = settings.get(ConnectionController.IP_POSITION_IN_SETTINGS);

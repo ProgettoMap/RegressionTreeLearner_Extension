@@ -55,8 +55,9 @@ public class HomeController {
 	 * Metodo che setta il testo della label dei messaggi
 	 */
 	@FXML
-	public void initialize() {
+	private void initialize() {
 		log_lbl.setText(CustomSocket.getIstance().toString());
+		
 	}
 
 	/**
@@ -81,7 +82,7 @@ public class HomeController {
 	 *              testo)
 	 */
 	@FXML
-	void checkOnPressed(KeyEvent event) {
+	private void checkOnPressed(KeyEvent event) {
 		processBtn.setDisable(input_txt_filename.getText().isEmpty());
 	}
 
@@ -103,7 +104,7 @@ public class HomeController {
 			Parent tableViewParent = loader.load();
 			Scene tableViewScene = new Scene(tableViewParent);
 			Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-			window.getIcons().add(new Image("resources/favicon.png"));
+			window.getIcons().add(new Image("resources/image/favicon.png"));
 			window.setMinWidth(699);
 			window.setMinHeight(615);
 			window.setScene(tableViewScene);
@@ -138,7 +139,7 @@ public class HomeController {
 	 *              menu)
 	 */
 	@FXML
-	void openLogDialog(ActionEvent event) {
+	public void openLogDialog(ActionEvent event) {
 
 		Parent root;
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/LogScene.fxml"));
@@ -146,7 +147,7 @@ public class HomeController {
 			root = loader.load();
 			Stage stage = new Stage();
 			stage.setTitle("Log Window");
-			stage.getIcons().add(new Image("resources/favicon.png"));
+			stage.getIcons().add(new Image("resources/image/favicon.png"));
 			stage.setScene(new Scene(root));
 			stage.setMinWidth(586);
 			stage.setMinHeight(378);
@@ -164,7 +165,7 @@ public class HomeController {
 	 *              del menu)
 	 */
 	@FXML
-	void openSettingsWindow(ActionEvent event) {
+	public void openSettingsWindow(ActionEvent event) {
 
 		Parent root;
 		try {
@@ -175,7 +176,7 @@ public class HomeController {
 			stage.setMinHeight(345);
 			stage.setMinWidth(330);
 			stage.setScene(new Scene(root));
-			stage.getIcons().add(new Image("resources/favicon.png"));
+			stage.getIcons().add(new Image("resources/image/favicon.png"));
 			stage.show();
 
 		} catch (IOException e) {
@@ -202,7 +203,7 @@ public class HomeController {
 	 * @throws DatabaseConnectionException Eccezione lanciata quando si verifica un
 	 *                                     problemo con il DB server
 	 */
-	void choice(int decision, String sourceName)
+	private void choice(int decision, String sourceName)
 			throws IOException, ClassNotFoundException, TableNotFoundException, DatabaseConnectionException {
 		String answer = "";
 		ObjectOutputStream out = CustomSocket.getOutputStream();

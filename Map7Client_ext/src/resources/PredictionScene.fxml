@@ -15,7 +15,7 @@
       <ComboBox fx:id="cmbxChoiseBranch" layoutX="14.0" layoutY="568.0" prefWidth="150.0" visible="false" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="14.0" />
       <ImageView fx:id="imgHome" fitHeight="25.0" fitWidth="42.0" layoutX="656.0" layoutY="8.0" onMouseClicked="#backHome" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="13.238094329833984" AnchorPane.topAnchor="8.0">
          <image>
-            <Image url="@home.png" />
+            <Image url="@image/home.png" />
          </image>
       </ImageView>
    </children>

@@ -16,7 +16,7 @@ public class Log {
      * Metodo che permette l'inserimento di un messaggio di log
      * @param messaggio Stringa contenente l'errore
      */
-    public static void inserisciMessaggio(String messaggio) {
+    static void inserisciMessaggio(String messaggio) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
     	log.add("(" + sdf.format(timestamp) + ") " + messaggio);
     }
@@ -25,7 +25,7 @@ public class Log {
      * Metodo che restituisce tutti i messaggi registrati, separati da un invio
      * @return Stringa concatenata di tutti i messaggi di errore
      */
-    public static String getAllMessages() {
+    static String getAllMessages() {
         Iterator<String> it = log.iterator();
         String logList = "";
         while(it.hasNext()) 

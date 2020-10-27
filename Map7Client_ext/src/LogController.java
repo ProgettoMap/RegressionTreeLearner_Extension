@@ -15,7 +15,7 @@ public class LogController {
 	 * Metodo che setta il testo della label dei messaggi
 	 */
     @FXML
-    public void initialize() {
+    private void initialize() {
         logArea.setText(Log.getAllMessages());   
     }
     
