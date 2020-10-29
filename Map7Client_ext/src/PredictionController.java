@@ -157,7 +157,8 @@ public class PredictionController {
 		
 		//Riapertura della socket 
 		CustomSocket.restartSocket();
-		UtilityMethods.open((Stage) ((Node) event.getSource()).getScene().getWindow(),getClass(),"resources/HomeScene.fxml", "Regression Tree Learner", "resources/image/favicon.png", 300, 429);
+		UtilityMethods.open((Stage) ((Node) event.getSource()).getScene().getWindow(),getClass(),
+		"resources/HomeScene.fxml", "Regression Tree Learner", 429, 276);
 	
 	}
 

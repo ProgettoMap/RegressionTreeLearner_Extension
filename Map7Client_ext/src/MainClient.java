@@ -31,7 +31,7 @@ public class MainClient extends Application {
                         "Cannot initialize the connection with the server.\n"
                         + "We'll redirect you now to the settings window, so you can check if the settings are correct.\n Detail error: " + e.toString());
                 try {
-                    UtilityMethods.open(stage,getClass(),"resources/connected.fxml", "Regression Tree Learner - Settings", "resources/image/favicon.png", 330, 345);
+                    UtilityMethods.open(stage,getClass(),"resources/connected.fxml", "Regression Tree Learner - Settings", 330, 345);
                 } catch (IOException e1) {
                     UtilityMethods.printError("Error Dialog", "Input/Output Error",
                         "Something has gone wrong while executing the program.\nDetail Error: " + e1.toString());
@@ -39,11 +39,11 @@ public class MainClient extends Application {
                 return;
             }
             // Se sono riuscito a connettermi alla socket, allora apro la schermata di home
-            UtilityMethods.open(stage,getClass(),"resources/HomeScene.fxml", "Regression Tree Learner", "resources/image/favicon.png", 429, 300);
+            UtilityMethods.open(stage,getClass(),"resources/HomeScene.fxml", "Regression Tree Learner", 429, 300);
         } else { 
             // Se il file di configurazione non esiste (es. alla primissima apertura del programma) 
             // aprirò la schermata di configurazione iniziale
-            UtilityMethods.open(stage,getClass(),"resources/connected.fxml", "Regression Tree Learner - Settings", "resources/image/favicon.png", 330, 345);
+            UtilityMethods.open(stage,getClass(),"resources/connected.fxml", "Regression Tree Learner - Settings", 330, 345);
           
         }
     }

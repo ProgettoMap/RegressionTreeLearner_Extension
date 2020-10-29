@@ -10,6 +10,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -109,8 +110,8 @@ public class ConnectionController {
                     try {
                         CustomSocket.initSocket(ip, new Integer(port));
                         writeSettingsInFile(ip, port);
-                      
-                        
+                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        UtilityMethods.open(stage,getClass(),"resources/HomeScene.fxml", "Regression Tree Learner", 429, 300);                        
 
                     } catch (IOException e) {
                         UtilityMethods.printError("Error Dialog", "Connection error",
