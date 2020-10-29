@@ -41,7 +41,7 @@ class UtilityMethods {
 	 * Metodo di utility che permette l'apertura di un nuovo stage
 	 * 
 	 * @param stage Finestra di visualizzazione
-	 * @param type 
+	 * @param type Tipologia di classe
 	 * @param url Path file fxml contenente il layout dello stage
 	 * @param title Titolo della finestra da aprire
 	 * @param width Larghezza della finestra
