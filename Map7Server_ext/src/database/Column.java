@@ -17,7 +17,7 @@ public class Column {
 	 * @param name Nome della colonna
 	 * @param type Tipo della colonna
 	 */
-	public Column(String name, String type) {
+	Column(String name, String type) {
 		this.name = name;
 		this.type = type;
 	}

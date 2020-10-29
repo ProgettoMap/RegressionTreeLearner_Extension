@@ -11,7 +11,7 @@ abstract class Node implements Serializable {
 	/**
 	 * Contatore dei nodi generati nell'albero
 	 */
-	static int idNodeCount = 0;
+	private static int idNodeCount = 0;
 	private int idNode; // identificativo numerico del nodo
 	private int beginExampleIndex; // indice nell'array del training set del primo esempio coperto dal nodo
 	// corrente

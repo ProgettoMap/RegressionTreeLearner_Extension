@@ -21,7 +21,7 @@ class DiscreteNode extends SplitNode {
 	 * @param attribute Attributo indipendente sul quale si definisce lo
 	 *                          split
 	 */
-	public DiscreteNode(Data trainingSet, int beginExampleIndex, int endExampleIndex, Attribute attribute) {
+	 DiscreteNode(Data trainingSet, int beginExampleIndex, int endExampleIndex, Attribute attribute) {
 		super(trainingSet, beginExampleIndex, endExampleIndex, attribute);
 	}
 

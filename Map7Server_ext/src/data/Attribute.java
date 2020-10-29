@@ -43,4 +43,8 @@ public abstract class Attribute implements Serializable {
 		return index;
 	}
 
+	@Override
+	public String toString() {
+		return getName();
+	}
 }

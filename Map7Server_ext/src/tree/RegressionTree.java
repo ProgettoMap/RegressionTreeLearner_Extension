@@ -320,13 +320,8 @@ public class RegressionTree implements Serializable {
 			}
 
 			if (risp < 0 || risp >= root.getNumberOfChildren()) {
-				try {
-					s.getOut().writeObject("!ERROR! The answer should be an integer between 0 and "
-							+ (root.getNumberOfChildren() - 1) + "!");
-				} catch (IOException e) {
-					System.err.print("[!] Error [!] There was a problem with the input/output. Detail error: " + e);
-				}
-				throw new UnknownValueException();
+				throw new UnknownValueException("[!] Error [!] The answer should be an integer between 0 and " +
+							(root.getNumberOfChildren() - 1) + "!");
 			} else
 				return childTree[risp].predictClass(s);
 		}

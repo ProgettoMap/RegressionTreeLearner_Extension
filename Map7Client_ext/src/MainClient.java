@@ -18,8 +18,8 @@ public class MainClient extends Application {
         if(f.exists()) { // Se il file esiste, faccio partire il server con quei parametri.
             
             ArrayList<String> settings = ConnectionController.readSettingsFromFile();
-            String ip = settings.get(0);
-            Integer port = new Integer(settings.get(1));
+            String ip = settings.get(ConnectionController.IP_POSITION_IN_SETTINGS);
+            Integer port = new Integer(settings.get(ConnectionController.PORT_POSITION_IN_SETTINGS));
 
             try {
                 CustomSocket.initSocket(ip, port);

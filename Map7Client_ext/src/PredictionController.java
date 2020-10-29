@@ -157,20 +157,7 @@ public class PredictionController {
 		
 		//Riapertura della socket 
 		CustomSocket.restartSocket();
-<<<<<<< HEAD
-
-		Parent tableViewParent = FXMLLoader.load(getClass().getResource("resources/HomeScene.fxml"));
-		Scene tableViewScene = new Scene(tableViewParent); // This line gets the Stage information
-		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		window.setMinHeight(276);
-		window.setHeight(276);
-		window.setMinWidth(429);
-		window.setWidth(429);
-		window.setScene(tableViewScene);
-		window.show(); 
-=======
 		UtilityMethods.open((Stage) ((Node) event.getSource()).getScene().getWindow(),getClass(),"resources/HomeScene.fxml", "Regression Tree Learner", "resources/image/favicon.png", 300, 429);
->>>>>>> 007df2b8b799e303d8e4c7d30faaf798992a22df
 	
 	}
 

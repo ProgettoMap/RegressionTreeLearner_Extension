@@ -20,9 +20,5 @@ public class ContinuousAttribute extends Attribute {
 		super(name, index);
 	}
 
-	@Override
-	public String toString() {
-		return getName();
-	}
 
 }
