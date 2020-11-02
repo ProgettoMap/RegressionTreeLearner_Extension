@@ -38,7 +38,7 @@ public class ConnectionController {
     @FXML
     private Label bottomLabel1;
 
-    static final String settingsPath = "src/resources/settings.bin";
+    static final String settingsPath = "../bin/settings.bin";
     /**
      * File di salvataggio settings
      */
